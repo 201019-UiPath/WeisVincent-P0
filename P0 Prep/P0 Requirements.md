@@ -10,8 +10,8 @@ The store app is a software that helps customers purchase products from your bus
  
 ## Functionality:
 * The customer should be able to place orders
-* The customer should be able to view their order history
-* The customer should be able to view location inventory
+* The customer should be able to view their order history // Serialized
+* The customer should be able to view location inventory // Serialized
 * The customer should know how much of a product is remaining
 * The customer should be able to purchase multiple products
 * Locations should have records of order history

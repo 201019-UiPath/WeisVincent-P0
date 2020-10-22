@@ -41,8 +41,12 @@ namespace SufferShopUI
 
             customers = GetSampleCustomers();
 
+            
+            
+            SampleCLIMainMenu.QueryUserChoice();
 
-            SampleCLIMainMenu.Start();
+
+
             CustomerSample newCustomer = SampleCLIMainMenu.GetCustomerDetails();
             System.Console.WriteLine($"New customer entry {newCustomer.Name} was created with the ID {newCustomer.ID}");
 

@@ -6,6 +6,8 @@ using System.Runtime.InteropServices.ComTypes;
 
 namespace SufferShopUI.Menus
 {
+    public delegate void MenuTasks();
+
     /// <summary>
     /// This is a sample menu to practice interfaces, menu creation, and XML documentation. This utilized the VSCode C# XML Documentation Extension:
     /// Name: C# XML Documentation Comments
@@ -26,7 +28,7 @@ namespace SufferShopUI.Menus
         /// <summary>
         /// Starting point of menus, where the user selects what they want to do. :)
         /// </summary>
-        public static int Start()
+        public static int QueryUserChoice()
         {
             
 

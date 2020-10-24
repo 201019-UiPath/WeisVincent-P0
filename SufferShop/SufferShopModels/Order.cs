@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SufferShopModels
 {
-    class Class1
+    class Order
     {
     }
 }

@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SufferShopModels
+﻿namespace SufferShopModels
 {
     interface IAuthenticateable
     {
 
-        string email;
 
-        string password;
+        string Email { get; set; }
 
-
+        string Password { get; set; }
     }
 }

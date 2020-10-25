@@ -1,6 +1,6 @@
+using SufferShopModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using SufferShopModels;
 
 namespace SufferShopDB
 {
@@ -13,12 +13,12 @@ namespace SufferShopDB
         /// Adds hero to data storage place
         /// </summary>
         /// <param name="customer"></param>
-         void AddCustomerAsync(Customer customer);
-         /// <summary>
-         /// Gets all heros from data storage place
-         /// </summary>
-         /// <returns></returns>
-         Task<List<Customer>> GetAllCustomersAsync();
+        void AddCustomerAsync(Customer customer);
+        /// <summary>
+        /// Gets all heros from data storage place
+        /// </summary>
+        /// <returns></returns>
+        Task<List<Customer>> GetAllCustomersAsync();
 
     }
 }

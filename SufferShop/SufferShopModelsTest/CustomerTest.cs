@@ -1,6 +1,6 @@
+using SufferShopModels;
 using System;
 using Xunit;
-using SufferShopModels;
 
 namespace SufferShopTest
 {
@@ -18,10 +18,11 @@ namespace SufferShopTest
         {
             // Arrange (Arranging artifacts I might need during testing)
 
-            Customer customer = new Customer();
+
+            Customer customer = new Customer("Sample Name", "sample@email.com", "pwd8charslong");
             customer.AddPhoneNumber(phonenumber);
 
-            Assert.Equal(phonenumber, customer.PhoneNumbers.Peek());
+            Assert.Equal(phonenumber, customer.PhoneNumber);
 
         }
 
@@ -30,12 +31,17 @@ namespace SufferShopTest
         [InlineData(null)]
         public void AddCustomerPhoneNumberShouldThrowArgumentException(string phonenumber)
         {
+            throw new NotImplementedException();
+
+
             // Arrange (Arranging artifacts I might need during testing)
 
+            /*
             CustomerSample customer = new CustomerSample();
 
             // Here, the act and assert are the same thing.
             Assert.Throws<ArgumentException>(() => customer.AddPhoneNumber(phonenumber));
+            */
 
         }
     }

@@ -18,7 +18,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SufferShopDB", "SufferShopD
 		{E90FCD72-F571-4738-9EF6-F6665FD76C16} = {E90FCD72-F571-4738-9EF6-F6665FD76C16}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SufferShopTestLib", "SufferShopTestLib\SufferShopTestLib.csproj", "{682B2F30-EC94-4DF6-AAFA-926EE970B5AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SufferShopLibTest", "SufferShopTestLib\SufferShopLibTest.csproj", "{682B2F30-EC94-4DF6-AAFA-926EE970B5AC}"
 	ProjectSection(ProjectDependencies) = postProject
 		{6C15112B-6C03-43F1-8D85-E8763090E60A} = {6C15112B-6C03-43F1-8D85-E8763090E60A}
 		{05859AA7-50FF-4677-A8F7-529CAC85268A} = {05859AA7-50FF-4677-A8F7-529CAC85268A}
@@ -31,7 +31,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SufferShopBL", "SufferShopB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SufferShopModels", "SufferShopModels\SufferShopModels.csproj", "{E90FCD72-F571-4738-9EF6-F6665FD76C16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SufferShopModelsTest", "SufferShopModelsTest\SufferShopModelsTest.csproj", "{1D93EFAD-646D-4C6E-97F8-CA8388A6EFFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SufferShopModelsTest", "SufferShopModelsTest\SufferShopModelsTest.csproj", "{1D93EFAD-646D-4C6E-97F8-CA8388A6EFFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SufferShopBLTest", "SufferShopBLTest\SufferShopBLTest.csproj", "{1E72E8C4-EB64-4D49-A9BE-21A1B21D6D9C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4316044B-3E96-4CF8-8E76-6E002A513E25} = {4316044B-3E96-4CF8-8E76-6E002A513E25}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -127,6 +132,18 @@ Global
 		{1D93EFAD-646D-4C6E-97F8-CA8388A6EFFB}.Release|x64.Build.0 = Release|Any CPU
 		{1D93EFAD-646D-4C6E-97F8-CA8388A6EFFB}.Release|x86.ActiveCfg = Release|Any CPU
 		{1D93EFAD-646D-4C6E-97F8-CA8388A6EFFB}.Release|x86.Build.0 = Release|Any CPU
+		{1E72E8C4-EB64-4D49-A9BE-21A1B21D6D9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E72E8C4-EB64-4D49-A9BE-21A1B21D6D9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E72E8C4-EB64-4D49-A9BE-21A1B21D6D9C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1E72E8C4-EB64-4D49-A9BE-21A1B21D6D9C}.Debug|x64.Build.0 = Debug|Any CPU
+		{1E72E8C4-EB64-4D49-A9BE-21A1B21D6D9C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1E72E8C4-EB64-4D49-A9BE-21A1B21D6D9C}.Debug|x86.Build.0 = Debug|Any CPU
+		{1E72E8C4-EB64-4D49-A9BE-21A1B21D6D9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E72E8C4-EB64-4D49-A9BE-21A1B21D6D9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E72E8C4-EB64-4D49-A9BE-21A1B21D6D9C}.Release|x64.ActiveCfg = Release|Any CPU
+		{1E72E8C4-EB64-4D49-A9BE-21A1B21D6D9C}.Release|x64.Build.0 = Release|Any CPU
+		{1E72E8C4-EB64-4D49-A9BE-21A1B21D6D9C}.Release|x86.ActiveCfg = Release|Any CPU
+		{1E72E8C4-EB64-4D49-A9BE-21A1B21D6D9C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

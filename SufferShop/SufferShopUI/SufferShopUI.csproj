@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <ProjectReference Include="..\SufferShopBL\SufferShopBL.csproj" />
     <ProjectReference Include="..\SufferShopLib\SufferShopLib.csproj" />
     <ProjectReference Include="..\SufferShopDB\SufferShopDB.csproj" />
   </ItemGroup>
@@ -8,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="NLog" Version="4.7.5" />
     <PackageReference Include="Serilog" Version="2.10.0" />
+    <PackageReference Include="xunit" Version="2.4.1" />
   </ItemGroup>
 
   <PropertyGroup>

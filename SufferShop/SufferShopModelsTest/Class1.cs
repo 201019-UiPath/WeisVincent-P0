@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SufferShopModelsTest
+﻿namespace SufferShopModelsTest
 {
     public class Class1
     {

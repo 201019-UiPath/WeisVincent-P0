@@ -1,6 +1,6 @@
+using SufferShopLib;
 using System;
 using Xunit;
-using SufferShopLib;
 
 namespace SufferShopTest
 {

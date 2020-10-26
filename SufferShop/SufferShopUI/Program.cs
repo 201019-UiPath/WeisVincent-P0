@@ -15,8 +15,6 @@ namespace SufferShopUI
 
         public static User CurrentUser;
 
-        
-
         static List<CustomerSample> customers = new List<CustomerSample>();
         static List<CustomerSample> GetSampleCustomers()
         {
@@ -30,21 +28,20 @@ namespace SufferShopUI
         static void Main()
         {
 
-            //Log.Logger = new LoggerConfiguration().WriteTo.File;
-
-            Console.WriteLine("Welcome Friend! What would you like to do today?");
-
-            if (Log.Logger != null && Debugger.IsAttached) { Console.WriteLine("Logger is on, I think."); }
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.File("log.txt",
+                outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}")
+                .CreateLogger();
             
 
+            if (Log.Logger != null && Debugger.IsAttached) { Console.WriteLine("Logger is on, I think."); }
 
 
             //customers = GetSampleCustomers();
 
-
+            Console.WriteLine("Welcome Friend! What would you like to do today?");
 
             StartMenu startMenu = new StartMenu();
-
             startMenu.Run();
 
         }

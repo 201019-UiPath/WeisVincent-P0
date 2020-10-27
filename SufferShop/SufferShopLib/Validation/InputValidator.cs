@@ -1,9 +1,7 @@
-﻿using SufferShopBL.Validation;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 
-namespace SufferShopBL
+namespace SufferShopLib.Validation
 {
     public class InputValidator
     {
@@ -11,18 +9,18 @@ namespace SufferShopBL
 
         public InputValidator(string input, List<IInputCondition> conditions)
         {
-            this.InputConditions = conditions;
-            this.Input = input;
+            InputConditions = conditions;
+            Input = input;
         }
 
         public InputValidator(string input, IInputCondition condition)
         {
-            this.InputConditions = new List<IInputCondition>(1) { condition };
-            this.Input = input;
+            InputConditions = new List<IInputCondition>(1) { condition };
+            Input = input;
         }
 
 
-        
+
 
         List<IInputCondition> inputConditions;
         public List<IInputCondition> InputConditions
@@ -44,7 +42,7 @@ namespace SufferShopBL
             }
         }
 
-        
+
 
         public string Input;
 
@@ -53,7 +51,7 @@ namespace SufferShopBL
 
             foreach (IInputCondition condition in InputConditions)
             {
-                if (!condition.ValidateInput(this.Input))
+                if (!condition.ValidateInput(Input))
                 {
                     return false;
                 }
@@ -64,17 +62,19 @@ namespace SufferShopBL
 
 
 
-        public string ValidatedInput 
-        { get
+        public string ValidatedInput
+        {
+            get
             {
                 if (InputIsValidated())
                 {
                     return Input;
-                } else
+                }
+                else
                 {
                     return null;
                 }
-            } 
+            }
         }
 
 

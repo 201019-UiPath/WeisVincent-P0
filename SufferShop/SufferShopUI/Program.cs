@@ -1,13 +1,11 @@
-﻿using SufferShopLib;
+﻿using Serilog;
+using SufferShopDB;
+using SufferShopLib;
+using SufferShopModels;
 using SufferShopUI.Menus;
 using System;
 using System.Collections.Generic;
-using SufferShopModels;
 using System.Diagnostics;
-using Serilog.Core;
-using Serilog;
-using Serilog.Sinks.File;
-using SufferShopDB;
 
 namespace SufferShopUI
 {
@@ -35,7 +33,7 @@ namespace SufferShopUI
                 .WriteTo.File("log.txt",
                 outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}")
                 .CreateLogger();
-            
+
 
             if (Log.Logger != null && Debugger.IsAttached) { Console.WriteLine("Logger is on, I think."); }
 

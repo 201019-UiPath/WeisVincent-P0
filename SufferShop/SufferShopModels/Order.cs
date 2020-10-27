@@ -24,19 +24,21 @@ namespace SufferShopModels
 
         DateTime orderFulfilledTime;
 
-        bool IsComplete { 
-            get {
+        bool IsComplete
+        {
+            get
+            {
                 if (orderFulfilledTime != null) return true; else return false;
 
 
-            } 
+            }
         }
-        
 
 
 
 
-        
+
+
 
         /// <summary>
         /// This field represents the customer who placed the order.

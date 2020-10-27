@@ -1,10 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using SufferShopBL;
-using SufferShopBL.Validation;
+using SufferShopLib.Validation;
 using SufferShopModels;
+using System;
+using System.Collections.Generic;
 
 namespace SufferShopUI.Menus
 {
@@ -16,7 +13,7 @@ namespace SufferShopUI.Menus
     /// </summary> 
     public class StartMenu : Menu, IMenu
     {
-        
+
         public StartMenu()
         {
             StartMessage = "Welcome! Please select which operation you'd like to perform!";
@@ -32,12 +29,15 @@ namespace SufferShopUI.Menus
         {
             switch (selectedChoice)
             {
-                case 1: IMenu signUpMenu = new SignUpMenu();
+                case 1:
+                    IMenu signUpMenu = new SignUpMenu();
                     signUpMenu.Run();
                     break;
-                case 2: Login();
+                case 2:
+                    Login();
                     break;
-                default: throw new NotImplementedException();
+                default:
+                    throw new NotImplementedException();
                     break;
             }
         }
@@ -45,7 +45,7 @@ namespace SufferShopUI.Menus
 
 
 
-        
+
 
         public static void Login()
         {
@@ -84,21 +84,21 @@ namespace SufferShopUI.Menus
                 Console.WriteLine("Enter your password:");
                 inputPassword = Console.ReadLine().Trim();
             } while (!new InputValidator(inputPassword, passwordValidationConditions).InputIsValidated());
-            
-            
-            
+
+
+
             //TODO: Check at Login() if the inputted email and password match any existing customer or Manager, then make the current user either customer or manager.
-            
-            
-            
+
+
+
             Program.CurrentUser = new Customer("Sample Name", inputEmail, inputPassword);
 
             // TODO: Move to next menu.
 
-            
+
 
         }
 
-        
+
     }
 }

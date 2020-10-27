@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SufferShopModels
+﻿namespace SufferShopModels
 {
     //TODO: Add XML Documentation on Manager class
     public class Manager : User

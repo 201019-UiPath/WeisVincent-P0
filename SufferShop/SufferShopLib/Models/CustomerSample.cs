@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
 
 namespace SufferShopLib
@@ -11,7 +12,7 @@ namespace SufferShopLib
     {
         string firstName, middleName, lastName;
         string name;
-        public String Name
+        public string Name
         {
             get
             {
@@ -30,9 +31,6 @@ namespace SufferShopLib
                     {
                         Console.WriteLine($"The length in words of the name of Customer #{ID} is 0.");
                         throw new NoNameException($"The length in words of the name of Customer #{ID} is 0.");
-
-                        name = null;
-                        return;
                     }
                     Console.WriteLine($"The length in words of the name of Customer #{ID} is {numberOfWords}."); //numberOfWords won't return 0.
                     switch (numberOfWords)
@@ -70,7 +68,7 @@ namespace SufferShopLib
                 }
                 catch (NoNameException e)
                 {
-                    Console.WriteLine("The customer's name must have at least one word.");
+                    Log.Information(e.Message); //TODO: Properly format this log message, I guess
                 }
 
 

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
+﻿using System.Collections.ObjectModel;
 
 namespace SufferShopModels
 {
@@ -15,16 +12,16 @@ namespace SufferShopModels
 
         public int ID { get; set; }
 
-        
+
         public string Name { get; set; }
 
-        
+
         public double Price { get; set; }
-        
-        
+
+
         public string TypeOfProduct { get; set; }
 
-        
+
         public string Description { get; set; }
 
 

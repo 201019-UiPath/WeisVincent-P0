@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SufferShopModels
+﻿namespace SufferShopModels
 {
     internal interface IStorableInRepo
     {

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
-namespace SufferShopBL.Validation
+namespace SufferShopLib.Validation
 {
     public class IsEmailCondition : IInputCondition
     {

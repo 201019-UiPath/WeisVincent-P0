@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security;
 
 namespace SufferShopModels
 {
@@ -39,7 +38,7 @@ namespace SufferShopModels
         public string PhoneNumber { get => PhoneNumber; set => PhoneNumber = value; }
 
 
-        
+
 
     }
 }

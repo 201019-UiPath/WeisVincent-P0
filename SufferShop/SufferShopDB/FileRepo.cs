@@ -1,6 +1,3 @@
-using Serilog;
-using Serilog.Core;
-using Serilog.Events;
 using SufferShopModels;
 using System;
 using System.Collections.Generic;
@@ -16,7 +13,7 @@ namespace SufferShopDB
     public class FileRepo : IRepository
     {
 
-        
+
         const string filepathCustomers = "SufferShopDB/SampleData/Customers.txt";
         const string filepathManagers = "SufferShopDB/SampleData/Managers.txt";
         const string filepathOrders = "SufferShopDB/SampleData/Orders.txt";
@@ -65,9 +62,9 @@ namespace SufferShopDB
             List<Customer> allHeroes = new List<Customer>();
             using (FileStream fs = File.OpenRead(filepathCustomers))
             {
-                try 
-                { 
-                    allHeroes.Add(await JsonSerializer.DeserializeAsync<Customer>(fs)); 
+                try
+                {
+                    allHeroes.Add(await JsonSerializer.DeserializeAsync<Customer>(fs));
                 }
                 catch (Exception e)
                 {

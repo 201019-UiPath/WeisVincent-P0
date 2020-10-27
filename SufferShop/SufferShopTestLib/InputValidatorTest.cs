@@ -1,8 +1,7 @@
-using SufferShopBL;
-using SufferShopBL.Validation;
+using SufferShopLib.Validation;
 using Xunit;
 
-namespace SufferShopBLTest
+namespace SufferShopLibTest
 {
     public class InputValidatorTest
     {
@@ -48,6 +47,6 @@ namespace SufferShopBLTest
 
             Assert.True(validator.InputIsValidated());
         }
-        
+
     }
 }

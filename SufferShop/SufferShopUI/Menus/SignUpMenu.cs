@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SufferShopUI.Menus
 {
@@ -49,10 +48,10 @@ namespace SufferShopUI.Menus
             switch (selectedChoice)
             {
                 case 1:
-                    //TODO: Update a database with an added customer.
+                    //TODO: Update a database with an added customer using BL.
                     break;
                 case 2:
-                    //TODO: Update a database with an added manager.
+                    //TODO: Update a database with an added manager using BL.
                     break;
                 default:
                     throw new NotImplementedException();

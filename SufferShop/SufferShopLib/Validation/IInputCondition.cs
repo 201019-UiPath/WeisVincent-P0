@@ -1,4 +1,4 @@
-﻿namespace SufferShopBL.Validation
+﻿namespace SufferShopLib.Validation
 {
     /// <summary>
     /// This interface establishes a convention for input condition classes in the same namespace 

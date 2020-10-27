@@ -1,7 +1,6 @@
-﻿using System;
+﻿using SufferShopLib.Validation;
+using System;
 using System.Collections.Generic;
-using SufferShopBL;
-using SufferShopBL.Validation;
 using Xunit.Sdk;
 
 namespace SufferShopUI.Menus
@@ -11,19 +10,20 @@ namespace SufferShopUI.Menus
         protected string StartMessage;
 
         protected List<string> possibleOptions;
-        protected List<string> PossibleOptions { 
-            get 
+        protected List<string> PossibleOptions
+        {
+            get
             {
                 if (possibleOptions != null) return possibleOptions; else throw new NotNullException();
-            } 
-            set 
+            }
+            set
             {
                 possibleOptions = value;
-            } 
+            }
         }
         protected int selectedChoice;
 
-        
+
 
         public void Run()
         {
@@ -43,7 +43,7 @@ namespace SufferShopUI.Menus
                 Console.WriteLine($"[{i + 1}]    {PossibleOptions[i]}");
             }
 
-            
+
         }
 
         /// <summary>
@@ -79,12 +79,12 @@ namespace SufferShopUI.Menus
                 // TODO: Handle failed user inputs in menus.
                 throw new NotImplementedException("QueryUserChoice() in SufferShopUI.Menus.Menu.cs does not handle failed user inputs yet.");
                 Console.WriteLine("User input must be digits only.");
-                
+
             }
 
         }
 
-        
+
 
 
     }

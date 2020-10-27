@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace SufferShopBL.Validation
+namespace SufferShopLib.Validation
 {
     public class IsTwoDigitsCondition : IInputCondition
     {

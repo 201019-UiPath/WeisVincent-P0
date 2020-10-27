@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SufferShopModels
+namespace SufferShopDB
 {
     //TODO: Add XML Documentation on Location class
     public class Location : IStorableInRepo

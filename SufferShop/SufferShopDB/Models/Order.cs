@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SufferShopModels
+namespace SufferShopDB
 {
     public class Order : IStorableInRepo
     {

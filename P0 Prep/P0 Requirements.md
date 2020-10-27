@@ -35,7 +35,8 @@ The store app is a software that helps customers purchase products from your bus
 * Logging
 * At least 10 unit tests // focus on testing data access and services (Business Logic)
 * Data should be persistent, (no data should be hard coded)
-    * Look into serializing your data and storing them on files
+    * Use a DB with a 3NF structure
+    * Should have an ER diagram
 * Code should have xml documentation
 
  

@@ -1,4 +1,4 @@
-﻿namespace SufferShopModels
+﻿namespace SufferShopDB
 {
     //TODO: Add XML Documentation on Manager class
     public class Manager : User

@@ -1,5 +1,5 @@
+using SufferShopDB;
 using SufferShopLib.Validation;
-using SufferShopModels;
 using System;
 using System.Collections.Generic;
 

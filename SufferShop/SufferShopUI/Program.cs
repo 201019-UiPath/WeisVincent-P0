@@ -1,7 +1,6 @@
 ﻿using Serilog;
 using SufferShopDB;
 using SufferShopLib;
-using SufferShopModels;
 using SufferShopUI.Menus;
 using System;
 using System.Collections.Generic;

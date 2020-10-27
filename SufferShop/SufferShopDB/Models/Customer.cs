@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SufferShopModels
+namespace SufferShopDB
 {
     //TODO: Add XML Documentation on Customer class
     public class Customer : User

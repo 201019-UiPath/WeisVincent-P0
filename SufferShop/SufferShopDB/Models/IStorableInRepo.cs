@@ -1,4 +1,4 @@
-﻿namespace SufferShopModels
+﻿namespace SufferShopDB
 {
     internal interface IStorableInRepo
     {

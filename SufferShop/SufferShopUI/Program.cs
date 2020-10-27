@@ -7,11 +7,14 @@ using System.Diagnostics;
 using Serilog.Core;
 using Serilog;
 using Serilog.Sinks.File;
+using SufferShopDB;
 
 namespace SufferShopUI
 {
     public class Program
     {
+
+        IRepository Repository = new SampleData();
 
         public static User CurrentUser;
 

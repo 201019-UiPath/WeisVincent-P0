@@ -1,19 +1,19 @@
 ﻿using System;
+using System.Security;
 
 namespace SufferShopModels
 {
-    public abstract class User : IAuthenticateable
+    public abstract class User
     {
 
         public User(string name, string email, string password)
         {
-            this.Name = name;
-            this.email = email;
-            this.password = password;
+            Name = name;
+            Email = email;
+            Password = password;
         }
 
-
-        int id;
+        private readonly int id;
 
         public int ID
         {
@@ -31,24 +31,15 @@ namespace SufferShopModels
             }
         }
 
-
-
-        string name;
-        public string Name { get => name; set => name = value; }
-
-        string email;
+        public string Name { get; set; }
         public string Email { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        string password;
-        public string Password { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string PhoneNumber { get => phoneNumber; set => throw new NotImplementedException(); }
-        
+        // TODO: Try using SecureString instead of string for user passwords.
+        protected string Password { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string PhoneNumber { get => PhoneNumber; set => PhoneNumber = value; }
 
-        string phoneNumber;
-        public void AddPhoneNumber(string phonenumber)
-        {
-            throw new NotImplementedException();
-        }
+
+        
 
     }
 }

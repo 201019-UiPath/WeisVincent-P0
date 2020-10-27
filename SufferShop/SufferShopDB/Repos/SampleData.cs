@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using SufferShopDB.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SufferShopDB
+namespace SufferShopDB.Repos
 {
     /// <summary>
     /// Sample data class for development purposes only, before proper database usage is implemented. 

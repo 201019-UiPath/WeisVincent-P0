@@ -1,5 +1,6 @@
 ﻿using Serilog;
-using SufferShopDB;
+using SufferShopDB.Models;
+using SufferShopDB.Repos;
 using SufferShopLib;
 using SufferShopUI.Menus;
 using System;
@@ -41,7 +42,7 @@ namespace SufferShopUI
 
             Console.WriteLine("Welcome Friend! What would you like to do today?");
 
-            StartMenu startMenu = new StartMenu();
+            IMenu startMenu = new StartMenu();
             startMenu.Run();
 
         }

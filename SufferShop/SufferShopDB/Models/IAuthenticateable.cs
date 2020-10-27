@@ -1,4 +1,4 @@
-﻿namespace SufferShopDB
+﻿namespace SufferShopDB.Models
 {
     interface IAuthenticateable
     {

@@ -1,14 +1,19 @@
-﻿using SufferShopDB;
+﻿using SufferShopDB.Models;
+using SufferShopDB.Repos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SufferShopBL
 {
-    public class SufferShopBL
+    public class CustomerUtilities
     {
 
-        IRepository repo = new FileRepo();
+        ICustomerRepo repo;
 
+        public CustomerUtilities(ICustomerRepo repo)
+        {
+            this.repo = repo;
+        }
 
         public List<Customer> GetAllCustomers()
         {

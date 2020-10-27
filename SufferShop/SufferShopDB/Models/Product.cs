@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace SufferShopDB
+namespace SufferShopDB.Models
 {
     public class Product
     {

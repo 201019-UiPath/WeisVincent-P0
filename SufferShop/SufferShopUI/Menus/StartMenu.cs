@@ -1,4 +1,4 @@
-using SufferShopDB;
+using SufferShopDB.Models;
 using SufferShopLib.Validation;
 using System;
 using System.Collections.Generic;

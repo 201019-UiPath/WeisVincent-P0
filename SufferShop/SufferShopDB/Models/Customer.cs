@@ -23,7 +23,7 @@ namespace SufferShopDB.Models
 
         public List<Order> Orders;
 
-        public string Address { get; set; }
+        public string Address { get; set; } //TODO: Add Address verification (https://salimadamoncrm.com/2018/05/24/bulk-address-validation-plugin-for-xrmtoolbox/)
 
 
     }

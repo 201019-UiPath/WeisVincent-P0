@@ -44,15 +44,19 @@ namespace SufferShopUI.Menus
             Console.WriteLine("Enter a password:");
             string newPassword = Console.ReadLine();
 
+
+
+
             // TODO: When SignUp() ends, add the new customer data to DB/file
             switch (selectedChoice)
             {
                 case 1:
                     //TODO: Update a database with an added customer using BL.
-
+                    
                     break;
                 case 2:
                     //TODO: Update a database with an added manager using BL.
+
                     break;
                 default:
                     throw new NotImplementedException();

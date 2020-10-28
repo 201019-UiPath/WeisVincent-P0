@@ -37,13 +37,15 @@ namespace SufferShopDB.Models
 
         public IList<LocationStockedProduct> OrderedProducts;
 
-        public double Subtotal;
-
         public Location LocationPlaced;
+
+        public string Address;//TODO: Add address verification (https://salimadamoncrm.com/2018/05/24/bulk-address-validation-plugin-for-xrmtoolbox/)
 
         public DateTime OrderPlacedTime;
 
         public DateTime OrderFulfilledTime;
+
+        
 
         bool IsComplete
         {

@@ -68,6 +68,7 @@ namespace SufferShopUI.Menus
             */
             #endregion
 
+            #region Ask User for email
             List<IInputCondition> emailValidationConditions = new List<IInputCondition>() { new NotEmptyInputCondition(), new IsEmailCondition() };
 
             Console.WriteLine("Enter your email:");
@@ -78,9 +79,11 @@ namespace SufferShopUI.Menus
                 Console.WriteLine("Enter your email:");
                 inputEmail = Console.ReadLine().Trim();
             } while (!new InputValidator(inputEmail, emailValidationConditions).InputIsValidated());
+            #endregion
 
-
+            #region Ask User for Password
             List<IInputCondition> passwordValidationConditions = new List<IInputCondition>() { new NotEmptyInputCondition() };
+
             Console.WriteLine("Enter your password:");
             string inputPassword = Console.ReadLine().Trim();
             do
@@ -89,7 +92,7 @@ namespace SufferShopUI.Menus
                 Console.WriteLine("Enter your password:");
                 inputPassword = Console.ReadLine().Trim();
             } while (!new InputValidator(inputPassword, passwordValidationConditions).InputIsValidated());
-
+            #endregion
 
 
             //TODO: Check at Login() if the inputted email and password match any existing customer or Manager, then make the current user either customer or manager.

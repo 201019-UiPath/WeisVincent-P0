@@ -23,9 +23,15 @@ namespace SufferShopBL
 
         }
 
+        public void AddCustomer(Customer newCustomer)
+        {
+            repo.AddCustomerAsync(newCustomer);
+        }
 
+        public Customer GetCustomerByEmail(string newEmail)
+        {
 
-
+        }
 
     }
 }

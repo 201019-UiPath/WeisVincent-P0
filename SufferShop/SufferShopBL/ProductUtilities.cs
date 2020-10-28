@@ -1,6 +1,0 @@
-﻿namespace SufferShopBL
-{
-    class ProductUtilities
-    {
-    }
-}

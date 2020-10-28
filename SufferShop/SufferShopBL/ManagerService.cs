@@ -2,10 +2,10 @@
 
 namespace SufferShopBL
 {
-    public class ManagerUtilities
+    public class ManagerService
     {
         IManagerRepo repo;
-        public ManagerUtilities(IManagerRepo repo)
+        public ManagerService(IManagerRepo repo)
         {
             this.repo = repo;
         }

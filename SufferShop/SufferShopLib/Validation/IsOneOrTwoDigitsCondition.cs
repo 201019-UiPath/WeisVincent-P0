@@ -2,7 +2,7 @@
 
 namespace SufferShopLib.Validation
 {
-    public class IsTwoDigitsCondition : IInputCondition
+    public class IsOneOrTwoDigitsCondition : IInputCondition
     {
         public bool ValidateInput(string input)
         {

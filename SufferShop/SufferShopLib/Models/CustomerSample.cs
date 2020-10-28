@@ -75,23 +75,11 @@ namespace SufferShopLib
             }
         }
 
-        string email, password;//TODO: get user input for the email and password.
-
-        public string Email
-        {
-            get
-            {
-                return "123@gmail.com";// TODO: Replace placeholder Email for Customer
-            }
-            set
-            {
-
-            }
-        }
+        
 
 
-        int id;
-        protected static int idIndex = 0;
+        public int id;
+        public static int idIndex = 0;
         public int ID
         {
             get

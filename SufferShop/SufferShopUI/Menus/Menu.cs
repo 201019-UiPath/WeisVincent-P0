@@ -61,7 +61,7 @@ namespace SufferShopUI.Menus
             }
             else
             {
-                condition = new IsTwoDigitsCondition();
+                condition = new IsOneOrTwoDigitsCondition();
             }
 
             InputValidator validator = new InputValidator(userInput, condition);

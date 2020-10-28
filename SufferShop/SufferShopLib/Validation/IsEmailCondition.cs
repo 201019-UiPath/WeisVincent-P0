@@ -6,7 +6,6 @@ namespace SufferShopLib.Validation
     {
         public bool ValidateInput(string input)
         {
-
             return Regex.IsMatch(input, @"^[^@\s]+@[^@\s]+\.[^@\s]+$");
 
         }

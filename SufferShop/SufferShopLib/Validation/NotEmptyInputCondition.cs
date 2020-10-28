@@ -6,13 +6,13 @@ namespace SufferShopLib.Validation
     {
         public bool ValidateInput(string input)
         {
-            if (input.Equals(""))
+            if (input == null)
             {
-                throw new NotEmptyException();
+                return false;
             }
-            else if (input == null)
+            else if (input.Equals(""))
             {
-                throw new NullException(input);
+                return false;
             }
             else return true;
 

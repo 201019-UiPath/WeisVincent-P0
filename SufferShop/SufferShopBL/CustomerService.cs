@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace SufferShopBL
 {
-    public class CustomerUtilities
+    public class CustomerService
     {
 
         ICustomerRepo repo;
 
-        public CustomerUtilities(ICustomerRepo repo)
+        public CustomerService(ICustomerRepo repo)
         {
             this.repo = repo;
         }
@@ -22,6 +22,8 @@ namespace SufferShopBL
             return getCustomers.Result;
 
         }
+
+
 
 
 

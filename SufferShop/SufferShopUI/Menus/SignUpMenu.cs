@@ -49,6 +49,7 @@ namespace SufferShopUI.Menus
             {
                 case 1:
                     //TODO: Update a database with an added customer using BL.
+
                     break;
                 case 2:
                     //TODO: Update a database with an added manager using BL.

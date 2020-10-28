@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 
 namespace SufferShopLib.Validation
@@ -15,6 +16,10 @@ namespace SufferShopLib.Validation
 
         public InputValidator(string input, IInputCondition condition)
         {
+            if (condition == null)
+            {
+                throw new Exception("No null elements allowed for the InputConditions in the InputValidator class.");
+            }
             InputConditions = new List<IInputCondition>(1) { condition };
             Input = input;
         }

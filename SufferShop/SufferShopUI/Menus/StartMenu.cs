@@ -51,6 +51,10 @@ namespace SufferShopUI.Menus
         {
             // TODO: Implement Login functionality for existing users
 
+            Console.WriteLine("Please put in your email, then your password to login.");
+
+            #region Ask User for Name (Commented out)
+            /*
             List<IInputCondition> nameValidationConditions = new List<IInputCondition>() { new NotEmptyInputCondition(), new IsTwoWordsCondition() };
 
             Console.WriteLine("Enter your name:");
@@ -61,7 +65,8 @@ namespace SufferShopUI.Menus
                 Console.WriteLine("Enter your name:");
                 inputName = Console.ReadLine().Trim();
             } while (!new InputValidator(inputName, nameValidationConditions).InputIsValidated());
-
+            */
+            #endregion
 
             List<IInputCondition> emailValidationConditions = new List<IInputCondition>() { new NotEmptyInputCondition(), new IsEmailCondition() };
 

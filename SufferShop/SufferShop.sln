@@ -4,19 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SufferShopUI", "SufferShopUI\SufferShopUI.csproj", "{6C15112B-6C03-43F1-8D85-E8763090E60A}"
-	ProjectSection(ProjectDependencies) = postProject
-		{E90FCD72-F571-4738-9EF6-F6665FD76C16} = {E90FCD72-F571-4738-9EF6-F6665FD76C16}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SufferShopLib", "SufferShopLib\SufferShopLib.csproj", "{05859AA7-50FF-4677-A8F7-529CAC85268A}"
-	ProjectSection(ProjectDependencies) = postProject
-		{E90FCD72-F571-4738-9EF6-F6665FD76C16} = {E90FCD72-F571-4738-9EF6-F6665FD76C16}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SufferShopDB", "SufferShopDB\SufferShopDB.csproj", "{C9C43E7C-7A5D-477B-BB93-2B393530B14A}"
-	ProjectSection(ProjectDependencies) = postProject
-		{E90FCD72-F571-4738-9EF6-F6665FD76C16} = {E90FCD72-F571-4738-9EF6-F6665FD76C16}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SufferShopLibTest", "SufferShopTestLib\SufferShopLibTest.csproj", "{682B2F30-EC94-4DF6-AAFA-926EE970B5AC}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -25,11 +16,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SufferShopLibTest", "Suffer
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SufferShopBL", "SufferShopBL\SufferShopBL.csproj", "{4316044B-3E96-4CF8-8E76-6E002A513E25}"
-	ProjectSection(ProjectDependencies) = postProject
-		{E90FCD72-F571-4738-9EF6-F6665FD76C16} = {E90FCD72-F571-4738-9EF6-F6665FD76C16}
-	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SufferShopModels", "SufferShopModels\SufferShopModels.csproj", "{E90FCD72-F571-4738-9EF6-F6665FD76C16}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SufferShopBLTest", "SufferShopBLTest\SufferShopBLTest.csproj", "{1E72E8C4-EB64-4D49-A9BE-21A1B21D6D9C}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -111,18 +97,6 @@ Global
 		{4316044B-3E96-4CF8-8E76-6E002A513E25}.Release|x64.Build.0 = Release|Any CPU
 		{4316044B-3E96-4CF8-8E76-6E002A513E25}.Release|x86.ActiveCfg = Release|Any CPU
 		{4316044B-3E96-4CF8-8E76-6E002A513E25}.Release|x86.Build.0 = Release|Any CPU
-		{E90FCD72-F571-4738-9EF6-F6665FD76C16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E90FCD72-F571-4738-9EF6-F6665FD76C16}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E90FCD72-F571-4738-9EF6-F6665FD76C16}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{E90FCD72-F571-4738-9EF6-F6665FD76C16}.Debug|x64.Build.0 = Debug|Any CPU
-		{E90FCD72-F571-4738-9EF6-F6665FD76C16}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E90FCD72-F571-4738-9EF6-F6665FD76C16}.Debug|x86.Build.0 = Debug|Any CPU
-		{E90FCD72-F571-4738-9EF6-F6665FD76C16}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E90FCD72-F571-4738-9EF6-F6665FD76C16}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E90FCD72-F571-4738-9EF6-F6665FD76C16}.Release|x64.ActiveCfg = Release|Any CPU
-		{E90FCD72-F571-4738-9EF6-F6665FD76C16}.Release|x64.Build.0 = Release|Any CPU
-		{E90FCD72-F571-4738-9EF6-F6665FD76C16}.Release|x86.ActiveCfg = Release|Any CPU
-		{E90FCD72-F571-4738-9EF6-F6665FD76C16}.Release|x86.Build.0 = Release|Any CPU
 		{1E72E8C4-EB64-4D49-A9BE-21A1B21D6D9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1E72E8C4-EB64-4D49-A9BE-21A1B21D6D9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E72E8C4-EB64-4D49-A9BE-21A1B21D6D9C}.Debug|x64.ActiveCfg = Debug|Any CPU

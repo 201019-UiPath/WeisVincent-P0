@@ -13,14 +13,16 @@ namespace SufferShopDB.Models
 
         private string name;
 
+        public Manager Manager { get; set; }//TODO: revisit
+
         public string Name { get { return name; } set { name = value; } }
 
         private string address;
         public string Address { get { return address; } set { address = value; } }
 
-        List<Product> ProductStock;
+        public List<LocationStockedProduct> ProductStock;
 
-        Stack<Order> OrderHistory;
+        public Stack<Order> OrderHistory;
 
 
     }

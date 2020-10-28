@@ -21,6 +21,6 @@ namespace SufferShopDB.Repos
 
 
 
-        Customer GetCustomerByEmail(string email);
+        Task<Customer> GetCustomerByEmail(string email);
     }
 }

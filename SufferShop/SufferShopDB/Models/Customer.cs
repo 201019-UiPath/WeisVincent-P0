@@ -15,10 +15,13 @@ namespace SufferShopDB.Models
         public Customer(string name, string email, string password) : base(name, email, password)
         {
             Address = null;
-            orderHistory = new List<Order>();
+            Orders = new List<Order>();
         }
 
-        List<Order> orderHistory;
+
+
+
+        public List<Order> Orders;
 
         public string Address { get; set; }
 

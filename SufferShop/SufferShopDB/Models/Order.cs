@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SufferShopDB.Models
 {
@@ -7,43 +8,52 @@ namespace SufferShopDB.Models
 
         // TODO: Add constructor for Order class
 
+        public Order(Customer customer, IList<LocationStockedProduct> products, Location locationPlaced, DateTime orderPlacedTime)
+        {
+            this.CustomerID = customer.ID;
+            this.Customer = customer;
 
+            this.OrderedProducts = products;
+            this.LocationPlaced = locationPlaced;
+            this.OrderPlacedTime = orderPlacedTime;
 
+            double total = 0;
+            foreach (LocationStockedProduct productEntry in OrderedProducts)
+            {
+                total += productEntry.Product.Price;
+            }
+            this.Subtotal = total;
 
-        int id;
+        }
 
-        public int ID { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int ID { get; set; }
 
-        int customerID;
+        public int CustomerID;
 
-        double subtotal;
+        /// <summary>
+        /// This field represents the customer who placed the order.
+        /// </summary>
+        public Customer Customer;
 
-        int locationID;
+        public IList<LocationStockedProduct> OrderedProducts;
 
-        DateTime orderPlacedTime;
+        public double Subtotal;
 
-        DateTime orderFulfilledTime;
+        public Location LocationPlaced;
+
+        public DateTime OrderPlacedTime;
+
+        public DateTime OrderFulfilledTime;
 
         bool IsComplete
         {
             get
             {
-                if (orderFulfilledTime != null) return true; else return false;
+                if (OrderFulfilledTime != null) return true; else return false;
 
 
             }
         }
-
-
-
-
-
-
-
-        /// <summary>
-        /// This field represents the customer who placed the order.
-        /// </summary>
-        public Customer customerWhoPlacedOrder;
 
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Serilog;
+using SufferShopDB;
 using SufferShopDB.Models;
-using SufferShopDB.Repos;
 using SufferShopLib;
 using SufferShopUI.Menus;
 using System;
@@ -12,11 +12,11 @@ namespace SufferShopUI
     public class Program
     {
 
-        IRepository Repository = new SampleData();
+
 
         public static User CurrentUser;
 
-        static List<CustomerSample> customers = new List<CustomerSample>();
+        static readonly List<CustomerSample> customers = new List<CustomerSample>();
         static List<CustomerSample> GetSampleCustomers()
         {
             List<CustomerSample> sampleList = new List<CustomerSample>();
@@ -42,7 +42,7 @@ namespace SufferShopUI
 
             Console.WriteLine("Welcome Friend! What would you like to do today?");
 
-            IMenu startMenu = new StartMenu();
+            IMenu startMenu = new StartMenu(new SufferShopContext());
             startMenu.Run();
 
         }

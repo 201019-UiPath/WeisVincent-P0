@@ -99,8 +99,8 @@ namespace SufferShopLib
 
         //TODO: Add Orders variable associated with the customer to the model
 
-        string address, city, state, zipCode;//TODO: Add getters and setters for these
-        string fullAddress;//TODO: Add getters and setters for this
+        readonly string address, city, state, zipCode;//TODO: Add getters and setters for these
+        readonly string fullAddress;//TODO: Add getters and setters for this
 
         public Stack<string> PhoneNumbers = new Stack<string>();//TODO: Add getters and setters for this
 

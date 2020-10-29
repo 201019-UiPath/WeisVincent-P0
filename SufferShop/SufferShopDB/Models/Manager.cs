@@ -4,11 +4,11 @@
     public class Manager : User
     {
 
-        public Manager(string name, string email, string password, Location managedLocation) : base(name, email, password)
+        /*public Manager(string name, string email, string password, Location managedLocation) : base(name, email, password)
         {
             this.Location = managedLocation;
             this.LocationID = managedLocation.Id;
-        }
+        }*/
 
         public int LocationID;//TODO: Revisit
 

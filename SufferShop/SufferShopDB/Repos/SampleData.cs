@@ -1,6 +1,5 @@
 ﻿using SufferShopDB.Models;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SufferShopDB.Repos
 {
@@ -8,75 +7,123 @@ namespace SufferShopDB.Repos
     /// Sample data class for development purposes only, before proper database usage is implemented. 
     /// Should not be utilized in final build.
     /// </summary>
-    public class SampleData : IRepository
+    public static class SampleData
     {
 
-        List<Customer> CustomerTable = new List<Customer>();
-        List<Manager> ManagerTable = new List<Manager>();
-        List<Location> LocationTable = new List<Location>();
-        List<Order> OrderTable = new List<Order>();
-        List<Product> ProductTable = new List<Product>();
 
 
-        public SampleData()
+        public readonly static List<Customer> Customers = new List<Customer>()
         {
-            AddCustomerAsync(new Customer("Nick West", "nevanwest@west.com", "nevaniscool"));
+            new Customer()
+            {
+                Id = -1,
+                Name = "Nick West",
+                Email = "nevanwest@west.com",
+                Password = "nevaniscool",
+                Address = "Nick's house"
+            },
+            new Customer()
+            {
+                Id = -2,
+                Name = "Vincent Wees",
+                Email = "vincent.weis@revature.com",
+                Password = "password",
+                Address = "Vin's house"
+            }
+            //TODO: Populate sample customers
+        };
 
-
-
-        }
-
-
-
-
-        public void AddCustomerAsync(Customer customer)
+        public readonly static List<Product> Products = new List<Product>()
         {
-            throw new System.NotImplementedException();
-        }
+            new Product()
+            {
+                Id = -1,
+                Name = "Burning",
+                Price = 20.00,
+                TypeOfProduct = ProductType.Physical,
+                Description = "The sensation of being on fire, usually caused by being on fire.",
 
-        public void AddManagerAsync(Manager manager)
-        {
-            throw new System.NotImplementedException();
-        }
+            },
+            new Product()
+            {
+                Id = -2,
+                Name = "Sad Puppy Pictures",
+                Price = 8.00,
+                TypeOfProduct = ProductType.Emotional,
+                Description = "They're really cute, actually, if your brain is messed up.",
 
-        public void AddNewProductsToStock(List<Product> newProduct, int locationID)
-        {
-            throw new System.NotImplementedException();
-        }
+            },
+            new Product()
+            {
+                Id = -3,
+                Name = "Spider Infestation",
+                Price = 12.00,
+                TypeOfProduct = ProductType.Metaphysical,
+                Description = "Become Spiders-Man, and become a hive mind of spiders.",
 
-        public Task<List<Customer>> GetAllCustomersAsync()
-        {
-            throw new System.NotImplementedException();
-        }
+            }
+        };
 
-        public List<Product> GetAllProductStockAtLocation(int locationID)
-        {
-            throw new System.NotImplementedException();
-        }
 
-        public List<Order> GetCustomerOrderHistory(int CustomerID)
-        {
-            throw new System.NotImplementedException();
-        }
 
-        public List<Order> GetLocationOrderHistory(int locationID)
-        {
-            throw new System.NotImplementedException();
-        }
+        public readonly static List<Location> Locations = new List<Location>() {
+            new Location() {
+                Id = -1,
+                Name = "Hell",
+                Address = "Earth's core, presumably."
+            },
+            new Location() {
+                Id = -2,
+                Name = "A Dirty Sock",
+                Address = "In a laundry hamper"
+            },
+            new Location() {
+                Id = -3,
+                Name = "Phoenix",
+                Address = "1 E Washington St., #230, Phoenix, AZ 85004"
+            }
+        };
 
-        public List<Location> GetLocations()
-        {
-            throw new System.NotImplementedException();
-        }
 
-        public User GetUserByEmail(string email)
-        {
-            throw new System.NotImplementedException();
-        }
+        public readonly static List<Manager> Managers = new List<Manager>() {
+            new Manager() {
+                Id = -1,
+                Name = "Tubular Tom",
+                Email = "reallycool@email.com",
+                Password = "IJustLikeTubes1",
+                Location =  Locations[0],
+            },
+            new Manager() {
+                Id = -2,
+                Name = "Vincent Weis",
+                Email = "sample@manager.com",
+                Password = "bestmanager",
+                Location =  Locations[1],
+            },
+            new Manager() {
+                Id = -3,
+                Name = "Vacuous Rom",
+                Email = "spiderthing@lake.net",
+                Password = "IAmASpider3",
+                Location =  Locations[2],
+            }
+        };
 
-        public void RemoveProductsAtLocation(List<Product> removedProducts, int locationID)
+        public readonly static List<Order> Orders = new List<Order>()
         {
-            throw new System.NotImplementedException();
-        }
+            //TODO: Populate sample Orders
+        };
+
+        public readonly static List<LocationStockedProduct> ProductStock = new List<LocationStockedProduct>()
+        {
+            // TODO: Populate sample stock items
+        };
+
+
     }
+
+
+
+
+
 }

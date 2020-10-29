@@ -16,10 +16,7 @@
         public int LocationID;
         public Location Location;
 
-        public int OrderID;
-        public Order Order;
-
-        public LocationStockedProduct(Product product, int quantityOfProduct, Location location)
+        /*public LocationStockedProduct(Product product, int quantityOfProduct, Location location)
         {
 
             this.ProductID = product.Id;
@@ -29,7 +26,7 @@
             this.LocationID = location.Id;
             this.Location = location;
 
-        }
+        }*/
 
 
     }

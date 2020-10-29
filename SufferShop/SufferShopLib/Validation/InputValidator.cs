@@ -7,6 +7,8 @@ namespace SufferShopLib.Validation
     public sealed class InputValidator
     {
 
+        public InputValidator() : this(new NotEmptyInputCondition()) { }
+
         public InputValidator(List<IInputCondition> conditions)
         {
             InputConditions = conditions;

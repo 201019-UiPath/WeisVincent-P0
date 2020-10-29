@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace SufferShopDB.Models
+﻿namespace SufferShopDB.Models
 {
     // TODO: Figure out how to make this enum work with the PostgreSQL DB
     public enum ProductType
@@ -14,10 +12,10 @@ namespace SufferShopDB.Models
 
 
 
-        public Product(string name, double price, ProductType typeOfProduct, string description)
+        /*public Product(string name, double price, ProductType typeOfProduct, string description)
         {
 
-        }
+        }*/
 
         public int Id { get; set; }
 
@@ -31,7 +29,7 @@ namespace SufferShopDB.Models
 
 
 
-        public List<LocationStockedProduct> LocationsStockedAt;
+        //public List<LocationStockedProduct> LocationsStockedAt;
 
 
 

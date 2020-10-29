@@ -6,26 +6,36 @@ namespace SufferShopDB.Models
     public class Order : IStorableInRepo
     {
 
-        // TODO: Add constructor for Order class
+        // TODO: Review constructor for Order class, you left good stuff in it
 
-        public Order(Customer customer, IList<LocationStockedProduct> products, Location locationPlaced)
+        /*public Order(Customer customer, IList<Product> products, Location locationPlaced)
         {
             this.CustomerId = customer.Id;
             this.Customer = customer;
 
-            this.OrderedProducts = products;
-            this.LocationPlaced = locationPlaced;
 
 
+            
             double total = 0;
-            foreach (LocationStockedProduct productEntry in OrderedProducts)
+
+            IList<Product> stagedProducts = new List<Product>(products);
+            foreach (Product productEntry in products)
             {
-                total += productEntry.Product.Price;
+                total += productEntry.Price;
+
+                if (stagedProducts.Contains(productEntry)) { }
+                else {
+                    OrderedProducts.Add(new OrderedProduct(productEntry, 1, this));
+                }
+                
             }
             this.Subtotal = total;
 
+            
+            this.LocationPlaced = locationPlaced;
+
             this.OrderPlacedTime = DateTime.Now;
-        }
+        }*/
 
         public int Id { get; set; }
 
@@ -36,7 +46,7 @@ namespace SufferShopDB.Models
         /// </summary>
         public Customer Customer;
 
-        public IList<LocationStockedProduct> OrderedProducts;
+        public IList<OrderedProduct> OrderedProducts;
 
         public Location LocationPlaced;
 

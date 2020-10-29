@@ -7,8 +7,7 @@ namespace SufferShopBL
 {
     public class CustomerService
     {
-
-        ICustomerRepo repo;
+        readonly ICustomerRepo repo;
 
         public CustomerService(ICustomerRepo repo)
         {

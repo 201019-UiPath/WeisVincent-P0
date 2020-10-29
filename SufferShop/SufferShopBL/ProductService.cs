@@ -5,9 +5,7 @@ namespace SufferShopBL
 {
     class ProductService
     {
-
-
-        IProductRepo repo;
+        readonly IProductRepo repo;
 
         public ProductService(IProductRepo repo)
         {

@@ -1,5 +1,6 @@
 ﻿using SufferShopDB.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SufferShopDB.Repos
 {
@@ -10,7 +11,7 @@ namespace SufferShopDB.Repos
         /// </summary>
         /// <param name="CustomerID"></param>
         /// <returns></returns>
-        List<Order> GetCustomerOrderHistory(int CustomerID);
+        Task<List<Order>> GetCustomerOrderHistory(int CustomerID);
 
 
         /// <summary>
@@ -18,6 +19,6 @@ namespace SufferShopDB.Repos
         /// </summary>
         /// <param name="locationID"></param>
         /// <returns></returns>
-        List<Order> GetLocationOrderHistory(int locationID);
+        Task<List<Order>> GetLocationOrderHistory(int locationID);
     }
 }

@@ -1,28 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace SufferShopDB.Models
+﻿namespace SufferShopDB.Models
 {
     //TODO: Add XML Documentation on Location class
     public class Location : IStorableInRepo
     {
         // TODO: Create Location constructors
-        int id;
 
-        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        /*public Location(string name, string address)
+        {
+            Name = name;
+            Address = address;
+        }*/
 
-        private string name;
+        public int Id { get; set; }
 
-        public Manager Manager { get; set; }//TODO: revisit
+        //public List<Manager> Managers { get; set; }//TODO: revisit
 
-        public string Name { get { return name; } set { name = value; } }
+        public string Name { get; set; }
 
-        private string address;
-        public string Address { get { return address; } set { address = value; } }
+        public string Address { get; set; }
 
-        public List<LocationStockedProduct> ProductStock;
 
-        public Stack<Order> OrderHistory;
+        //public List<LocationStockedProduct> ProductStock;
+
+        //public Stack<Order> OrderHistory;
 
 
     }

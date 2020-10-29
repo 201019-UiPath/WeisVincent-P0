@@ -7,7 +7,7 @@ namespace SufferShopBL
 {
     public class ManagerService
     {
-        IManagerRepo repo;
+        readonly IManagerRepo repo;
         public ManagerService(IManagerRepo repo)
         {
             this.repo = repo;
@@ -15,9 +15,9 @@ namespace SufferShopBL
 
         public List<Manager> GetAllManagers()
         {
-            Task<List<Manager>> getCustomers = repo.GetAllManagersAsync();
+            Task<List<Manager>> getManagers = repo.GetAllManagersAsync();
 
-            return getCustomers.Result;
+            return getManagers.Result;
 
         }
 

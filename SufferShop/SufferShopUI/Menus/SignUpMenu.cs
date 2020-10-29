@@ -1,10 +1,23 @@
-﻿using System;
+﻿using SufferShopBL;
+using SufferShopDB;
+using SufferShopDB.Repos.DBRepos;
+using System;
 using System.Collections.Generic;
 
 namespace SufferShopUI.Menus
 {
     public class SignUpMenu : Menu, IMenu
     {
+        private readonly DBRepo Repo;
+        private readonly LoginMenu loginMenu;
+
+        internal StartService startService = new StartService();
+
+        public SignUpMenu(DBRepo repo)
+        {
+            Repo = new DBRepo(new SufferShopContext());
+            loginMenu = new LoginMenu(Repo);
+        }
 
         public override void SetStartingMessage()
         {
@@ -70,8 +83,7 @@ namespace SufferShopUI.Menus
                     break;
             }
 
-            StartMenu retryStartMenu = new StartMenu();
-            retryStartMenu.Login();
+
 
 
         }

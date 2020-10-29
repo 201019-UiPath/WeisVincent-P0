@@ -3,37 +3,41 @@ using SufferShopDB.Models;
 using SufferShopDB.Repos.DBRepos;
 using SufferShopLib.Validation;
 using System;
-using System.Collections.Generic;
 
 namespace SufferShopBL
 {
-    public sealed class LoginService
+    public sealed class StartService
     {
-        CustomerService customerService = new CustomerService(new CustomerDBRepo(new SufferShopContext()));
+        readonly CustomerService customerService = new CustomerService(new DBRepo(new SufferShopContext()));
+        readonly ManagerService managerService = new ManagerService(new DBRepo(new SufferShopContext()));
 
-        ManagerService managerService = new ManagerService(new ManagerDBRepo(new SufferShopContext()));
 
-        InputValidator inputValidator;
 
-        public LoginService()
+        public StartService()
         {
-            inputValidator = new InputValidator(new NotEmptyInputCondition());
+
         }
 
-        public bool ValidateEmailInput(string email)
+        #region Input Validation
+        public static bool ValidateEmailInput(string email)
         {
+            InputValidator inputValidator = new InputValidator();
             inputValidator.InputConditions = InputConditions.EmailConditions;
             return inputValidator.ValidateInput(email);
         }
 
-        public bool ValidatePasswordInput(string password)
+        public static bool ValidatePasswordInput(string password)
         {
+            InputValidator inputValidator = new InputValidator();
             inputValidator.InputConditions = InputConditions.PasswordConditions;
             return inputValidator.ValidateInput(password);
         }
+        #endregion
 
+        #region Interaction with DB
         public User GetUserByEmail(string email)
         {
+
             Customer userAsCustomer = customerService.GetCustomerByEmail(email);
             Manager userAsManager = managerService.GetManagerByEmail(email);
             if (userAsCustomer.Equals(null))
@@ -54,7 +58,14 @@ namespace SufferShopBL
 
         }
 
-        public Type GetTypeOfUser(User user)
+
+        #endregion
+
+
+
+
+
+        public static Type GetTypeOfUser(User user)
         {
             if (user is Customer)
             {
@@ -66,5 +77,6 @@ namespace SufferShopBL
             }
             else { return null; }
         }
+
     }
 }

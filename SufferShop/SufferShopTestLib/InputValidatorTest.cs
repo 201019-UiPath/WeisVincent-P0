@@ -2,7 +2,7 @@ using SufferShopLib.Validation;
 using System.Data;
 using Xunit;
 
-namespace SufferShopLibTest
+namespace SufferShopTest
 {
     public class InputValidatorTest
     {

@@ -1,6 +1,7 @@
 ﻿using SufferShopDB.Models;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SufferShopDB.Repos.FileRepos
 {
@@ -9,7 +10,12 @@ namespace SufferShopDB.Repos.FileRepos
         const string filepathLocations = "SufferShopDB/SampleData/Locations.txt";
         const string filepathLocationStock = "SufferShopDB/SampleData/LocationStock.txt";
 
+        public Task<List<Location>> GetAllLocationsAsync()
+        {
+            throw new NotImplementedException();
+        }
 
+        // TODO: Implement this
         public List<Location> GetLocations()
         {
             throw new NotImplementedException();

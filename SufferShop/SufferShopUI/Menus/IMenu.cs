@@ -6,6 +6,9 @@ namespace SufferShopUI.Menus
     public interface IMenu
     {
 
+        abstract void SetStartingMessage();
+        abstract void SetUserChoices();
+
         /// <summary>
         /// Starting point of menus
         /// </summary>

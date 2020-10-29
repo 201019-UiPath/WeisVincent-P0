@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SufferShopDB\SufferShopDB.csproj" />
+    <ProjectReference Include="..\SufferShopLib\SufferShopLib.csproj" />
   </ItemGroup>
 
 </Project>

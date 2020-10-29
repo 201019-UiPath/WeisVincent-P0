@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SufferShopLib.Validation
 {
@@ -8,7 +6,7 @@ namespace SufferShopLib.Validation
     {
         public bool ValidateInput(string input)
         {
-            
+
             throw new NotImplementedException();
         }
     }

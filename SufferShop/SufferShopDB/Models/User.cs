@@ -14,31 +14,14 @@ namespace SufferShopDB.Models
 
         private readonly int id;
 
-        public int ID
-        {
-            get
-            {
-                try
-                {
-                    return id;
-                }
-                catch
-                {
-                    throw new NotImplementedException("No functionality or access to set custom ID.");
-                }
-
-            }
-        }
+        public int Id => id;
 
         public string Name { get; set; }
-        public string Email { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Email { get; set; }
 
         // TODO: Try using SecureString instead of string for user passwords.
-        protected string Password { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string PhoneNumber { get => PhoneNumber; set => PhoneNumber = value; }
+        public string Password { get; set; }
 
-
-
-
+        
     }
 }

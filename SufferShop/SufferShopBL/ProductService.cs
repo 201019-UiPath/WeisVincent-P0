@@ -1,4 +1,5 @@
-﻿using SufferShopDB.Repos;
+﻿using SufferShopDB.Models;
+using SufferShopDB.Repos;
 
 namespace SufferShopBL
 {
@@ -12,6 +13,12 @@ namespace SufferShopBL
         {
             this.repo = repo;
         }
+
+        public void AddProductToStock(Product addedProduct, Location targetLocation)
+        {
+            repo.AddNewProductToStock(addedProduct, targetLocation);
+        }
+
 
 
     }

@@ -7,7 +7,7 @@
     /// </summary>
     public class LocationStockedProduct
     {
-        
+
 
         public int ProductID;
         public Product Product;
@@ -22,11 +22,11 @@
         public LocationStockedProduct(Product product, int quantityOfProduct, Location location)
         {
 
-            this.ProductID = product.ID;
+            this.ProductID = product.Id;
             this.Product = product;
             this.QuantityOfProduct = quantityOfProduct;
 
-            this.LocationID = location.ID;
+            this.LocationID = location.Id;
             this.Location = location;
 
         }

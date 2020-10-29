@@ -4,15 +4,31 @@ using System.Data;
 
 namespace SufferShopLib.Validation
 {
-    public class InputValidator
+    public sealed class InputValidator
     {
 
+        public InputValidator(List<IInputCondition> conditions)
+        {
+            InputConditions = conditions;
+            Input = null;
+        }
+
+        public InputValidator(IInputCondition condition)
+        {
+            if (condition == null)
+            {
+                throw new Exception("No null elements allowed for the InputConditions in the InputValidator class.");
+            }
+            InputConditions = new List<IInputCondition>(1) { condition };
+            Input = null;
+        }
 
         public InputValidator(string input, List<IInputCondition> conditions)
         {
             InputConditions = conditions;
             Input = input;
         }
+
 
         public InputValidator(string input, IInputCondition condition)
         {
@@ -49,7 +65,13 @@ namespace SufferShopLib.Validation
 
 
 
-        public string Input;
+        public string Input { get; set; }
+
+        public bool ValidateInput(string input)
+        {
+            Input = input;
+            return InputIsValidated();
+        }
 
         public bool InputIsValidated()
         {
@@ -65,22 +87,6 @@ namespace SufferShopLib.Validation
             return true;
         }
 
-
-
-        public string ValidatedInput
-        {
-            get
-            {
-                if (InputIsValidated())
-                {
-                    return Input;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
 
 
     }

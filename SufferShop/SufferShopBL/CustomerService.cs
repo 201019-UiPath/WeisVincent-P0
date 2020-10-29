@@ -30,7 +30,7 @@ namespace SufferShopBL
 
         public Customer GetCustomerByEmail(string newEmail)
         {
-
+            return repo.GetCustomerByEmailAsync(newEmail).Result;
         }
 
     }

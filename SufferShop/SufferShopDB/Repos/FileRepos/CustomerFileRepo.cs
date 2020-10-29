@@ -48,7 +48,12 @@ namespace SufferShopDB.Repos.FileRepos
             return allHeroes;
         }
 
-        public Task<Customer> GetCustomerByEmail(string email)
+        public Task<List<Order>> GetAllOrdersForCustomer(Customer customer)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Customer> GetCustomerByEmailAsync(string email)
         {
             throw new NotImplementedException();
         }

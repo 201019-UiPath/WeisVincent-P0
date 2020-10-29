@@ -1,4 +1,6 @@
 ﻿using SufferShopDB.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SufferShopDB.Repos
 {
@@ -12,7 +14,13 @@ namespace SufferShopDB.Repos
         /// <param name="manager"></param>
         void AddManagerAsync(Manager manager);
 
-        Manager GetManagerByEmail(string email);
+        /// <summary>
+        /// This gets all customers from data storage place
+        /// </summary>
+        /// <returns></returns>
+        Task<List<Manager>> GetAllManagersAsync();
+
+        Task<Manager> GetManagerByEmailAsync(string email);
 
 
     }

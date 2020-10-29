@@ -9,7 +9,7 @@ namespace SufferShopDB.Models
         // TODO: Create Location constructors
         int id;
 
-        public int ID { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         private string name;
 

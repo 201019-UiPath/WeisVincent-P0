@@ -1,6 +1,4 @@
-﻿using Xunit.Sdk;
-
-namespace SufferShopLib.Validation
+﻿namespace SufferShopLib.Validation
 {
     public class NotEmptyInputCondition : IInputCondition
     {

@@ -1,5 +1,4 @@
 using SufferShopLib.Validation;
-using System;
 using System.Data;
 using Xunit;
 
@@ -13,9 +12,9 @@ namespace SufferShopLibTest
         [InlineData("3")]
         public void OneDigitInputShouldReturnTrue(string input)
         {
-            InputValidator validator = new InputValidator(input, new IsOneDigitCondition());
+            InputValidator validator = new InputValidator(new IsOneDigitCondition());
 
-            Assert.True(validator.InputIsValidated());
+            Assert.True(validator.ValidateInput(input));
 
         }
 
@@ -24,9 +23,9 @@ namespace SufferShopLibTest
         [InlineData("345")]
         public void NotOneDigitInputShouldReturnFalse(string input)
         {
-            InputValidator validator = new InputValidator(input, new IsOneDigitCondition());
+            InputValidator validator = new InputValidator(new IsOneDigitCondition());
 
-            Assert.False(validator.InputIsValidated());
+            Assert.False(validator.ValidateInput(input));
 
         }
         #endregion
@@ -37,9 +36,9 @@ namespace SufferShopLibTest
         [InlineData("3")]
         public void TwoOrOneDigitInputShouldReturnTrue(string input)
         {
-            InputValidator validator = new InputValidator(input, new IsOneOrTwoDigitsCondition());
+            InputValidator validator = new InputValidator(new IsOneOrTwoDigitsCondition());
 
-            Assert.True(validator.InputIsValidated());
+            Assert.True(validator.ValidateInput(input));
 
         }
 
@@ -48,9 +47,9 @@ namespace SufferShopLibTest
         [InlineData("678")]
         public void MoreThanTwoDigitInputShouldReturnFalse(string input)
         {
-            InputValidator validator = new InputValidator(input, new IsOneOrTwoDigitsCondition());
+            InputValidator validator = new InputValidator(new IsOneOrTwoDigitsCondition());
 
-            Assert.False(validator.InputIsValidated());
+            Assert.False(validator.ValidateInput(input));
 
         }
         #endregion
@@ -61,9 +60,9 @@ namespace SufferShopLibTest
         [InlineData("Mr Moist")]
         public void TwoWordInputShouldReturnTrue(string input)
         {
-            InputValidator validator = new InputValidator(input, new IsTwoWordsCondition());
+            InputValidator validator = new InputValidator(new IsTwoWordsCondition());
 
-            Assert.True(validator.InputIsValidated());
+            Assert.True(validator.ValidateInput(input));
         }
 
         [Theory]
@@ -71,9 +70,9 @@ namespace SufferShopLibTest
         [InlineData("ILostMySpaceBar")]
         public void NotTwoWordInputShouldReturnFalse(string input)
         {
-            InputValidator validator = new InputValidator(input, new IsTwoWordsCondition());
+            InputValidator validator = new InputValidator(new IsTwoWordsCondition());
 
-            Assert.False(validator.InputIsValidated());
+            Assert.False(validator.ValidateInput(input));
         }
         #endregion
 
@@ -83,9 +82,9 @@ namespace SufferShopLibTest
         [InlineData("body once told me")]
         public void NotEmptyInputShouldReturnTrue(string input)
         {
-            InputValidator validator = new InputValidator(input, new NotEmptyInputCondition());
+            InputValidator validator = new InputValidator(new NotEmptyInputCondition());
 
-            Assert.True(validator.InputIsValidated());
+            Assert.True(validator.ValidateInput(input));
         }
 
         [Theory]
@@ -93,9 +92,9 @@ namespace SufferShopLibTest
         [InlineData(null)]
         public void NullOrEmptyInputShouldReturnFalse(string input)
         {
-            InputValidator validator = new InputValidator(input, new NotEmptyInputCondition());
+            InputValidator validator = new InputValidator(new NotEmptyInputCondition());
 
-            Assert.False(validator.InputIsValidated());
+            Assert.False(validator.ValidateInput(input));
         }
         #endregion
 
@@ -105,9 +104,9 @@ namespace SufferShopLibTest
         [InlineData("I.Am.Ironman@gmail.com")]
         public void EmailInputShouldReturnTrue(string input)
         {
-            InputValidator validator = new InputValidator(input, new IsEmailCondition());
+            InputValidator validator = new InputValidator(new IsEmailCondition());
 
-            Assert.True(validator.InputIsValidated());
+            Assert.True(validator.ValidateInput(input));
         }
 
         [Theory]
@@ -116,9 +115,9 @@ namespace SufferShopLibTest
         [InlineData("Vincent.Weis")]
         public void NotEmailInputShouldReturnFalse(string input)
         {
-            InputValidator validator = new InputValidator(input, new IsEmailCondition());
+            InputValidator validator = new InputValidator(new IsEmailCondition());
 
-            Assert.False(validator.InputIsValidated());
+            Assert.False(validator.ValidateInput(input));
         }
         #endregion
 
@@ -126,12 +125,39 @@ namespace SufferShopLibTest
         [Fact]
         public void InputValidatorWithNullInputConditionsShouldThrowNoNullArgumentException()
         {
-            InputValidator validator = new InputValidator("sampleinput", new IsEmailCondition());
-            
+            InputValidator validator = new InputValidator(new IsEmailCondition());
 
-            Assert.Throws<NoNullAllowedException>( () => validator.InputConditions = null );
+
+            Assert.Throws<NoNullAllowedException>(() => validator.InputConditions = null);
         }
 
+
+
+        #region Valid Password Test
+        [Theory]
+        [InlineData("password")]
+        [InlineData("WordOfthepasSVariety1")]
+        public void EightWordCharactersInputShouldReturnTrue(string input)
+        {
+            InputValidator validator = new InputValidator(new IsValidPassword());
+
+            Assert.True(validator.ValidateInput(input));
+
+        }
+
+        [Theory]
+        [InlineData("12345")]
+        [InlineData("678444 3")]
+        public void LessThanEightCharacterInputShouldReturnFalse(string input)
+        {
+            InputValidator validator = new InputValidator(new IsValidPassword());
+
+            Assert.False(validator.ValidateInput(input));
+
+        }
+
+
+        #endregion
 
     }
 }

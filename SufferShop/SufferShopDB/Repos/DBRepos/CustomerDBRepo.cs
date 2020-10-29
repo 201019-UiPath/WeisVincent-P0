@@ -9,7 +9,7 @@ namespace SufferShopDB.Repos.DBRepos
     public class CustomerDBRepo : ICustomerRepo
     {
 
-        private SufferShopContext context;
+        private readonly SufferShopContext context;
 
         public CustomerDBRepo(SufferShopContext context)
         {
@@ -25,12 +25,17 @@ namespace SufferShopDB.Repos.DBRepos
 
         public Task<List<Customer>> GetAllCustomersAsync()
         {
-            return context.Customers.Where(x => x.ID != null).ToListAsync();
+            return context.Customers.ToListAsync();
         }
 
-        public Task<Customer> GetCustomerByEmail(string email)
+        public Task<List<Order>> GetAllOrdersForCustomer(Customer customer)
         {
-            return context.Customers.Where(c => c.ID != null && c.Email == email).FirstAsync();
+            return context.Orders.Where(o => o.CustomerId == customer.Id).ToListAsync();
+        }
+
+        public Task<Customer> GetCustomerByEmailAsync(string email)
+        {
+            return context.Customers.Where(c => c.Email == email).FirstAsync();
         }
     }
 }

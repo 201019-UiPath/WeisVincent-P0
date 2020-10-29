@@ -7,7 +7,12 @@ namespace SufferShopUI.Menus
 {
     public abstract class Menu : IMenu
     {
+
         protected string StartMessage;
+
+        public abstract void SetStartingMessage();
+
+        public abstract void SetUserChoices();
 
         protected List<string> possibleOptions;
         protected List<string> PossibleOptions
@@ -27,6 +32,8 @@ namespace SufferShopUI.Menus
 
         public void Run()
         {
+            SetStartingMessage();
+            SetUserChoices();
             Start();
             QueryUserChoice();
             ExecuteUserChoice();
@@ -83,8 +90,6 @@ namespace SufferShopUI.Menus
             }
 
         }
-
-
 
 
     }

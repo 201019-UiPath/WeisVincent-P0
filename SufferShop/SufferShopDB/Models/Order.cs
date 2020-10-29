@@ -8,14 +8,14 @@ namespace SufferShopDB.Models
 
         // TODO: Add constructor for Order class
 
-        public Order(Customer customer, IList<LocationStockedProduct> products, Location locationPlaced, DateTime orderPlacedTime)
+        public Order(Customer customer, IList<LocationStockedProduct> products, Location locationPlaced)
         {
-            this.CustomerID = customer.ID;
+            this.CustomerId = customer.Id;
             this.Customer = customer;
 
             this.OrderedProducts = products;
             this.LocationPlaced = locationPlaced;
-            this.OrderPlacedTime = orderPlacedTime;
+
 
             double total = 0;
             foreach (LocationStockedProduct productEntry in OrderedProducts)
@@ -24,11 +24,12 @@ namespace SufferShopDB.Models
             }
             this.Subtotal = total;
 
+            this.OrderPlacedTime = DateTime.Now;
         }
 
-        public int ID { get; set; }
+        public int Id { get; set; }
 
-        public int CustomerID;
+        public int CustomerId;
 
         /// <summary>
         /// This field represents the customer who placed the order.
@@ -39,15 +40,17 @@ namespace SufferShopDB.Models
 
         public Location LocationPlaced;
 
+        public double Subtotal { get; }
+
         public string Address;//TODO: Add address verification (https://salimadamoncrm.com/2018/05/24/bulk-address-validation-plugin-for-xrmtoolbox/)
 
         public DateTime OrderPlacedTime;
 
-        public DateTime OrderFulfilledTime;
+        public DateTime OrderFulfilledTime;//TODO: What the hell do I do about fulfillment?
 
-        
 
-        bool IsComplete
+
+        public bool IsComplete
         {
             get
             {
@@ -56,6 +59,7 @@ namespace SufferShopDB.Models
 
             }
         }
+
 
     }
 }

@@ -6,9 +6,9 @@ namespace SufferShopDB.Repos
     public interface IProductRepo : IRepository
     {
 
-        void AddNewProductsToStock(List<Product> newProduct, int locationID);
+        void AddNewProductToStock(Product newProduct, Location location);
 
-        void RemoveProductsAtLocation(List<Product> removedProducts, int locationID);
+        void RemoveProductsAtLocation(List<Product> removedProducts, Location location);
 
 
 

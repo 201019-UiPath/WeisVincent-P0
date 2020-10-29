@@ -6,14 +6,21 @@ namespace SufferShopUI.Menus
     public class SignUpMenu : Menu, IMenu
     {
 
-        public SignUpMenu()
+        public override void SetStartingMessage()
         {
             StartMessage = "Are you signing up as a Customer or Manager?";
+        }
+
+        public override void SetUserChoices()
+        {
             PossibleOptions = new List<string>() {
                 "Customer",
                 "Manager"
             };
         }
+
+
+
 
         public override void ExecuteUserChoice()
         {
@@ -52,7 +59,7 @@ namespace SufferShopUI.Menus
             {
                 case 1:
                     //TODO: Update a database with an added customer using BL.
-                    
+
                     break;
                 case 2:
                     //TODO: Update a database with an added manager using BL.
@@ -63,12 +70,11 @@ namespace SufferShopUI.Menus
                     break;
             }
 
-
-            StartMenu.Login();
+            StartMenu retryStartMenu = new StartMenu();
+            retryStartMenu.Login();
 
 
         }
-
 
 
     }

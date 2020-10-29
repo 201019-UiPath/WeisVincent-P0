@@ -1,7 +1,9 @@
 ﻿using SufferShopDB.Models;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace SufferShopDB.Repos.FileRepos
 {
@@ -19,7 +21,17 @@ namespace SufferShopDB.Repos.FileRepos
             }
         }
 
+        public Task<List<Manager>> GetAllManagersAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         public Manager GetManagerByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Manager> GetManagerByEmailAsync(string email)
         {
             throw new NotImplementedException();
         }

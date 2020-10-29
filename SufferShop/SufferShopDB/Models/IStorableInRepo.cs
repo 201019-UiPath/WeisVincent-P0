@@ -3,7 +3,7 @@
     internal interface IStorableInRepo
     {
 
-        int ID { get; set; }
+        int Id { get; set; }
 
 
     }

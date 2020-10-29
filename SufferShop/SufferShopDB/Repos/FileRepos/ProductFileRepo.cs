@@ -28,5 +28,15 @@ namespace SufferShopDB.Repos.FileRepos
         {
             throw new NotImplementedException();
         }
+
+        public void AddNewProductToStock(Product newProduct, Location location)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveProductsAtLocation(List<Product> removedProducts, Location location)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

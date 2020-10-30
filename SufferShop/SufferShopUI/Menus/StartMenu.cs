@@ -20,7 +20,7 @@ namespace SufferShopUI.Menus
         public StartMenu(SufferShopContext context)
         {
             signupMenu = new SignUpMenu(new DBRepo(context));
-            signupMenu = new LoginMenu(new DBRepo(context));
+            loginMenu = new LoginMenu(new DBRepo(context));
         }
 
 

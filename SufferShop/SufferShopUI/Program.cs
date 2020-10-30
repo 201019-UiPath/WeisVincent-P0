@@ -12,20 +12,9 @@ namespace SufferShopUI
     public class Program
     {
 
-
-
         public static User CurrentUser;
 
-        static readonly List<CustomerSample> customers = new List<CustomerSample>();
-        static List<CustomerSample> GetSampleCustomers()
-        {
-            List<CustomerSample> sampleList = new List<CustomerSample>();
-            sampleList.Add(new CustomerSample(""));
-            sampleList.Add(new CustomerSample("Loser Boboser"));
-            sampleList.Add(new CustomerSample("Winner Bobinner Chicken Dinner"));
-            return sampleList;
-        }
-
+        
         static void Main()
         {
 
@@ -35,7 +24,7 @@ namespace SufferShopUI
                 .CreateLogger();
 
 
-            if (Log.Logger != null && Debugger.IsAttached) { Console.WriteLine("Logger is on, I think."); }
+            if (Log.Logger != null) { Console.WriteLine("Logger is on, I think."); }
 
 
             //customers = GetSampleCustomers();

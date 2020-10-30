@@ -18,6 +18,13 @@ namespace SufferShopBL
 
         }
 
+        public static bool ValidateNameInput(string name)
+        {
+            InputValidator inputValidator = new InputValidator();
+            inputValidator.InputConditions = InputConditions.NameConditions;
+            return inputValidator.ValidateInput(name);
+        }
+
         #region Input Validation
         public static bool ValidateEmailInput(string email)
         {
@@ -32,6 +39,14 @@ namespace SufferShopBL
             inputValidator.InputConditions = InputConditions.PasswordConditions;
             return inputValidator.ValidateInput(password);
         }
+
+        public static bool ValidateAddressInput(string address)
+        {
+            InputValidator inputValidator = new InputValidator();
+            inputValidator.InputConditions = InputConditions.AddressConditions;
+            return inputValidator.ValidateInput(address);
+        }
+
         #endregion
 
         #region Interaction with DB

@@ -3,6 +3,7 @@ using SufferShopDB;
 using SufferShopDB.Models;
 using SufferShopDB.Repos;
 using SufferShopDB.Repos.DBRepos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -16,6 +17,7 @@ namespace SufferShopTest
 
         private readonly Customer testCustomer = new Customer()
         {
+            //Id = -10,
             Name = "Mister Sample",
             Email = "sample.email@sample.email",
             Password = "samplepassword",
@@ -39,13 +41,13 @@ namespace SufferShopTest
             var options = new DbContextOptionsBuilder<SufferShopContext>().UseInMemoryDatabase("AddCustomerShouldAdd").Options;
             using var testContext = new SufferShopContext(options);
             repo = new DBRepo(testContext);
-
+            
             //Act
             repo.AddCustomerAsync(testCustomer);
 
             //Assert
             using var assertContext = new SufferShopContext(options);
-            Assert.NotNull(assertContext.Customers.Single(c => c.Email == testCustomer.Email));
+            Assert.NotNull(assertContext.Customers.Single(c => c.Id == testCustomer.Id));
 
         }
 
@@ -54,7 +56,7 @@ namespace SufferShopTest
         public void GetCustomerByEmailShouldGetCustomer()
         {
             //Arrange
-            var options = new DbContextOptionsBuilder<SufferShopContext>().UseInMemoryDatabase("AddCustomerShouldAdd").Options;
+            var options = new DbContextOptionsBuilder<SufferShopContext>().UseInMemoryDatabase("GetCustomerByEmailShouldGetCustomer").Options;
             using var testContext = new SufferShopContext(options);
             repo = new DBRepo(testContext);
 
@@ -63,6 +65,7 @@ namespace SufferShopTest
 
             //Assert
             using var assertContext = new SufferShopContext(options);
+            
             Assert.NotNull(assertContext.Customers.Single(c => c.Email == testCustomer.Email));
 
         }

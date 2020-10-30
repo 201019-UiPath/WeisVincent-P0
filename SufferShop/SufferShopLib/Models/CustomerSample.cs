@@ -29,10 +29,10 @@ namespace SufferShopLib
                 {
                     if (strings[0].Length == 0)
                     {
-                        Console.WriteLine($"The length in words of the name of Customer #{ID} is 0.");
-                        throw new NoNameException($"The length in words of the name of Customer #{ID} is 0.");
+                        
+                        throw new NoNameException($"The length in words of the name of the Customer is 0.");
                     }
-                    Console.WriteLine($"The length in words of the name of Customer #{ID} is {numberOfWords}."); //numberOfWords won't return 0.
+                    Console.WriteLine($"The length in words of the name of the Customer is {numberOfWords}."); //numberOfWords won't return 0.
                     switch (numberOfWords)
                     {
                         case 0:
@@ -75,61 +75,6 @@ namespace SufferShopLib
             }
         }
 
-
-
-
-        public int id;
-        public static int idIndex = 0;
-        public int ID
-        {
-            get
-            {
-                return id;
-            }
-            /*set {
-                int idIterator = value;
-                if (value < 0) {
-                    while (idIterator < idIndex) {
-                        idIterator++;
-                    }
-                }
-                id = idIterator;
-            }*/
-        }
-
-        //TODO: Add Orders variable associated with the customer to the model
-
-        readonly string address, city, state, zipCode;//TODO: Add getters and setters for these
-        readonly string fullAddress;//TODO: Add getters and setters for this
-
-        public Stack<string> PhoneNumbers = new Stack<string>();//TODO: Add getters and setters for this
-
-        public void AddPhoneNumber(string phoneNumber)
-        {
-            if (phoneNumber != null && phoneNumber != "")
-            {
-                PhoneNumbers.Push(phoneNumber);
-            }
-            else throw new ArgumentException("phoneNumber cannot be null or empty.");
-
-        }
-
-
-
-
-
-
-        //TODO: Add constructors for Customer data
-        public CustomerSample()
-        {
-            id = idIndex;
-            idIndex++;
-        }
-        public CustomerSample(string newName)
-        {
-            id = idIndex;
-            idIndex++;
-            Name = newName;
-        }
+        
     }
 }

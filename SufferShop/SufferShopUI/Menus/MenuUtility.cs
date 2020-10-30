@@ -5,10 +5,32 @@ namespace SufferShopUI.Menus
 {
     internal static class MenuUtility
     {
+
+        public static string QueryName()
+        {
+
+            #region Ask User for Name
+
+            Console.WriteLine("Enter your name:");
+            string inputName = Console.ReadLine().Trim();
+
+            while (!StartService.ValidateNameInput(inputName))
+            {
+                Console.WriteLine("Your input must be a valid name.");
+                Console.WriteLine("Enter your name:");
+                inputName = Console.ReadLine().Trim();
+            }
+
+            return inputName;
+
+            #endregion
+        }
+
+
         public static string QueryEmail()
         {
 
-            #region Ask User for email and get User object
+            #region Ask User for email
 
             Console.WriteLine("Enter your email:");
             string inputEmail = Console.ReadLine().Trim();
@@ -42,6 +64,26 @@ namespace SufferShopUI.Menus
 
             return inputPassword;
 
+        }
+
+        public static string QueryAddress()
+        {
+
+            #region Ask User for address
+
+            Console.WriteLine("Enter your name:");
+            string inputAddress = Console.ReadLine().Trim();
+
+            while (!StartService.ValidateAddressInput(inputAddress))
+            {
+                Console.WriteLine("Your input must be a valid name.");
+                Console.WriteLine("Enter your name:");
+                inputAddress = Console.ReadLine().Trim();
+            }
+
+            return inputAddress;
+
+            #endregion
         }
 
     }

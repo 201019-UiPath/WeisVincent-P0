@@ -59,8 +59,6 @@ namespace SufferShopUI.Menus
         public void QueryUserChoice()
         {
 
-            string userInput = Console.ReadLine().Trim();
-
             IInputCondition condition;
             if (PossibleOptions.Count >= 10)
             {
@@ -71,23 +69,19 @@ namespace SufferShopUI.Menus
                 condition = new IsOneOrTwoDigitsCondition();
             }
 
-            InputValidator validator = new InputValidator(userInput, condition);
-
-
-            if (validator.InputIsValidated())
+            InputValidator validator = new InputValidator(condition);
+            
+            
+            string userInput = Console.ReadLine().Trim();
+            while (!validator.ValidateInput(userInput))
             {
-
-                int userChoice = int.Parse(userInput);
-                selectedChoice = userChoice;
-
+                Console.WriteLine("That input wasn't it, sufferer. Give it another go, it needs to be a number.");
+                Start();
+                userInput = Console.ReadLine().Trim();
             }
-            else
-            {
-                // TODO: Handle failed user inputs in menus.
-                throw new NotImplementedException("QueryUserChoice() in SufferShopUI.Menus.Menu.cs does not handle failed user inputs yet.");
-                Console.WriteLine("User input must be digits only.");
 
-            }
+            int userChoice = int.Parse(userInput);
+            selectedChoice = userChoice;
 
         }
 

@@ -1,6 +1,8 @@
 ﻿using SufferShopBL;
 using SufferShopDB;
+using SufferShopDB.Models;
 using SufferShopDB.Repos.DBRepos;
+using SufferShopUI.Menus.ManagerMenus;
 using System;
 using System.Collections.Generic;
 
@@ -42,49 +44,63 @@ namespace SufferShopUI.Menus
             // 2: check if email matches with any other customer
             // 3: ask for password, then name and address
 
+            string newEmail = MenuUtility.QueryEmail();
+            
+            string newPassword = MenuUtility.QueryPassword();
+            Console.WriteLine("Enter the same password to prove to my satisfaction that you can type.");
+            string confirmationPassword = MenuUtility.QueryPassword();
 
-            Console.WriteLine("Enter your name:");
-            string newName = Console.ReadLine().Trim();
+            while (newPassword != confirmationPassword)
+            {
+                Console.WriteLine("Your confirmation password did not match. I'm telling mom. \n Try again.");
+                newPassword = MenuUtility.QueryPassword();
+                confirmationPassword = MenuUtility.QueryPassword();
+            }
 
-            Console.WriteLine("Enter your email:");
-            string newEmail = Console.ReadLine().Trim();
+            string newName = MenuUtility.QueryName();
 
-
-            /*
-            System.Console.WriteLine("Enter a password:");
-            string pwdFirstEntry = System.Console.ReadLine();
-            System.Console.WriteLine("Reenter the same password:");
-            string pwdSecondEntry = System.Console.ReadLine();
-            if (pwdFirstEntry == pwdSecondEntry) {
-                newCustomer.password = pwdSecondEntry;
-            } else {
-
-            }*/
-
-            Console.WriteLine("Enter a password:");
-            string newPassword = Console.ReadLine();
-
-
-
+            
 
             // TODO: When SignUp() ends, add the new customer data to DB/file
             switch (selectedChoice)
             {
                 case 1:
                     //TODO: Update a database with an added customer using BL.
-
+                    string newAddress = MenuUtility.QueryAddress();
+                    Customer newCustomer = new Customer() { 
+                        Name = newName,
+                        Email = newEmail,
+                        Password = newPassword,
+                        Address = newAddress
+                    };
+                    CustomerService customerService = new CustomerService(Repo);
+                    customerService.AddCustomer(newCustomer);
                     break;
                 case 2:
                     //TODO: Update a database with an added manager using BL.
+                    
+                    Manager newManager = new Manager()
+                    {
+                        Name = newName,
+                        Email = newEmail,
+                        Password = newPassword,
+                    };
+                    ManagerSignUpMenu managerSignUpMenu = new ManagerSignUpMenu(Repo, newManager);
+
+                    Manager updatedManager = managerSignUpMenu.RunAndReturnManagerWithSelectedLocation();
+
+                    ManagerService managerService = new ManagerService(Repo);
+
+                    managerService.AddManager(updatedManager);
 
                     break;
                 default:
                     throw new NotImplementedException();
                     break;
             }
-
-
-
+            
+            
+            loginMenu.Run();
 
         }
 

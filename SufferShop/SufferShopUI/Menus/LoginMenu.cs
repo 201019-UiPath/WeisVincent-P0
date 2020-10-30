@@ -1,6 +1,7 @@
 ﻿using SufferShopBL;
 using SufferShopDB.Models;
 using SufferShopDB.Repos.DBRepos;
+using SufferShopUI.Menus.CustomerMenus;
 using System;
 using System.Collections.Generic;
 
@@ -85,8 +86,8 @@ namespace SufferShopUI.Menus
             Program.CurrentUser = userLoggingIn;
 
 
-            // TODO: Move to next menu.
-
+            // TODO: Move to Customer menu.
+            CustomerMenu customerMenu = new CustomerMenu(userLoggingIn, Repo);
 
         }
 
@@ -120,8 +121,8 @@ namespace SufferShopUI.Menus
             Program.CurrentUser = managerLoggingIn;
 
 
-            // TODO: Move to next menu.
-
+            // TODO: Move to Manager menu.
+            ManagerMenu ManagerMenu = new ManagerMenu(managerLoggingIn, Repo);
 
         }
 

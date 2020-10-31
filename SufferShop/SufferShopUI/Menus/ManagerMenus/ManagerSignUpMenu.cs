@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.Text;
 using SufferShopBL;
 using SufferShopDB.Models;
+using SufferShopDB.Repos;
 
 namespace SufferShopUI.Menus.ManagerMenus
 {
-    internal class ManagerSignUpMenu : Menu, IMenu
+    internal sealed class ManagerSignUpMenu : Menu, IMenu
     {
-        private readonly DBRepo Repo;
+        private readonly IRepository Repo;
         private readonly LocationService locationService;
 
         List<Location> PossibleLocations;
@@ -18,7 +19,7 @@ namespace SufferShopUI.Menus.ManagerMenus
 
 
 
-        public ManagerSignUpMenu(DBRepo repo, Manager manager)
+        public ManagerSignUpMenu(IRepository repo, Manager manager)
         {
             Repo = repo;
             locationService = new LocationService(Repo);
@@ -56,7 +57,8 @@ namespace SufferShopUI.Menus.ManagerMenus
 
             // At this point, the Run method should complete, 
             // and the ball SHOULD be thrown back to the SignUpMenu court and continue execution.
-
+            LoginMenu loginMenu = new LoginMenu(Repo);
+            MenuUtility.ReadyNextMenu(loginMenu);
         }
 
         public Manager RunAndReturnManagerWithSelectedLocation()

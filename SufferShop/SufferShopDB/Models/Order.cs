@@ -46,7 +46,7 @@ namespace SufferShopDB.Models
         /// </summary>
         public Customer Customer;
 
-        public IList<OrderedProduct> OrderedProducts;
+        public IList<OrderLineItem> OrderedProducts;
 
         public Location LocationPlaced;
 

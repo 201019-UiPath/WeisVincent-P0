@@ -32,5 +32,10 @@ namespace SufferShopBL
             return repo.GetCustomerByEmailAsync(newEmail).Result;
         }
 
+        public List<Order> GetAllOrdersForCustomer(Customer customer)
+        {
+            return repo.GetAllOrdersForCustomer(customer.Id).Result;
+        }
+
     }
 }

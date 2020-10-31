@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace SufferShopDB.Repos
 {
-    public interface ICustomerRepo : IRepository
+    public interface ICustomerRepo
     {
         /// <summary>
         /// This adds a customer entry to the data storage place.
@@ -18,7 +18,7 @@ namespace SufferShopDB.Repos
         /// <returns></returns>
         Task<List<Customer>> GetAllCustomersAsync();
 
-        Task<List<Order>> GetAllOrdersForCustomer(Customer customer);
+        Task<List<Order>> GetAllOrdersForCustomer(int customerId);
 
 
         Task<Customer> GetCustomerByEmailAsync(string email);

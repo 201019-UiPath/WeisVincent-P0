@@ -5,9 +5,10 @@
     /// This model represents a join-table entry between a location and products at that location. 
     /// Each instance of this model represents the quantity of a single product at a single location.
     /// </summary>
-    public class LocationStockedProduct
+    public class InventoryLineItem
     {
 
+        public int Id;
 
         public int ProductID;
         public Product Product;

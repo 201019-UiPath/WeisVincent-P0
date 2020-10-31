@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace SufferShopDB.Repos
 {
-    public interface IManagerRepo : IRepository
+    public interface IManagerRepo
     {
 
 

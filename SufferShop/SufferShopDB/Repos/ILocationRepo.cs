@@ -4,8 +4,10 @@ using System.Threading.Tasks;
 
 namespace SufferShopDB.Repos
 {
-    public interface ILocationRepo : IRepository
+    public interface ILocationRepo
     {
         Task<List<Location>> GetAllLocationsAsync();
+
+        Task<List<InventoryLineItem>> GetInventoryEntriesAtLocationAsync(int locationId);
     }
 }

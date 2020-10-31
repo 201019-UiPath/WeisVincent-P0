@@ -48,7 +48,7 @@ namespace SufferShopDB.Repos.FileRepos
             return allHeroes;
         }
 
-        public Task<List<Order>> GetAllOrdersForCustomer(Customer customer)
+        public Task<List<Order>> GetAllOrdersForCustomer(int customerId)
         {
             throw new NotImplementedException();
         }

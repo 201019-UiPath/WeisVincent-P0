@@ -29,12 +29,12 @@ namespace SufferShopDB.Repos.FileRepos
             throw new NotImplementedException();
         }
 
-        public void AddNewProductToStock(Product newProduct, Location location)
+        public void AddNewProductToStock(int newProductId, int locationId)
         {
             throw new NotImplementedException();
         }
 
-        public void RemoveProductsAtLocation(List<Product> removedProducts, Location location)
+        public void RemoveProductAtLocation(List<Product> removedProducts, Location location)
         {
             throw new NotImplementedException();
         }

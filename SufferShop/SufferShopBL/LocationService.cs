@@ -22,6 +22,10 @@ namespace SufferShopBL
             return getLocations.Result;
         }
 
+        public Task<List<InventoryLineItem>> GetAllProductsAtLocationAsync(Location location)
+        {
+            return repo.GetInventoryEntriesAtLocationAsync(location.Id);
+        }
 
     }
 }

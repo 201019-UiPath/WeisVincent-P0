@@ -1,23 +1,20 @@
 ﻿using SufferShopDB.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SufferShopDB.Repos
 {
-    public interface IProductRepo : IRepository
+    public interface IProductRepo
     {
 
-        void AddNewProductToStock(Product newProduct, Location location);
+        void AddNewProductToStock(int newProductId, int locationId);
 
-        void RemoveProductsAtLocation(List<Product> removedProducts, Location location);
-
-
+        void RemoveProductAtLocation(int removedProductId, int locationId);
 
 
+        Task<List<OrderLineItem>> GetOrderedProductsInAnOrder(int orderId);
 
-
-
-
-        List<Product> GetAllProductStockAtLocation(int locationID);
+        Task<List<InventoryLineItem>> GetAllProductsAtLocation(int locationID);
 
 
     }

@@ -1,6 +1,8 @@
 ﻿using Serilog;
 using SufferShopDB;
 using SufferShopDB.Models;
+using SufferShopDB.Repos;
+using SufferShopDB.Repos.DBRepos;
 using SufferShopLib;
 using SufferShopUI.Menus;
 using System;
@@ -14,7 +16,8 @@ namespace SufferShopUI
 
         public static User CurrentUser;
 
-        
+        public static Queue<IMenu> MenuChain;
+
         static void Main()
         {
 
@@ -31,8 +34,18 @@ namespace SufferShopUI
 
             Console.WriteLine("Welcome Friend! What would you like to do today?");
 
-            IMenu startMenu = new StartMenu(new SufferShopContext());
-            startMenu.Run();
+            SufferShopContext context = new SufferShopContext();
+            IRepository repo = new DBRepo(context);
+
+            IMenu startMenu = new StartMenu(repo);
+
+
+            MenuChain.Enqueue(startMenu);
+            
+            while (MenuChain.Count > 0)
+            {
+                MenuChain.Dequeue().Run();
+            }
 
         }
 

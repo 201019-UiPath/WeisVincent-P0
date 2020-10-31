@@ -1,6 +1,7 @@
 ﻿using SufferShopBL;
 using SufferShopDB;
 using SufferShopDB.Models;
+using SufferShopDB.Repos;
 using SufferShopDB.Repos.DBRepos;
 using SufferShopUI.Menus.ManagerMenus;
 using System;
@@ -10,15 +11,15 @@ namespace SufferShopUI.Menus
 {
     public class SignUpMenu : Menu, IMenu
     {
-        private readonly DBRepo Repo;
-        private readonly LoginMenu loginMenu;
+        private readonly IRepository Repo;
+        private readonly IMenu loginMenu;
 
         internal StartService startService = new StartService();
 
-        public SignUpMenu(DBRepo repo)
+        public SignUpMenu(IRepository repo)
         {
-            Repo = new DBRepo(new SufferShopContext());
-            loginMenu = new LoginMenu(Repo);
+            this.Repo = repo;
+            loginMenu = new LoginMenu(this.Repo);
         }
 
         public override void SetStartingMessage()
@@ -98,9 +99,8 @@ namespace SufferShopUI.Menus
                     throw new NotImplementedException();
                     break;
             }
-            
-            
-            loginMenu.Run();
+
+            MenuUtility.ReadyNextMenu(loginMenu);
 
         }
 

@@ -5,17 +5,23 @@ using Xunit.Sdk;
 
 namespace SufferShopUI.Menus
 {
+    /// <summary>
+    /// This class represents each menu in the system, using a Run() method to execute the 
+    /// SetStartingMessage, SetUserChoices, Start, QueryUserChoice, and ExecuteUserChoice methods in that order.
+    /// Each menu has a starting message to the user, lists off their choices, and takes in user input in the form of a number
+    /// to determine which choice the user made.
+    /// </summary>
     public abstract class Menu : IMenu
     {
 
-        protected string StartMessage;
+        public string StartMessage;
 
         public abstract void SetStartingMessage();
 
         public abstract void SetUserChoices();
 
-        protected List<string> possibleOptions;
-        protected List<string> PossibleOptions
+        public List<string> possibleOptions;
+        public List<string> PossibleOptions
         {
             get
             {
@@ -26,7 +32,9 @@ namespace SufferShopUI.Menus
                 possibleOptions = value;
             }
         }
-        protected int selectedChoice;
+
+
+        public int selectedChoice;
 
 
 
@@ -39,7 +47,7 @@ namespace SufferShopUI.Menus
             ExecuteUserChoice();
         }
 
-        public abstract void ExecuteUserChoice();
+
 
         public void Start()
         {
@@ -60,7 +68,7 @@ namespace SufferShopUI.Menus
         {
 
             IInputCondition condition;
-            if (PossibleOptions.Count >= 10)
+            if (PossibleOptions.Count < 10)
             {
                 condition = new IsOneDigitCondition();
             }
@@ -70,20 +78,36 @@ namespace SufferShopUI.Menus
             }
 
             InputValidator validator = new InputValidator(condition);
-            
-            
-            string userInput = Console.ReadLine().Trim();
-            while (!validator.ValidateInput(userInput))
-            {
-                Console.WriteLine("That input wasn't it, sufferer. Give it another go, it needs to be a number.");
-                Start();
-                userInput = Console.ReadLine().Trim();
-            }
 
-            int userChoice = int.Parse(userInput);
-            selectedChoice = userChoice;
+            bool userInputIsInRange = false;
+            do
+            {
+                string userInput = Console.ReadLine().Trim();
+                while (!validator.ValidateInput(userInput))
+                {
+                    Console.WriteLine("That input wasn't it, sufferer. Give it another go, it needs to be a number.");
+                    Start();
+                    userInput = Console.ReadLine().Trim();
+                }
+
+                int userChoice = int.Parse(userInput);
+                if (userChoice < 1 && userChoice > PossibleOptions.Count)
+                {
+                    Console.WriteLine("That input wasn't it, sufferer. Give it another go, it needs to be one of the offered choices.");
+                    continue;
+                } else
+                {
+                    userInputIsInRange = true;
+                }
+                selectedChoice = userChoice;
+            } while (!userInputIsInRange);
+            
+            
 
         }
+
+
+        public abstract void ExecuteUserChoice();
 
 
     }

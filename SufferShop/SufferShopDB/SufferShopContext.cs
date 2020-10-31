@@ -25,7 +25,9 @@ namespace SufferShopDB
         public DbSet<Manager> Managers { get; set; }
         public DbSet<Location> Locations { get; set; }
 
-        public DbSet<LocationStockedProduct> LocationStockedProducts { get; set; }
+        public DbSet<InventoryLineItem> InventoryLineItems { get; set; }
+
+        public DbSet<OrderLineItem> OrderLineItems { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -59,9 +61,9 @@ namespace SufferShopDB
 
             modelBuilder.Entity<Product>().HasKey("Id");
 
-            modelBuilder.Entity<LocationStockedProduct>().HasNoKey();
+            modelBuilder.Entity<InventoryLineItem>().HasNoKey();
 
-            modelBuilder.Entity<OrderedProduct>().HasNoKey();
+            modelBuilder.Entity<OrderLineItem>().HasNoKey();
 
 
 

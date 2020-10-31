@@ -4,14 +4,14 @@ using System.Threading.Tasks;
 
 namespace SufferShopDB.Repos
 {
-    interface IOrderRepo : IRepository
+    public interface IOrderRepo
     {
         /// <summary>
         /// This gets the order history of a specific customer, specified by that customer's ID.
         /// </summary>
-        /// <param name="CustomerID"></param>
+        /// <param name="customerID"></param>
         /// <returns></returns>
-        Task<List<Order>> GetCustomerOrderHistory(int CustomerID);
+        Task<List<Order>> GetCustomerOrderHistory(int customerID);
 
 
         /// <summary>
@@ -20,5 +20,7 @@ namespace SufferShopDB.Repos
         /// <param name="locationID"></param>
         /// <returns></returns>
         Task<List<Order>> GetLocationOrderHistory(int locationID);
+
+        
     }
 }

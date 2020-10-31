@@ -1,5 +1,6 @@
 ﻿using Serilog;
 using SufferShopDB.Models;
+using SufferShopDB.Repos;
 using SufferShopDB.Repos.DBRepos;
 using System;
 using System.Collections.Generic;
@@ -8,12 +9,12 @@ namespace SufferShopUI.Menus.CustomerMenus
 {
     internal class CustomerMenu : Menu, IMenu
     {
-        private readonly DBRepo Repo;
+        private readonly IRepository Repo;
 
         private readonly Customer CurrentCustomer;
 
         private IMenu NextMenu;
-        public CustomerMenu(Customer customer, DBRepo repo)
+        public CustomerMenu(Customer customer, IRepository repo)
         {
             CurrentCustomer = customer;
             Repo = repo;
@@ -28,7 +29,8 @@ namespace SufferShopUI.Menus.CustomerMenus
         {
             PossibleOptions = new List<string>() {
             "View Order History.",
-            "Select a location to waste money at."
+            "Select a location to waste money at.",
+            "Exit"
         };
         }
 
@@ -40,20 +42,23 @@ namespace SufferShopUI.Menus.CustomerMenus
             switch (selectedChoice)
             {
                 case 1:
-                    // TODO: Implement the ability to view customer order history with another menu.
                     NextMenu = new CustomerOrderHistoryMenu(CurrentCustomer, Repo);
                     break;
                 case 2:
-                    // TODO: Implement menu where the user can see the locations available to them to order from.
-                    //NextMenu = new 
+                    NextMenu = new CustomerLocationSelectionMenu(CurrentCustomer, Repo);
+                    break;
+                case 3:
+                    Console.WriteLine("Enjoy your suffering!");
+                    return;
+                    //Environment.Exit(Environment.ExitCode);
                     break;
                 default:
                     throw new NotImplementedException();
                     break;
             }
 
-            try { 
-                NextMenu.Run(); 
+            try {
+                MenuUtility.ReadyNextMenu(NextMenu);
             } catch (NullReferenceException e)
             {
                 Log.Error(e.Message);

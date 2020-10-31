@@ -1,12 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Serilog;
 using SufferShopDB.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace SufferShopDB.Repos.DBRepos
 {
-    public class DBRepo : ICustomerRepo, IManagerRepo, ILocationRepo, IOrderRepo
+    public class DBRepo : IRepository
     {
 
         private readonly SufferShopContext context;
@@ -28,9 +30,9 @@ namespace SufferShopDB.Repos.DBRepos
             return context.Customers.ToListAsync();
         }
 
-        public Task<List<Order>> GetAllOrdersForCustomer(Customer customer)
+        public Task<List<Order>> GetAllOrdersForCustomer(int customerId)
         {
-            return context.Orders.Where(o => o.CustomerId == customer.Id).ToListAsync();
+            return context.Orders.Where(o => o.CustomerId == customerId).ToListAsync();
         }
 
         public Task<Customer> GetCustomerByEmailAsync(string email)
@@ -54,7 +56,19 @@ namespace SufferShopDB.Repos.DBRepos
 
         public Task<Manager> GetManagerByEmailAsync(string email)
         {
-            return context.Managers.Where(m => m.Id != null && m.Email == email).FirstAsync();
+            Task<Manager> managerWithEmail;
+            try
+            {
+                managerWithEmail = context.Managers.Where(m => m.Email == email).FirstAsync();
+            } catch (ArgumentNullException e)
+            {
+                Log.Error(e.Message);
+            } finally
+            {
+                managerWithEmail = null;
+            }
+
+            return managerWithEmail;
         }
 
         #endregion
@@ -71,6 +85,7 @@ namespace SufferShopDB.Repos.DBRepos
             return context.Orders.Where(o => o.CustomerId == CustomerId).ToListAsync();
         }
 
+
         public List<Order> GetLocationOrderHistory(int locationID)
         {
             throw new System.NotImplementedException();
@@ -81,6 +96,35 @@ namespace SufferShopDB.Repos.DBRepos
             throw new System.NotImplementedException();
         }
 
+        #region Product methods
+        public void AddNewProductToStock(int newProductId, int locationId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void RemoveProductAtLocation(int removedProduct, int locationId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<List<InventoryLineItem>> GetAllProductsAtLocation(int locationID)
+        {
+            return context.InventoryLineItems.Where(ie => ie.LocationID == locationID).ToListAsync();
+        }
+        #endregion
+
+
+
+
+        public Task<List<OrderLineItem>> GetOrderedProductsInAnOrder(int orderId)
+        {
+            return context.OrderLineItems.Where(op => op.OrderId == orderId).ToListAsync();
+        }
+
+        public Task<List<InventoryLineItem>> GetInventoryEntriesAtLocationAsync(int locationId)
+        {
+            return context.InventoryLineItems.Where(ie => ie.LocationID == locationId).ToListAsync();
+        }
 
 
     }

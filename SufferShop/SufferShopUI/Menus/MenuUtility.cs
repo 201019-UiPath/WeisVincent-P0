@@ -6,6 +6,15 @@ namespace SufferShopUI.Menus
     internal static class MenuUtility
     {
 
+
+
+        internal static void ReadyNextMenu(IMenu nextMenu)
+        {
+            Program.MenuChain.Enqueue(nextMenu);
+        }
+
+
+
         public static string QueryName()
         {
 

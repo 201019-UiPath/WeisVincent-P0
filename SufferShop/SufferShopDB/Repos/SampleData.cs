@@ -114,7 +114,7 @@ namespace SufferShopDB.Repos
             //TODO: Populate sample Orders
         };
 
-        public readonly static List<LocationStockedProduct> ProductStock = new List<LocationStockedProduct>()
+        public readonly static List<InventoryLineItem> ProductStock = new List<InventoryLineItem>()
         {
             // TODO: Populate sample stock items
         };

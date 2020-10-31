@@ -15,6 +15,11 @@ namespace SufferShopDB.Repos.FileRepos
             throw new NotImplementedException();
         }
 
+        public Task<List<InventoryLineItem>> GetInventoryEntriesAtLocationAsync(int locationId)
+        {
+            throw new NotImplementedException();
+        }
+
         // TODO: Implement this
         public List<Location> GetLocations()
         {

@@ -1,6 +1,7 @@
 ﻿using SufferShopDB.Models;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SufferShopDB.Repos.FileRepos
 {
@@ -9,32 +10,22 @@ namespace SufferShopDB.Repos.FileRepos
 
         const string filepathProducts = "SufferShopDB/SampleData/Products.txt";
 
-        public void AddNewProductsToStock(List<Product> newProduct)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddNewProductsToStock(List<Product> newProduct, int locationID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveProductsAtLocation(List<Product> removedProducts, int locationID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Product> GetAllProductStockAtLocation(int locationID)
-        {
-            throw new NotImplementedException();
-        }
-
         public void AddNewProductToStock(int newProductId, int locationId)
         {
             throw new NotImplementedException();
         }
 
-        public void RemoveProductAtLocation(List<Product> removedProducts, Location location)
+        public Task<List<InventoryLineItem>> GetAllProductsAtLocation(int locationID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<OrderLineItem>> GetOrderedProductsInAnOrder(int orderId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveProductAtLocation(int removedProductId, int locationId)
         {
             throw new NotImplementedException();
         }

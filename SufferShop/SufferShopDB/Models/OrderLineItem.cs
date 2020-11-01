@@ -9,25 +9,25 @@ namespace SufferShopDB.Models
     /// </summary>
     public class OrderLineItem
     {
-        [Key]
-        public int Id;
+        //[Key]
+        //public int Id { get; set; }
 
         [ForeignKey("Order")]
-        public int OrderId;
-        public Order Order;
+        public int OrderId { get; set; }
+        public Order Order { get; set; }
 
         [ForeignKey("Product")]
-        public int ProductId;
-        public Product Product;
+        public int ProductId { get; set; }
+        public Product Product { get; set; }
 
         [Column("product_quantity")]
-        public int ProductQuantity;
+        public int ProductQuantity { get; set; }
 
-        private OrderLineItem(int orderId, int productId, int quantityOfProduct)
+        internal OrderLineItem(int orderId, int productId, int productQuantity)
         {
             OrderId = orderId;
             ProductId = productId;
-            ProductQuantity = quantityOfProduct;
+            ProductQuantity = productQuantity;
         }
 
         public OrderLineItem( Order order, Product product, int quantityOfProduct) : this(order.Id, product.Id, quantityOfProduct)

@@ -11,18 +11,18 @@ namespace SufferShopDB.Models
 
         // TODO: Review constructor for Order class, you left good stuff in it
 
-        private Order(int customerId, string address, int locationId, double subtotal, double timeOrderWasPlacedAsInt)
+        internal Order(int customerId, int locationId, string address,  double Subtotal, double timeOrderWasPlaced)
         {
             //TODO: How to deal with Order Id
             this.CustomerId = customerId;
             this.Address = address;
             this.LocationId = locationId;
-            this.Subtotal = subtotal;
-            this.TimeOrderWasPlaced = timeOrderWasPlacedAsInt;
+            this.Subtotal = Subtotal;
+            this.TimeOrderWasPlaced = timeOrderWasPlaced;
         }
 
         public Order(Customer customer, Location locationPlaced, double subtotal, double timeOrderWasPlaced)
-            : this(customer.Id, locationPlaced.Address, locationPlaced.Id, subtotal, timeOrderWasPlaced)
+            : this(customer.Id, locationPlaced.Id, locationPlaced.Address, subtotal, timeOrderWasPlaced)
         {
             this.Customer = customer;
 
@@ -46,24 +46,24 @@ namespace SufferShopDB.Models
         public int Id { get; set; }
 
         [ForeignKey("Customer")]
-        public int CustomerId;
+        public int CustomerId { get; set; }
 
         /// <summary>
         /// This field represents the customer who placed the order.
         /// </summary>
-        public Customer Customer;
+        public Customer Customer { get; set; }
 
         [Column("Address")]
-        public string Address;
+        public string Address { get; set; }
 
-        
-        
+
+
 
         [ForeignKey("Location")]
-        public int LocationId;
-        public Location Location;
+        public int LocationId { get; set; }
+        public Location Location { get; set; }
 
-        public List<OrderLineItem> OrderLineItems;
+        public List<OrderLineItem> OrderLineItems { get; set; }
 
         public void AddLineItemToOrder(OrderLineItem addedLineItem)
         {
@@ -71,7 +71,7 @@ namespace SufferShopDB.Models
         }
 
         [Column("Subtotal")]
-        public double Subtotal { get; }
+        public double Subtotal { get; set; }
 
 
         /// <summary>
@@ -79,10 +79,10 @@ namespace SufferShopDB.Models
         /// Methods responsible for this should be in the DateTimeUtility class of the SufferShopLib assembly.
         /// </summary>
         [Column("placedtime_posix")]
-        public double TimeOrderWasPlaced;
+        public double TimeOrderWasPlaced { get; set; }
 
         [Column("finishedtime_posix")]
-        public double TimeOrderWasFulfilled;//TODO: What the hell do I do about fulfillment?
+        public double TimeOrderWasFulfilled { get; set; }//TODO: What the hell do I do about fulfillment?
 
         [NotMapped]
         public bool IsComplete

@@ -51,6 +51,19 @@ namespace SufferShopDB
             Order to Customer OTO
             */
 
+
+            #region Seed Data
+            modelBuilder.Entity<Customer>().HasData(SampleData.GetSampleCustomers());
+            modelBuilder.Entity<Location>().HasData(SampleData.GetSampleLocations());
+            modelBuilder.Entity<Order>().HasData(SampleData.GetSampleOrders());
+            modelBuilder.Entity<Manager>().HasData(SampleData.GetSampleManagers());
+            modelBuilder.Entity<Product>().HasData(SampleData.GetSampleProducts());
+
+            modelBuilder.Entity<InventoryLineItem>().HasData(SampleData.GetSampleInventoryLineItems());
+            modelBuilder.Entity<OrderLineItem>().HasData(SampleData.GetSampleOrderLineItems());
+            #endregion
+
+
             modelBuilder.Entity<Customer>().HasKey("Id");
 
             modelBuilder.Entity<Location>().HasKey("Id");
@@ -61,25 +74,45 @@ namespace SufferShopDB
 
             modelBuilder.Entity<Product>().HasKey("Id");
 
-            modelBuilder.Entity<InventoryLineItem>().HasNoKey();
-
-            modelBuilder.Entity<OrderLineItem>().HasNoKey();
+            
 
 
 
 
-            modelBuilder.Entity<Customer>().HasData(SampleData.Customers);
-            modelBuilder.Entity<Location>().HasData(SampleData.Locations);
-            modelBuilder.Entity<Order>().HasData(SampleData.Orders);
-            modelBuilder.Entity<Manager>().HasData(SampleData.Managers);
-            modelBuilder.Entity<Product>().HasData(SampleData.Products);
-
-            modelBuilder.Entity<InventoryLineItem>().HasData(SampleData.InventoryLineItems);
-            modelBuilder.Entity<OrderLineItem>().HasData(SampleData.OrderLineItems);
+            
 
 
 
             #region Manual Model Relationship Mapping
+
+            
+
+            // Location - Manager One to One Relationship
+            modelBuilder.Entity<Manager>()
+                .HasOne(m => m.Location)
+                .WithMany(m => m.Managers)
+                .HasForeignKey(l => l.LocationId);
+            
+            // Customer - Order One to Many Relationship
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.Customer)
+                .WithMany(c => c.Orders)
+                .HasForeignKey(o => o.CustomerId);
+
+
+            #region Location - Product Many to Many Relationship (InventoryLineItem)
+            modelBuilder.Entity<InventoryLineItem>()
+                .HasKey(ili => new { ili.LocationId, ili.ProductId });
+            modelBuilder.Entity<InventoryLineItem>()
+                .HasOne(ili => ili.Location)
+                .WithMany(o => o.InventoryLineItems)
+                .HasForeignKey(ili => ili.LocationId);
+            modelBuilder.Entity<InventoryLineItem>()
+                .HasOne(oli => oli.Product)
+                .WithMany(o => o.LocationsWithProduct)
+                .HasForeignKey(oli => oli.ProductId);
+            
+            #endregion
 
             #region Order - Product Many to Many Relationship (OrderLineItem)
             modelBuilder.Entity<OrderLineItem>()
@@ -94,47 +127,13 @@ namespace SufferShopDB
                 .HasForeignKey(oli => oli.ProductId);
             #endregion
 
-            #region Location - Product Many to Many Relationship (InventoryLineItem)
-            modelBuilder.Entity<InventoryLineItem>()
-                .HasKey(ili => new { ili.LocationId, ili.ProductId });
-            modelBuilder.Entity<InventoryLineItem>()
-                .HasOne(ili => ili.Location)
-                .WithMany(o => o.InventoryLineItems)
-                .HasForeignKey(ili => ili.LocationId);
-            modelBuilder.Entity<InventoryLineItem>()
-                .HasOne(oli => oli.Product)
-                .WithMany(o => o.LocationsWithProduct)
-                .HasForeignKey(oli => oli.ProductId);
+
             #endregion
 
-            /*
-            // Location - Product Many to Many Relationship
-            modelBuilder.Entity<LocationStockedProduct>()
-                .HasOne(lsp => lsp.Location)
-                .WithMany(l => l.ProductStock)
-                .HasForeignKey(lsp => lsp.LocationID);
-
-            // Product - Location Many to Many Relationship
-            modelBuilder.Entity<LocationStockedProduct>()
-                .HasOne(lsp => lsp.Product)
-                .WithMany(p => p.LocationsStockedAt)
-                .HasForeignKey(lsp => lsp.ProductID);
-
-            // Location - Manager One to One Relationship
-            modelBuilder.Entity<Location>()
-                .HasOne(l => l.Manager)
-                .WithOne(m => m.Location)
-                .HasForeignKey<Manager>(l => l.LocationID);
             
-            // Customer - Order One to Many Relationship
-            modelBuilder.Entity<Order>()
-                .HasOne<Customer>(o => o.Customer)
-                .WithMany()
-                .HasForeignKey(o => o.CustomerId);
-            */
 
 
-            #endregion
+
         }
 
     }

@@ -37,10 +37,10 @@ namespace SufferShopDB.Models
         public string Description { get; set; }
 
 
-        public List<OrderLineItem> OrdersWithProduct;
+        public List<OrderLineItem> OrdersWithProduct { get; set; }
 
 
-        public List<InventoryLineItem> LocationsWithProduct;
+        public List<InventoryLineItem> LocationsWithProduct { get; set; }
 
 
 

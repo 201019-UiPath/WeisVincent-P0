@@ -25,7 +25,9 @@ namespace SufferShopDB.Models
         public string Address { get; set; }
 
 
-        public List<InventoryLineItem> InventoryLineItems;
+        public List<InventoryLineItem> InventoryLineItems { get; set; }
+
+        public List<Manager> Managers { get; set; }
 
         //public Stack<Order> OrderHistory;
 

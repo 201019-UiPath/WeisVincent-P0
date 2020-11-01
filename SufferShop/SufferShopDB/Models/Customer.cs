@@ -24,7 +24,7 @@ namespace SufferShopDB.Models
 
 
         //TODO: Foreign key link to orders?
-        public List<Order> Orders;
+        public List<Order> Orders { get; set; }
 
         public string Address { get; set; }
 

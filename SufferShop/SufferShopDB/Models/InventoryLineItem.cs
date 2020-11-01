@@ -10,28 +10,26 @@ namespace SufferShopDB.Models
     /// </summary>
     public class InventoryLineItem
     {
-        [Key]
-        public int Id;
+        /*[Key]
+        public int Id { get; set; }*/
 
         [ForeignKey("Location")]
-        public int LocationId;
-        public Location Location;
+        public int LocationId { get; set; }
+        public Location Location { get; set; }
 
         [ForeignKey("Product")]
-        public int ProductId;
-        public Product Product;
+        public int ProductId { get; set; }
+        public Product Product { get; set; }
 
         [Column("ProductQuantity")]
-        public int ProductQuantity;
+        public int ProductQuantity { get; set; }
 
-        
-
-
-        private InventoryLineItem(int locationId, int productId, int productQuantity)
+        internal InventoryLineItem(int locationId, int productId, int productQuantity)
         {
+            this.LocationId = locationId;
             this.ProductId = productId;
             this.ProductQuantity = productQuantity;
-            this.LocationId = locationId;
+            
         }
 
         public InventoryLineItem(Location location, Product product, int productQuantity) : this(location.Id, product.Id, productQuantity)

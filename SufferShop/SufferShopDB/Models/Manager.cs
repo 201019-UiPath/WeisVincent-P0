@@ -7,7 +7,7 @@ namespace SufferShopDB.Models
     {
 
 
-        private Manager(string name, string email, string password, int locationId) : base(name, email, password)
+        internal Manager(string name, string email, string password, int locationId) : base(name, email, password)
         {
             LocationId = locationId;
         }
@@ -31,9 +31,9 @@ namespace SufferShopDB.Models
         }
 
         [ForeignKey("Location")]
-        public int LocationId;
+        public int LocationId { get; set; }
 
-        public Location Location;
+        public Location Location { get; set; }
 
     }
 }

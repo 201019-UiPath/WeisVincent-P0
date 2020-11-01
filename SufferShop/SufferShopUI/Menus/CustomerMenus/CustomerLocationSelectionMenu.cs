@@ -2,7 +2,6 @@
 using SufferShopBL;
 using SufferShopDB.Models;
 using SufferShopDB.Repos;
-using SufferShopDB.Repos.DBRepos;
 using System;
 using System.Collections.Generic;
 
@@ -11,15 +10,13 @@ namespace SufferShopUI.Menus.CustomerMenus
     internal class CustomerLocationSelectionMenu : Menu, IMenu
     {
         private Customer CurrentCustomer;
-        private IRepository Repo;
 
 
         LocationService LocationService;
         private List<Location> AllLocations;
-        public CustomerLocationSelectionMenu(Customer currentCustomer, IRepository repo)
+        public CustomerLocationSelectionMenu(Customer currentCustomer, IRepository repo) : base(ref repo)
         {
-            this.CurrentCustomer = currentCustomer;
-            this.Repo = repo;
+            CurrentCustomer = currentCustomer;
 
             LocationService = new LocationService(Repo);
             AllLocations = LocationService.GetAllLocations();
@@ -50,7 +47,7 @@ namespace SufferShopUI.Menus.CustomerMenus
                 if (selectedChoice == PossibleOptions.Count)
                 {
                     Console.WriteLine("Going back, ZOOM");
-                    nextMenu = new CustomerMenu(CurrentCustomer, Repo);
+                    nextMenu = new CustomerStartMenu(CurrentCustomer, Repo);
                     break;
                 }
 
@@ -59,18 +56,19 @@ namespace SufferShopUI.Menus.CustomerMenus
                     try
                     {
                         selectedLocation = AllLocations[i - 1];
-                        nextMenu = new CustomerLocationOrderMenu(CurrentCustomer, selectedLocation, Repo,LocationService);
-                    } catch (IndexOutOfRangeException e)
+                        nextMenu = new CustomerLocationOrderMenu(CurrentCustomer, selectedLocation, Repo, LocationService);
+                    }
+                    catch (IndexOutOfRangeException e)
                     {
                         Log.Error(e.Message);
                     }
                 }
             }
 
-            MenuUtility.ReadyNextMenu(nextMenu);
+            MenuUtility.Instance.ReadyNextMenu(nextMenu);
 
         }
 
-        
+
     }
 }

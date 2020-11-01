@@ -1,4 +1,6 @@
-﻿namespace SufferShopDB.Models
+﻿using System.Collections.Generic;
+
+namespace SufferShopDB.Models
 {
     //TODO: Add XML Documentation on Customer class
     public class Customer : User
@@ -10,18 +12,21 @@
         /// <param name="name"></param>
         /// <param name="email"></param>
         /// <param name="password"></param>
-        /*public Customer(string name, string email, string password) : base(name, email, password)
+        public Customer(string name, string email, string password, string address) : base(name, email, password)
         {
-            Address = null;
-            
-        }*/
+            Address = address;
+        }
+
+        public Customer(string name, string email, string password) : base(name, email, password)
+        {
+            Address = "";
+        }
 
 
+        //TODO: Foreign key link to orders?
+        public List<Order> Orders;
 
-
-        //public List<Order> Orders;
-
-        public string Address { get; set; } //TODO: Add Address verification (https://salimadamoncrm.com/2018/05/24/bulk-address-validation-plugin-for-xrmtoolbox/)
+        public string Address { get; set; }
 
 
     }

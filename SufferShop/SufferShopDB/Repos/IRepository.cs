@@ -6,9 +6,9 @@ namespace SufferShopDB.Repos
     public interface IRepository : ICustomerRepo, ILocationRepo, IManagerRepo, IOrderRepo, IProductRepo
     {
 
+        void SaveChangesAsync();
 
-
-
+        void SaveChanges();
 
 
     }

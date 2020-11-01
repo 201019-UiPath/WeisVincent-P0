@@ -4,7 +4,6 @@ using SufferShopDB.Models;
 using SufferShopDB.Repos;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SufferShopUI.Menus.CustomerMenus
 {
@@ -12,18 +11,14 @@ namespace SufferShopUI.Menus.CustomerMenus
     {
 
         private Customer CurrentCustomer;
-        private IRepository Repo;
 
-        private OrderBuilder OrderBuilder;
+        private OrderService OrderService;
 
-        public CustomerLocationOrderMenu(Customer currentCustomer, Location selectedLocation, IRepository repo, LocationService locationService)
+        public CustomerLocationOrderMenu(Customer currentCustomer, Location selectedLocation, IRepository repo, LocationService locationService) : base(ref repo)
         {
             CurrentCustomer = currentCustomer;
-            Repo = repo;
-            
 
-            OrderBuilder = new OrderBuilder(CurrentCustomer, locationService, selectedLocation);
-            
+            OrderService = new OrderService(CurrentCustomer, locationService, selectedLocation, Repo);
         }
 
 
@@ -31,66 +26,78 @@ namespace SufferShopUI.Menus.CustomerMenus
 
         public override void SetStartingMessage()
         {
-            OrderBuilder.ShowOrderCart();
             StartMessage = "Select a product available at this location to order.";
         }
 
         public override void SetUserChoices()
         {
-            
-
-            PossibleOptions = new List<string>(OrderBuilder.SelectedLocationStock.Count);
-            foreach (InventoryLineItem entry in OrderBuilder.SelectedLocationStock)
+            PossibleOptions = new List<string>(OrderService.SelectedLocationStock.Count);
+            foreach (InventoryLineItem entry in OrderService.SelectedLocationStock)
             {
                 Product product = entry.Product;
-                int productQuantity = entry.QuantityOfProduct;
+                int productQuantity = entry.ProductQuantity;
                 string productType = Enum.GetName(typeof(ProductType), product.TypeOfProduct);
 
                 PossibleOptions.Add($"{product.Name}: {product.Description} Part of our {productType} collection.");
             }
-            PossibleOptions.Add("Use this option to edit your order.");
             PossibleOptions.Add("Use this option to go back, cancelling your order.");
+            if (OrderService.OrderCart.Count! < 1)
+            {
+                PossibleOptions.Add("Use this option to view and edit your order.");
+            };
         }
 
         public override void ExecuteUserChoice()
         {
-            IMenu nextMenu = null;
+            
             InventoryLineItem selectedLineItem;
 
             for (int i = 1; i < PossibleOptions.Count; i++)
             {
-                if (selectedChoice == PossibleOptions.Count)
+                if (OrderService.OrderCart.Count! < 1)
                 {
-                    // TODO: Add Edit Order function in OrderBuilder
+                    if (selectedChoice == PossibleOptions.Count)
+                    {
+                        GoBackToCustomerMenu();
+                        break;
+                    }
+                }
+                else
+                {
+                    if (selectedChoice == PossibleOptions.Count)
+                    {
+                        EditOrder();
+                        break;
+                    }
 
+                    if (selectedChoice == PossibleOptions.Count - 1)
+                    {
+                        GoBackToCustomerMenu();
+                        break;
+                    }
                 }
 
 
-                if (selectedChoice == PossibleOptions.Count - 1)
-                {
-                    Console.WriteLine("Going back, ZOOM");
-                    nextMenu = new CustomerMenu(CurrentCustomer, Repo);
-                    break;
-                }
-                
+
                 if (selectedChoice == i)
                 {
                     try
                     {
-                        selectedLineItem = OrderBuilder.SelectedLocationStock[i - 1];
-                        
-                        if (selectedLineItem.QuantityOfProduct > 1)
+                        selectedLineItem = OrderService.SelectedLocationStock[i - 1];
+
+                        if (selectedLineItem.ProductQuantity > 1)
                         {
-                            
-                            int selectedQuantity = new CustomerLineItemQuantityMenu(selectedLineItem).RunAndReturn();
-                            OrderBuilder.StageProductForOrder(selectedLineItem, selectedQuantity);
-                        } else
-                        {
-                            OrderBuilder.StageProductForOrder(selectedLineItem);
+
+                            int selectedQuantity = new CustomerLineItemQuantityMenu(selectedLineItem, Repo).RunAndReturn();
+                            OrderService.StageProductForOrder(selectedLineItem, selectedQuantity);
                         }
-                        
+                        else
+                        {
+                            OrderService.StageProductForOrder(selectedLineItem);
+                        }
+
                         // Reset this menu with the updated data.
-                        this.RunAgain();
+                        RunAgain();
                     }
                     catch (IndexOutOfRangeException e)
                     {
@@ -102,13 +109,26 @@ namespace SufferShopUI.Menus.CustomerMenus
         }
 
 
+        private void EditOrder()
+        {
+            CustomerOrderEditorMenu OrderEditor = new CustomerOrderEditorMenu(ref OrderService, Repo);
+            OrderEditor.Run();
+            RunAgain();
+        }
+
         private void RunAgain()
         {
             Console.WriteLine("Want to add more suffering to your cart?");
             Run();
         }
 
-        
+        public void GoBackToCustomerMenu()
+        {
+            IMenu nextMenu = null;
+            Console.WriteLine("Going back, ZOOM");
+            nextMenu = new CustomerStartMenu(CurrentCustomer, Repo);
+            MenuUtility.Instance.ReadyNextMenu(nextMenu);
+        }
 
     }
 }

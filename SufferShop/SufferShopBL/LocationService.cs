@@ -1,8 +1,6 @@
 ﻿using SufferShopDB.Models;
 using SufferShopDB.Repos;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SufferShopBL
@@ -25,6 +23,11 @@ namespace SufferShopBL
         public Task<List<InventoryLineItem>> GetAllProductsAtLocationAsync(Location location)
         {
             return repo.GetInventoryEntriesAtLocationAsync(location.Id);
+        }
+
+        public List<Order> GetAllOrdersForLocation(Location location)
+        {
+            return repo.GetAllOrdersForLocation(location.Id);
         }
 
     }

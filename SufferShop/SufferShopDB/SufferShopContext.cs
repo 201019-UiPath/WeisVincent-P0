@@ -76,6 +76,33 @@ namespace SufferShopDB
 
 
             #region Manual Model Relationship Mapping
+
+            #region Order - Product Many to Many Relationship (OrderLineItem)
+            modelBuilder.Entity<OrderLineItem>()
+                .HasKey(oli => new { oli.OrderId, oli.ProductId });
+            modelBuilder.Entity<OrderLineItem>()
+                .HasOne(oli => oli.Order)
+                .WithMany(o => o.OrderLineItems)
+                .HasForeignKey(oli => oli.OrderId);
+            modelBuilder.Entity<OrderLineItem>()
+                .HasOne(oli => oli.Product)
+                .WithMany(o => o.OrdersWithProduct)
+                .HasForeignKey(oli => oli.ProductId);
+            #endregion
+
+            #region Location - Product Many to Many Relationship (InventoryLineItem)
+            modelBuilder.Entity<InventoryLineItem>()
+                .HasKey(ili => new { ili.LocationId, ili.ProductId });
+            modelBuilder.Entity<InventoryLineItem>()
+                .HasOne(ili => ili.Location)
+                .WithMany(o => o.InventoryLineItems)
+                .HasForeignKey(ili => ili.LocationId);
+            modelBuilder.Entity<InventoryLineItem>()
+                .HasOne(oli => oli.Product)
+                .WithMany(o => o.LocationsWithProduct)
+                .HasForeignKey(oli => oli.ProductId);
+            #endregion
+
             /*
             // Location - Product Many to Many Relationship
             modelBuilder.Entity<LocationStockedProduct>()
@@ -100,13 +127,9 @@ namespace SufferShopDB
                 .HasOne<Customer>(o => o.Customer)
                 .WithMany()
                 .HasForeignKey(o => o.CustomerId);
-            
-            // Order - Product One to Many Relationship
-            modelBuilder.Entity<LocationStockedProduct>()
-                .HasOne<Order>(lsp => lsp.Order)
-                .WithMany(o => o.OrderedProducts)
-                .HasForeignKey(lsp => lsp.OrderID);
             */
+
+
             #endregion
         }
 

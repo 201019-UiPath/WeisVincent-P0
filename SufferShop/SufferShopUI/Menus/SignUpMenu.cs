@@ -1,8 +1,6 @@
 ﻿using SufferShopBL;
-using SufferShopDB;
 using SufferShopDB.Models;
 using SufferShopDB.Repos;
-using SufferShopDB.Repos.DBRepos;
 using SufferShopUI.Menus.ManagerMenus;
 using System;
 using System.Collections.Generic;
@@ -11,15 +9,13 @@ namespace SufferShopUI.Menus
 {
     public class SignUpMenu : Menu, IMenu
     {
-        private readonly IRepository Repo;
         private readonly IMenu loginMenu;
 
         internal StartService startService = new StartService();
 
-        public SignUpMenu(IRepository repo)
+        public SignUpMenu(IRepository repo) : base(ref repo)
         {
-            this.Repo = repo;
-            loginMenu = new LoginMenu(this.Repo);
+            loginMenu = new LoginMenu(Repo);
         }
 
         public override void SetStartingMessage()
@@ -46,7 +42,7 @@ namespace SufferShopUI.Menus
             // 3: ask for password, then name and address
 
             string newEmail = MenuUtility.QueryEmail();
-            
+
             string newPassword = MenuUtility.QueryPassword();
             Console.WriteLine("Enter the same password to prove to my satisfaction that you can type.");
             string confirmationPassword = MenuUtility.QueryPassword();
@@ -60,7 +56,7 @@ namespace SufferShopUI.Menus
 
             string newName = MenuUtility.QueryName();
 
-            
+
 
             // TODO: When SignUp() ends, add the new customer data to DB/file
             switch (selectedChoice)
@@ -68,25 +64,16 @@ namespace SufferShopUI.Menus
                 case 1:
                     //TODO: Update a database with an added customer using BL.
                     string newAddress = MenuUtility.QueryAddress();
-                    Customer newCustomer = new Customer() { 
-                        Name = newName,
-                        Email = newEmail,
-                        Password = newPassword,
-                        Address = newAddress
-                    };
+
+                    Customer newCustomer = new Customer(newName, newEmail, newPassword, newAddress);
+
                     CustomerService customerService = new CustomerService(Repo);
                     customerService.AddCustomer(newCustomer);
                     break;
                 case 2:
-                    //TODO: Update a database with an added manager using BL.
-                    
-                    Manager newManager = new Manager()
-                    {
-                        Name = newName,
-                        Email = newEmail,
-                        Password = newPassword,
-                    };
-                    ManagerSignUpMenu managerSignUpMenu = new ManagerSignUpMenu(Repo, newManager);
+                    Manager newManager = new Manager(newName, newEmail, newPassword);
+
+                    ManagerSignUpMenu managerSignUpMenu = new ManagerSignUpMenu( Repo, ref newManager);
 
                     Manager updatedManager = managerSignUpMenu.RunAndReturnManagerWithSelectedLocation();
 
@@ -97,10 +84,10 @@ namespace SufferShopUI.Menus
                     break;
                 default:
                     throw new NotImplementedException();
-                    break;
+                    //break;
             }
 
-            MenuUtility.ReadyNextMenu(loginMenu);
+            MenuUtility.Instance.ReadyNextMenu(loginMenu);
 
         }
 

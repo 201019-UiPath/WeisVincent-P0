@@ -3,11 +3,9 @@ using SufferShopDB;
 using SufferShopDB.Models;
 using SufferShopDB.Repos;
 using SufferShopDB.Repos.DBRepos;
-using SufferShopLib;
 using SufferShopUI.Menus;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace SufferShopUI
 {
@@ -22,31 +20,21 @@ namespace SufferShopUI
         {
 
             Log.Logger = new LoggerConfiguration()
-                .WriteTo.File("log.txt",
+                .WriteTo.File("logs/log.txt",
                 outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}")
                 .CreateLogger();
 
 
-            if (Log.Logger != null) { Console.WriteLine("Logger is on, I think."); }
-
-
-            //customers = GetSampleCustomers();
+            if (Log.Logger == null) { throw new Exception("Logger isn't working."); }
 
             Console.WriteLine("Welcome Friend! What would you like to do today?");
 
             SufferShopContext context = new SufferShopContext();
             IRepository repo = new DBRepo(context);
-
             IMenu startMenu = new StartMenu(repo);
 
-
-            MenuChain.Enqueue(startMenu);
-            
-            while (MenuChain.Count > 0)
-            {
-                MenuChain.Dequeue().Run();
-            }
-
+            MenuUtility.Instance.ReadyNextMenu(startMenu);
+            MenuUtility.Instance.RunThroughMenuChain();
         }
 
     }

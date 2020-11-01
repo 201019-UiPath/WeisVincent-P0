@@ -1,4 +1,8 @@
-﻿namespace SufferShopDB.Models
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace SufferShopDB.Models
 {
     //TODO: Add XML Documentation on Location class
     public class Location : IStorableInRepo
@@ -10,17 +14,18 @@
             Name = name;
             Address = address;
         }*/
-
+        [Key]
         public int Id { get; set; }
 
         //public List<Manager> Managers { get; set; }//TODO: revisit
-
+        [Column("Name")]
         public string Name { get; set; }
 
+        [Column("Address")]
         public string Address { get; set; }
 
 
-        //public List<LocationStockedProduct> ProductStock;
+        public List<InventoryLineItem> InventoryLineItems;
 
         //public Stack<Order> OrderHistory;
 

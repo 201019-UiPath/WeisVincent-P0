@@ -9,6 +9,11 @@ namespace SufferShopDB.Repos.FileRepos
     {
         const string filepathOrders = "SufferShopDB/SampleData/Orders.txt";
 
+        public void AddOrder(Order order)
+        {
+            throw new NotImplementedException();
+        }
+
         // TODO: Implement this
         public List<Order> GetCustomerOrderHistory(int CustomerID)
         {
@@ -21,14 +26,19 @@ namespace SufferShopDB.Repos.FileRepos
             throw new NotImplementedException();
         }
 
-        // TODO: Implement this
-        Task<List<Order>> IOrderRepo.GetCustomerOrderHistory(int CustomerID)
+        public void RemoveInventoryLineItemsFromLocation(List<InventoryLineItem> lineItems)
         {
             throw new NotImplementedException();
         }
 
         // TODO: Implement this
-        Task<List<Order>> IOrderRepo.GetLocationOrderHistory(int locationID)
+        Task<List<Order>> IOrderRepo.GetCustomerOrderHistoryAsync(int CustomerID)
+        {
+            throw new NotImplementedException();
+        }
+
+        // TODO: Implement this
+        Task<List<Order>> IOrderRepo.GetLocationOrderHistoryAsync(int locationID)
         {
             throw new NotImplementedException();
         }

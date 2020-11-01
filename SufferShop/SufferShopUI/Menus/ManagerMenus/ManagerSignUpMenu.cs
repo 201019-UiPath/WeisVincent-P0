@@ -1,16 +1,12 @@
-﻿using SufferShopDB.Repos.DBRepos;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using SufferShopBL;
+﻿using SufferShopBL;
 using SufferShopDB.Models;
 using SufferShopDB.Repos;
+using System.Collections.Generic;
 
 namespace SufferShopUI.Menus.ManagerMenus
 {
     internal sealed class ManagerSignUpMenu : Menu, IMenu
     {
-        private readonly IRepository Repo;
         private readonly LocationService locationService;
 
         List<Location> PossibleLocations;
@@ -19,11 +15,10 @@ namespace SufferShopUI.Menus.ManagerMenus
 
 
 
-        public ManagerSignUpMenu(IRepository repo, Manager manager)
+        public ManagerSignUpMenu(IRepository repo, ref Manager manager) : base(ref repo)
         {
-            Repo = repo;
             locationService = new LocationService(Repo);
-
+            ManagerPickingALocation = manager;
             PossibleLocations = locationService.GetAllLocations();
         }
 
@@ -35,7 +30,7 @@ namespace SufferShopUI.Menus.ManagerMenus
 
         public override void SetUserChoices()
         {
-            
+
             PossibleOptions = new List<string>(PossibleLocations.Count);
             for (int i = 0; i < PossibleLocations.Count; i++)
             {
@@ -51,14 +46,14 @@ namespace SufferShopUI.Menus.ManagerMenus
                 if (selectedChoice != i + 1) continue;
 
                 ManagerPickingALocation.Location = PossibleLocations[i];
-                ManagerPickingALocation.LocationID = PossibleLocations[i].Id;
+                ManagerPickingALocation.LocationId = PossibleLocations[i].Id;
 
             }
 
             // At this point, the Run method should complete, 
             // and the ball SHOULD be thrown back to the SignUpMenu court and continue execution.
             LoginMenu loginMenu = new LoginMenu(Repo);
-            MenuUtility.ReadyNextMenu(loginMenu);
+            MenuUtility.Instance.ReadyNextMenu(loginMenu);
         }
 
         public Manager RunAndReturnManagerWithSelectedLocation()
@@ -66,6 +61,6 @@ namespace SufferShopUI.Menus.ManagerMenus
             Run();
             return ManagerPickingALocation;
         }
-        
+
     }
 }

@@ -9,5 +9,6 @@ namespace SufferShopDB.Repos
         Task<List<Location>> GetAllLocationsAsync();
 
         Task<List<InventoryLineItem>> GetInventoryEntriesAtLocationAsync(int locationId);
+        List<Order> GetAllOrdersForLocation(int locationId);
     }
 }

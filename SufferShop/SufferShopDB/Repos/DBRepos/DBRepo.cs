@@ -60,10 +60,12 @@ namespace SufferShopDB.Repos.DBRepos
             try
             {
                 managerWithEmail = context.Managers.Where(m => m.Email == email).FirstAsync();
-            } catch (ArgumentNullException e)
+            }
+            catch (ArgumentNullException e)
             {
                 Log.Error(e.Message);
-            } finally
+            }
+            finally
             {
                 managerWithEmail = null;
             }
@@ -80,7 +82,7 @@ namespace SufferShopDB.Repos.DBRepos
             return context.Locations.ToListAsync();
         }
 
-        public Task<List<Order>> GetCustomerOrderHistory(int CustomerId)
+        public Task<List<Order>> GetCustomerOrderHistoryAsync(int CustomerId)
         {
             return context.Orders.Where(o => o.CustomerId == CustomerId).ToListAsync();
         }
@@ -91,7 +93,7 @@ namespace SufferShopDB.Repos.DBRepos
             throw new System.NotImplementedException();
         }
 
-        Task<List<Order>> IOrderRepo.GetLocationOrderHistory(int locationID)
+        Task<List<Order>> IOrderRepo.GetLocationOrderHistoryAsync(int locationID)
         {
             throw new System.NotImplementedException();
         }
@@ -109,7 +111,7 @@ namespace SufferShopDB.Repos.DBRepos
 
         public Task<List<InventoryLineItem>> GetAllProductsAtLocation(int locationID)
         {
-            return context.InventoryLineItems.Where(ie => ie.LocationID == locationID).ToListAsync();
+            return context.InventoryLineItems.Where(ie => ie.LocationId == locationID).ToListAsync();
         }
         #endregion
 
@@ -123,9 +125,39 @@ namespace SufferShopDB.Repos.DBRepos
 
         public Task<List<InventoryLineItem>> GetInventoryEntriesAtLocationAsync(int locationId)
         {
-            return context.InventoryLineItems.Where(ie => ie.LocationID == locationId).ToListAsync();
+            return context.InventoryLineItems.Where(ie => ie.LocationId == locationId).ToListAsync();
         }
 
 
+        #region Order methods
+
+        public void AddOrder(Order order)
+        {
+            context.Orders.AddAsync(order);
+        }
+
+
+
+        public void RemoveInventoryLineItemsFromLocation(List<InventoryLineItem> lineItems)
+        {
+            context.InventoryLineItems.RemoveRange(lineItems);
+        }
+        #endregion
+
+
+        public async void SaveChangesAsync()
+        {
+            await context.SaveChangesAsync();
+        }
+
+        public void SaveChanges()
+        {
+            context.SaveChanges();
+        }
+
+        public List<Order> GetAllOrdersForLocation(int locationId)
+        {
+            return context.Orders.Where(o => o.LocationId == locationId).ToList();
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using SufferShopDB.Models;
+﻿using Serilog;
+using SufferShopDB.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -41,8 +42,7 @@ namespace SufferShopDB.Repos.FileRepos
                 }
                 catch (Exception e)
                 {
-                    //TODO: Log this thing.
-                    //Log.Write(new LogEvent(DateTimeOffset.Now, LogEventLevel.Error, e, ));
+                    Log.Error(e.Message);
                 }
             }
             return allHeroes;

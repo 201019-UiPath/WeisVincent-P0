@@ -1,4 +1,7 @@
-﻿namespace SufferShopDB.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace SufferShopDB.Models
 {
 
     /// <summary>
@@ -7,27 +10,35 @@
     /// </summary>
     public class InventoryLineItem
     {
-
+        [Key]
         public int Id;
 
-        public int ProductID;
-        public Product Product;
-        public int QuantityOfProduct;
-
-        public int LocationID;
+        [ForeignKey("Location")]
+        public int LocationId;
         public Location Location;
 
-        /*public LocationStockedProduct(Product product, int quantityOfProduct, Location location)
+        [ForeignKey("Product")]
+        public int ProductId;
+        public Product Product;
+
+        [Column("ProductQuantity")]
+        public int ProductQuantity;
+
+        
+
+
+        private InventoryLineItem(int locationId, int productId, int productQuantity)
         {
+            this.ProductId = productId;
+            this.ProductQuantity = productQuantity;
+            this.LocationId = locationId;
+        }
 
-            this.ProductID = product.Id;
+        public InventoryLineItem(Location location, Product product, int productQuantity) : this(location.Id, product.Id, productQuantity)
+        {
             this.Product = product;
-            this.QuantityOfProduct = quantityOfProduct;
-
-            this.LocationID = location.Id;
             this.Location = location;
-
-        }*/
+        }
 
 
     }

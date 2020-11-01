@@ -1,8 +1,8 @@
 ﻿using SufferShopBL;
 using SufferShopDB.Models;
 using SufferShopDB.Repos;
-using SufferShopDB.Repos.DBRepos;
 using SufferShopUI.Menus.CustomerMenus;
+using SufferShopUI.Menus.ManagerMenus;
 using System;
 using System.Collections.Generic;
 
@@ -10,13 +10,10 @@ namespace SufferShopUI.Menus
 {
     public sealed class LoginMenu : Menu, IMenu
     {
-        private readonly IRepository Repo;
-
         internal readonly StartService startService;
 
-        public LoginMenu(IRepository repo)
+        public LoginMenu(IRepository repo) : base(ref repo)
         {
-            this.Repo = repo;
             startService = new StartService();
         }
 
@@ -48,7 +45,7 @@ namespace SufferShopUI.Menus
                     break;
                 default:
                     throw new NotImplementedException();
-                    break;
+                    //break;
             }
 
 
@@ -74,7 +71,7 @@ namespace SufferShopUI.Menus
             {
                 Console.WriteLine("Couldn't find a customer matching that email. You can try again if you want, that'll be fun.");
                 LoginMenu loginMenuButAgain = new LoginMenu(Repo);
-                MenuUtility.ReadyNextMenu(loginMenuButAgain);
+                MenuUtility.Instance.ReadyNextMenu(loginMenuButAgain);
             }
             else if (userLoggingIn is Customer)
             {
@@ -88,8 +85,8 @@ namespace SufferShopUI.Menus
 
 
             // TODO: Move to Customer menu.
-            CustomerMenu customerMenu = new CustomerMenu(userLoggingIn, Repo);
-            MenuUtility.ReadyNextMenu(customerMenu);
+            CustomerStartMenu customerMenu = new CustomerStartMenu(userLoggingIn, Repo);
+            MenuUtility.Instance.ReadyNextMenu(customerMenu);
         }
 
         public void LoginAsManager()
@@ -109,7 +106,7 @@ namespace SufferShopUI.Menus
             {
                 Console.WriteLine("Couldn't find a manager matching that email. You can try again if you want, that'll be fun.");
                 LoginMenu loginMenuButAgain = new LoginMenu(Repo);
-                MenuUtility.ReadyNextMenu(loginMenuButAgain);
+                MenuUtility.Instance.ReadyNextMenu(loginMenuButAgain);
             }
             else if (managerLoggingIn is Manager)
             {
@@ -120,8 +117,8 @@ namespace SufferShopUI.Menus
                 }
 
                 // TODO: Move to Manager menu.
-                ManagerMenu managerMenu = new ManagerMenu(managerLoggingIn, Repo);
-                MenuUtility.ReadyNextMenu(managerMenu);
+                ManagerStartMenu managerMenu = new ManagerStartMenu(managerLoggingIn, Repo);
+                MenuUtility.Instance.ReadyNextMenu(managerMenu);
 
             }
 
@@ -145,7 +142,7 @@ namespace SufferShopUI.Menus
             {
                 Console.WriteLine("Couldn't find a user matching that email. You can try again if you want, that'll be fun.");
                 LoginMenu loginMenuButAgain = new LoginMenu(Repo);
-                MenuUtility.ReadyNextMenu(loginMenuButAgain);
+                MenuUtility.Instance.ReadyNextMenu(loginMenuButAgain);
             }
             else if (userLoggingIn is Customer || userLoggingIn is Manager)
             {
@@ -171,7 +168,7 @@ namespace SufferShopUI.Menus
                     break;
                 default:
                     throw new NotImplementedException();
-                    break;
+                    //break;
             }
 
             //TODO: Check at Login() if the inputted email and password match any existing customer or Manager, then make the current user either customer or manager.

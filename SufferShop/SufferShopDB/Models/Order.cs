@@ -1,44 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SufferShopDB.Models
 {
+    [Table("Orders")]
     public class Order : IStorableInRepo
     {
 
         // TODO: Review constructor for Order class, you left good stuff in it
 
-        /*public Order(Customer customer, IList<Product> products, Location locationPlaced)
+        private Order(int customerId, string address, int locationId, double subtotal, double timeOrderWasPlacedAsInt)
         {
-            this.CustomerId = customer.Id;
+            //TODO: How to deal with Order Id
+            this.CustomerId = customerId;
+            this.Address = address;
+            this.LocationId = locationId;
+            this.Subtotal = subtotal;
+            this.TimeOrderWasPlaced = timeOrderWasPlacedAsInt;
+        }
+
+        public Order(Customer customer, Location locationPlaced, double subtotal, double timeOrderWasPlaced)
+            : this(customer.Id, locationPlaced.Address, locationPlaced.Id, subtotal, timeOrderWasPlaced)
+        {
             this.Customer = customer;
 
+            this.Location = locationPlaced;
+
+            this.OrderLineItems = new List<OrderLineItem>();
+
+            this.TimeOrderWasPlaced = timeOrderWasPlaced;
+            this.TimeOrderWasFulfilled = -1;
+        }
+
+        public Order(Customer customer, Location locationPlaced, List<OrderLineItem> orderLineItems, double subtotal, double timeOrderWasPlaced) 
+            : this(customer, locationPlaced, subtotal, timeOrderWasPlaced)
+        {
+            this.OrderLineItems = orderLineItems;
+        }
 
 
-            
-            double total = 0;
 
-            IList<Product> stagedProducts = new List<Product>(products);
-            foreach (Product productEntry in products)
-            {
-                total += productEntry.Price;
-
-                if (stagedProducts.Contains(productEntry)) { }
-                else {
-                    OrderedProducts.Add(new OrderedProduct(productEntry, 1, this));
-                }
-                
-            }
-            this.Subtotal = total;
-
-            
-            this.LocationPlaced = locationPlaced;
-
-            this.OrderPlacedTime = DateTime.Now;
-        }*/
-
+        [Key]
         public int Id { get; set; }
 
+        [ForeignKey("Customer")]
         public int CustomerId;
 
         /// <summary>
@@ -46,25 +53,43 @@ namespace SufferShopDB.Models
         /// </summary>
         public Customer Customer;
 
-        public IList<OrderLineItem> OrderedProducts;
+        [Column("Address")]
+        public string Address;
 
-        public Location LocationPlaced;
+        
+        
 
+        [ForeignKey("Location")]
+        public int LocationId;
+        public Location Location;
+
+        public List<OrderLineItem> OrderLineItems;
+
+        public void AddLineItemToOrder(OrderLineItem addedLineItem)
+        {
+            OrderLineItems.Add(addedLineItem);
+        }
+
+        [Column("Subtotal")]
         public double Subtotal { get; }
 
-        public string Address;//TODO: Add address verification (https://salimadamoncrm.com/2018/05/24/bulk-address-validation-plugin-for-xrmtoolbox/)
 
-        public DateTime OrderPlacedTime;
+        /// <summary>
+        /// This field represents the time the order was placed in Linux Epoch format. Should be in UTC, and converted when displayed in UI.
+        /// Methods responsible for this should be in the DateTimeUtility class of the SufferShopLib assembly.
+        /// </summary>
+        [Column("placedtime_posix")]
+        public double TimeOrderWasPlaced;
 
-        public DateTime OrderFulfilledTime;//TODO: What the hell do I do about fulfillment?
+        [Column("finishedtime_posix")]
+        public double TimeOrderWasFulfilled;//TODO: What the hell do I do about fulfillment?
 
-
-
+        [NotMapped]
         public bool IsComplete
         {
             get
             {
-                if (OrderFulfilledTime != null) return true; else return false;
+                if (TimeOrderWasFulfilled > TimeOrderWasPlaced) return true; else return false;
 
 
             }

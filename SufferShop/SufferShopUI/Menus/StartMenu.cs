@@ -1,6 +1,4 @@
-using SufferShopDB;
 using SufferShopDB.Repos;
-using SufferShopDB.Repos.DBRepos;
 using System;
 using System.Collections.Generic;
 
@@ -16,13 +14,11 @@ namespace SufferShopUI.Menus
 
         private readonly IMenu signupMenu;
         private readonly IMenu loginMenu;
-        private readonly IRepository Repo;
 
-        public StartMenu(IRepository repo)
+        public StartMenu(IRepository repo) : base(ref repo)
         {
-            this.Repo = repo;
-            signupMenu = new SignUpMenu(this.Repo);
-            loginMenu = new LoginMenu(this.Repo);
+            signupMenu = new SignUpMenu(Repo);
+            loginMenu = new LoginMenu(Repo);
         }
 
 
@@ -46,16 +42,14 @@ namespace SufferShopUI.Menus
             switch (selectedChoice)
             {
                 case 1:
-                    MenuUtility.ReadyNextMenu(signupMenu);
-                    //signupMenu.Run();
+                    MenuUtility.Instance.ReadyNextMenu(signupMenu);
                     break;
                 case 2:
-                    MenuUtility.ReadyNextMenu(loginMenu);
-                    //loginMenu.Run();
+                    MenuUtility.Instance.ReadyNextMenu(loginMenu);
                     break;
                 default:
                     throw new NotImplementedException();
-                    break;
+                    //break;
             }
         }
 

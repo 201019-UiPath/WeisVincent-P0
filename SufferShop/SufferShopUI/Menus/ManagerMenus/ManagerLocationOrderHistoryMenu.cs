@@ -2,31 +2,32 @@
 using SufferShopBL;
 using SufferShopDB.Models;
 using SufferShopDB.Repos;
-using SufferShopLib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace SufferShopUI.Menus.CustomerMenus
+namespace SufferShopUI.Menus.ManagerMenus
 {
-    internal class CustomerOrderHistoryMenu : Menu, IMenu
+    internal class ManagerLocationOrderHistoryMenu : Menu, IMenu
     {
-        private readonly Customer CurrentCustomer;
-        private readonly CustomerService CustomerService;
-        private List<Order> CustomerOrders;
-        ProductService ProductService;
+        private Manager currentManager;
+        private readonly ManagerService managerService;
+        private List<Order> LocationOrders;
 
-        public CustomerOrderHistoryMenu(Customer customer, IRepository repo) : base(ref repo)
+        private readonly LocationService LocationService;
+        private readonly ProductService ProductService;
+
+        public ManagerLocationOrderHistoryMenu(Manager currentManager, ref IRepository repo) : base(ref repo)
         {
-            CurrentCustomer = customer;
-            CustomerService = new CustomerService(Repo);
+            this.currentManager = currentManager;
+            managerService = new ManagerService(Repo);
+            LocationService = new LocationService(Repo);
             ProductService = new ProductService(Repo);
         }
 
         public override void SetStartingMessage()
         {
-            StartMessage = "You've chosen to view your rich history of suffering. \n How would you like the results sorted?";
+            StartMessage = "You've chosen to view this location's rich history of suffering. \n How would you like the results sorted?";
         }
 
         public override void SetUserChoices()
@@ -38,34 +39,32 @@ namespace SufferShopUI.Menus.CustomerMenus
             };
         }
 
-
-
-
         public override void ExecuteUserChoice()
         {
-            CustomerOrders = CustomerService.GetAllOrdersForCustomer(CurrentCustomer);
+            LocationOrders = LocationService.GetAllOrdersForLocation(currentManager.Location);
 
-            List<Order> sortedOrderList = new List<Order>(CustomerOrders.Count);
+            List<Order> sortedOrderList = new List<Order>(LocationOrders.Count);
             bool IsSortOrderForward = false;
 
-            IMenu previousMenu = new CustomerStartMenu(CurrentCustomer, Repo);
+            IMenu previousMenu = new ManagerStartMenu(currentManager, Repo);
 
             switch (selectedChoice)
             {
                 case 1:
-                    sortedOrderList = CustomerOrders.OrderBy(o => o.Subtotal).ToList();
+                    sortedOrderList = LocationOrders.OrderBy(o => o.Subtotal).ToList();
                     MenuUtility.ProcessSortingByDate(sortedOrderList, ref IsSortOrderForward);
 
                     break;
                 case 2:
-                    sortedOrderList = CustomerOrders.OrderBy(o => o.TimeOrderWasPlaced).ToList();
+                    sortedOrderList = LocationOrders.OrderBy(o => o.TimeOrderWasPlaced).ToList();
                     MenuUtility.ProcessSortingByPrice(sortedOrderList, ref IsSortOrderForward);
                     break;
                 case 3:
                     Console.WriteLine("Going back.");
+                    
                     MenuUtility.Instance.ReadyNextMenu(previousMenu);
                     return;
-                    //break;
+                //break;
                 default:
                     sortedOrderList = null;
                     throw new NotImplementedException();
@@ -83,13 +82,10 @@ namespace SufferShopUI.Menus.CustomerMenus
 
             Console.WriteLine("Really interesting list, right?");
 
+            
             MenuUtility.Instance.ReadyNextMenu(previousMenu);
-
         }
 
         
-
     }
 }
-
-

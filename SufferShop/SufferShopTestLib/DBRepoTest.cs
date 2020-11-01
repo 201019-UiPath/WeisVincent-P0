@@ -3,7 +3,6 @@ using SufferShopDB;
 using SufferShopDB.Models;
 using SufferShopDB.Repos;
 using SufferShopDB.Repos.DBRepos;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -41,7 +40,7 @@ namespace SufferShopTest
             var options = new DbContextOptionsBuilder<SufferShopContext>().UseInMemoryDatabase("AddCustomerShouldAdd").Options;
             using var testContext = new SufferShopContext(options);
             repo = new DBRepo(testContext);
-            
+
             //Act
             repo.AddCustomerAsync(testCustomer);
 
@@ -65,7 +64,7 @@ namespace SufferShopTest
 
             //Assert
             using var assertContext = new SufferShopContext(options);
-            
+
             Assert.NotNull(assertContext.Customers.Single(c => c.Email == testCustomer.Email));
 
         }

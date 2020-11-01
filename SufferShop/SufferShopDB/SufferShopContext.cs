@@ -74,6 +74,10 @@ namespace SufferShopDB
             modelBuilder.Entity<Manager>().HasData(SampleData.Managers);
             modelBuilder.Entity<Product>().HasData(SampleData.Products);
 
+            modelBuilder.Entity<InventoryLineItem>().HasData(SampleData.InventoryLineItems);
+            modelBuilder.Entity<OrderLineItem>().HasData(SampleData.OrderLineItems);
+
+
 
             #region Manual Model Relationship Mapping
 

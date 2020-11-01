@@ -17,7 +17,7 @@ namespace SufferShopUI.Menus
         internal Queue<IMenu> MenuChain;
 
         static MenuUtility() { }
-        private MenuUtility() { }
+        private MenuUtility() { MenuChain = new Queue<IMenu>(); }
 
         public static MenuUtility Instance { get { return _instance; } }
 

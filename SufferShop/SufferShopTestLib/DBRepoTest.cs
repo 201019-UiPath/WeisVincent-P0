@@ -14,16 +14,12 @@ namespace SufferShopTest
 
         private DBRepo repo;
 
-        private readonly Customer testCustomer = new Customer()
+        private readonly Customer testCustomer = new Customer("Mister Sample", "sample.email@sample.email", "samplepassword", "Sample Place")
         {
             //Id = -10,
-            Name = "Mister Sample",
-            Email = "sample.email@sample.email",
-            Password = "samplepassword",
-            Address = "Sample Place"
         };
 
-        private readonly List<Customer> testCustomers = SampleData.Customers;
+        //private readonly List<Customer> testCustomers = SampleData.Customers;
 
 
         private void Seed(SufferShopContext testcontext)

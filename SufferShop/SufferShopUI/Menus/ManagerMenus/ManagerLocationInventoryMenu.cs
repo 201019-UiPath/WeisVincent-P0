@@ -5,11 +5,13 @@ namespace SufferShopUI.Menus.ManagerMenus
 {
     internal class ManagerLocationInventoryMenu : Menu, IMenu
     {
-        private Manager currentManager;
+        private Manager CurrentManager;
+        private Location CurrentLocation;
 
         public ManagerLocationInventoryMenu(Manager currentManager, ref IRepository repo) : base(ref repo)
         {
-            this.currentManager = currentManager;
+            CurrentManager = currentManager;
+            CurrentLocation = CurrentManager.Location;
         }
 
         public override void SetStartingMessage()

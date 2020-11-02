@@ -1,4 +1,5 @@
-﻿using SufferShopDB.Models;
+﻿using SufferShopBL;
+using SufferShopDB.Models;
 using SufferShopDB.Repos;
 using System;
 using System.Collections.Generic;
@@ -9,9 +10,11 @@ namespace SufferShopUI.Menus.ManagerMenus
     {
         private InventoryLineItem selectedLineItem;
         private IRepository repo;
+        private LocationService LocationService;
 
-        public ManagerInventoryLineItemQuantitySubMenu(ref InventoryLineItem selectedLineItem, IRepository repo) : base(ref repo)
+        public ManagerInventoryLineItemQuantitySubMenu(ref InventoryLineItem selectedLineItem,ref LocationService locationService,ref IRepository repo) : base(ref repo)
         {
+            LocationService = locationService;
             this.selectedLineItem = selectedLineItem;
             this.repo = repo;
         }
@@ -50,6 +53,11 @@ namespace SufferShopUI.Menus.ManagerMenus
                         selectedQuantityDelta = MenuUtility.Instance.QueryQuantity();
                     }
                     selectedLineItem.ProductQuantity -= selectedQuantityDelta;
+                    if (selectedLineItem.ProductQuantity <= 0)
+                    {
+                        LocationService.RemoveInventoryLineItemInRepo(selectedLineItem);
+                    }
+
                     break;
                 case 3:
                     // No need to queue another menu because the preceding menu will run again.

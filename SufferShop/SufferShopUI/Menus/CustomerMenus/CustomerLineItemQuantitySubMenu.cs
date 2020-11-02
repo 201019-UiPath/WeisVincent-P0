@@ -26,14 +26,14 @@ namespace SufferShopUI.Menus.CustomerMenus
 
         public override void SetStartingMessage()
         {
-            StartMessage = $"You have selected {selectedProduct.Name}, for some great {Enum.GetName(typeof(ProductType), selectedProduct.TypeOfProduct)}. How much would you like?";
+            StartMessage = $"You have selected {selectedProduct.Name}, for some great {Enum.GetName(typeof(ProductType), selectedProduct.TypeOfProduct)} suffering. How much would you like?";
         }
 
         public override void SetUserChoices()
         {
             PossibleOptions = new List<string>(maxQuantity);
 
-            for (int i = 1; i < maxQuantity; i++)
+            for (int i = 1; i <= maxQuantity; i++)
             {
                 if (i == 1)
                 {
@@ -60,7 +60,9 @@ namespace SufferShopUI.Menus.CustomerMenus
                     }
                     catch (IndexOutOfRangeException e)
                     {
+                        Console.WriteLine("You selected a quantity you shouldn't be able to select. I am breaking apart now.");
                         Log.Error(e.Message);
+                        Environment.Exit(0);
                     }
                 }
             }

@@ -15,9 +15,9 @@ namespace SufferShopUI.Menus.ManagerMenus
 
 
 
-        public ManagerSignUpMenu(IRepository repo, ref Manager manager) : base(ref repo)
+        public ManagerSignUpMenu(ref IRepository repo, ref Manager manager) : base(ref repo)
         {
-            locationService = new LocationService(Repo);
+            locationService = new LocationService(ref Repo);
             ManagerPickingALocation = manager;
             PossibleLocations = locationService.GetAllLocations();
         }
@@ -52,7 +52,7 @@ namespace SufferShopUI.Menus.ManagerMenus
 
             // At this point, the Run method should complete, 
             // and the ball SHOULD be thrown back to the SignUpMenu court and continue execution.
-            LoginMenu loginMenu = new LoginMenu(Repo);
+            LoginMenu loginMenu = new LoginMenu(ref Repo);
             MenuUtility.Instance.ReadyNextMenu(loginMenu);
         }
 

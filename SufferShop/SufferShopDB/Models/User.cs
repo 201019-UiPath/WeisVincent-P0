@@ -13,8 +13,6 @@ namespace SufferShopDB.Models
             Password = password;
         }
 
-
-
         [Key]
         public int Id { get; set; }
 

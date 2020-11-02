@@ -14,13 +14,10 @@ namespace SufferShopDB.Repos
         /// <param name="order"></param>
         void AddOrder(Order order);
 
+        void AddOrderAsync(Order order);
 
-        /// <summary>
-        /// This gets the order history of a specific customer, specified by that customer's ID.
-        /// </summary>
-        /// <param name="customerID"></param>
-        /// <returns></returns>
-        Task<List<Order>> GetAllOrdersForCustomerAsync(int customerID);
+
+        
 
 
         /// <summary>

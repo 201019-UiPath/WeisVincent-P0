@@ -42,12 +42,12 @@ namespace SufferShopDB.Repos.DBRepos
 
         public Task<List<Order>> GetAllOrdersForCustomerAsync(int customerId)
         {
-            return context.Orders.Where(o => o.CustomerId == customerId).ToListAsync();
+            return context.Orders.Include("Location").Include("OrderLineItems").Where(o => o.CustomerId == customerId).ToListAsync();
         }
 
         public List<Order> GetAllOrdersForCustomer(int customerId)
         {
-            return context.Orders.Where(o => o.CustomerId == customerId).ToList();
+            return context.Orders.Include("Location").Include("OrderLineItems").Where(o => o.CustomerId == customerId).ToList();
         }
 
         public Task<Customer> GetCustomerByEmailAsync(string email)
@@ -95,7 +95,7 @@ namespace SufferShopDB.Repos.DBRepos
             Task<Manager> managerWithEmail;
             try
             {
-                managerWithEmail = context.Managers.Where(m => m.Email == email).FirstAsync();
+                managerWithEmail = context.Managers.Include("Location").Where(m => m.Email == email).FirstAsync();
             }
             catch (InvalidOperationException e)
             {
@@ -111,7 +111,7 @@ namespace SufferShopDB.Repos.DBRepos
             Manager managerWithEmail;
             try
             {
-                managerWithEmail = context.Managers.Where(m => m.Email == email).First();
+                managerWithEmail = context.Managers.Include("Location").Where(m => m.Email == email).First();
             }
             catch (InvalidOperationException e)
             {
@@ -147,6 +147,16 @@ namespace SufferShopDB.Repos.DBRepos
             return context.Orders.Where(o => o.LocationId == locationID).ToListAsync();
         }
 
+        public List<InventoryLineItem> GetAllInventoryLineItemsAtLocation(int locationID)
+        {
+            return context.InventoryLineItems.Include("Product").Include("Location").Where(ie => ie.LocationId == locationID).ToList();
+        }
+
+        public Task<List<InventoryLineItem>> GetAllInventoryLineItemsAtLocationAsync(int locationID)
+        {
+            return context.InventoryLineItems.Include("Product").Include("Location").Where(ie => ie.LocationId == locationID).ToListAsync();
+        }
+
         #endregion
 
 
@@ -161,27 +171,34 @@ namespace SufferShopDB.Repos.DBRepos
             throw new System.NotImplementedException();
         }
 
-        public List<InventoryLineItem> GetAllInventoryLineItemsAtLocation(int locationID)
+        public void AddInventoryLineItem(InventoryLineItem lineItem)
         {
-            return context.InventoryLineItems.Where(ie => ie.LocationId == locationID).ToList();
+            context.InventoryLineItems.Add(lineItem);
         }
 
-        public Task<List<InventoryLineItem>> GetAllInventoryLineItemsAtLocationAsync(int locationID)
+        public void UpdateInventoryLineItem(InventoryLineItem lineItem)
         {
-            return context.InventoryLineItems.Where(ie => ie.LocationId == locationID).ToListAsync();
+            context.InventoryLineItems.Update(lineItem);
         }
+
+        public void RemoveInventoryLineItem(InventoryLineItem lineItem)
+        {
+            context.InventoryLineItems.Remove(lineItem);
+        }
+
+
         #endregion
 
 
 
         public List<OrderLineItem> GetOrderedProductsInAnOrder(int orderId)
         {
-            return context.OrderLineItems.Where(op => op.OrderId == orderId).ToList();
+            return context.OrderLineItems.Include("Product").Include("Order").Where(op => op.OrderId == orderId).ToList();
         }
 
         public Task<List<OrderLineItem>> GetOrderedProductsInAnOrderAsync(int orderId)
         {
-            return context.OrderLineItems.Where(op => op.OrderId == orderId).ToListAsync();
+            return context.OrderLineItems.Include("Product").Include("Order").Where(op => op.OrderId == orderId).ToListAsync();
         }
 
 
@@ -189,6 +206,10 @@ namespace SufferShopDB.Repos.DBRepos
         #region Order methods
 
         public void AddOrder(Order order)
+        {
+            context.Orders.Add(order);
+        }
+        public void AddOrderAsync(Order order)
         {
             context.Orders.AddAsync(order);
         }
@@ -210,9 +231,15 @@ namespace SufferShopDB.Repos.DBRepos
             context.SaveChanges();
         }
 
-        public void UpdateInventoryLineItem(InventoryLineItem lineItem)
+        public void SetSavePoint()
         {
-            context.InventoryLineItems.Update(lineItem);
+            //TODO: Possible set of savepoint for 
         }
+
+        public void RollbackChanges()
+        {
+            throw new NotImplementedException();
+        }
+        
     }
 }

@@ -28,7 +28,7 @@ namespace SufferShopUI.Menus
 
         public abstract void SetUserChoices();
 
-        public List<string> possibleOptions;
+        protected List<string> possibleOptions;
         public List<string> PossibleOptions
         {
             get
@@ -59,6 +59,7 @@ namespace SufferShopUI.Menus
 
         public void Start()
         {
+            Console.WriteLine();
             MenuUtility.DisplayPossibleChoicesToUser(StartMessage, PossibleOptions);
         }
 

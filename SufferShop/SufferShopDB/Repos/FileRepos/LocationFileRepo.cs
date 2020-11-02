@@ -40,5 +40,20 @@ namespace SufferShopDB.Repos.FileRepos
         {
             throw new NotImplementedException();
         }
+
+        public List<Location> GetAllLocations()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddInventoryLineItem(InventoryLineItem lineItem)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveInventoryLineItem(InventoryLineItem lineItem)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

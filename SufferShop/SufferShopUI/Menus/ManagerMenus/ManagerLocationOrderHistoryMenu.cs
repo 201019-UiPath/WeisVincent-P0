@@ -20,9 +20,9 @@ namespace SufferShopUI.Menus.ManagerMenus
         public ManagerLocationOrderHistoryMenu(Manager currentManager, ref IRepository repo) : base(ref repo)
         {
             this.currentManager = currentManager;
-            managerService = new ManagerService(Repo);
-            LocationService = new LocationService(Repo);
-            ProductService = new ProductService(Repo);
+            managerService = new ManagerService(ref Repo);
+            LocationService = new LocationService(ref Repo);
+            ProductService = new ProductService(ref Repo);
         }
 
         public override void SetStartingMessage()
@@ -46,18 +46,19 @@ namespace SufferShopUI.Menus.ManagerMenus
             List<Order> sortedOrderList = new List<Order>(LocationOrders.Count);
             bool IsSortOrderForward = false;
 
+
             IMenu previousMenu = new ManagerStartMenu(currentManager, Repo);
 
             switch (selectedChoice)
             {
                 case 1:
                     sortedOrderList = LocationOrders.OrderBy(o => o.Subtotal).ToList();
-                    MenuUtility.ProcessSortingByDate(sortedOrderList, ref IsSortOrderForward);
+                    MenuUtility.ProcessSortingByDate(ref sortedOrderList, ref IsSortOrderForward);
 
                     break;
                 case 2:
                     sortedOrderList = LocationOrders.OrderBy(o => o.TimeOrderWasPlaced).ToList();
-                    MenuUtility.ProcessSortingByPrice(sortedOrderList, ref IsSortOrderForward);
+                    MenuUtility.ProcessSortingByPrice(ref sortedOrderList, ref IsSortOrderForward);
                     break;
                 case 3:
                     Console.WriteLine("Going back.");
@@ -73,10 +74,12 @@ namespace SufferShopUI.Menus.ManagerMenus
 
             try
             {
-                MenuUtility.Instance.ShowOrderHistory(sortedOrderList, ProductService, IsSortOrderForward);
+                OrderService orderService = new OrderService(ref Repo);
+                MenuUtility.Instance.ShowOrderHistory(ref sortedOrderList,ref orderService, IsSortOrderForward);
             }
             catch (NullReferenceException e)
             {
+                Console.WriteLine("No orders were found for this location. Cry about it, I suppose.");
                 Log.Error(e.Message);
             }
 

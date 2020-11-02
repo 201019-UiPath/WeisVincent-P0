@@ -33,7 +33,7 @@ namespace SufferShopUI
 
             SufferShopContext context = new SufferShopContext();
             IRepository repo = new DBRepo(context);
-            IMenu startMenu = new StartMenu(repo);
+            IMenu startMenu = new StartMenu(ref repo);
 
             MenuUtility.Instance.ReadyNextMenu(startMenu);
             MenuUtility.Instance.RunThroughMenuChain();

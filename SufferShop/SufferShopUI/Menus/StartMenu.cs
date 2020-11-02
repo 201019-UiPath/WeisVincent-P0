@@ -15,10 +15,10 @@ namespace SufferShopUI.Menus
         private readonly IMenu signupMenu;
         private readonly IMenu loginMenu;
 
-        public StartMenu(IRepository repo) : base(ref repo)
+        public StartMenu(ref IRepository repo) : base(ref repo)
         {
-            signupMenu = new SignUpMenu(Repo);
-            loginMenu = new LoginMenu(Repo);
+            signupMenu = new SignUpMenu(ref Repo);
+            loginMenu = new LoginMenu(ref Repo);
         }
 
 

@@ -2,6 +2,7 @@
 using SufferShopDB.Repos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Xunit.Sdk;
 
 namespace SufferShopBL
 {
@@ -9,7 +10,7 @@ namespace SufferShopBL
     {
         readonly IRepository repo;
 
-        public CustomerService(IRepository repo)
+        public CustomerService(ref IRepository repo)
         {
             this.repo = repo;
         }
@@ -23,8 +24,18 @@ namespace SufferShopBL
 
         public void AddCustomerToRepo(Customer newCustomer)
         {
-            repo.AddCustomer(newCustomer);
-            repo.SaveChanges();
+            Customer possibleExistingCustomer = repo.GetCustomerByEmail(newCustomer.Email);
+            if (possibleExistingCustomer == null)
+            {
+                repo.AddCustomer(newCustomer);
+                repo.SaveChanges();
+            }
+            else
+            {
+                throw new NullException(possibleExistingCustomer);
+            }
+
+            
         }
 
         public Customer GetCustomerByEmail(string newEmail)
@@ -32,9 +43,16 @@ namespace SufferShopBL
             return repo.GetCustomerByEmail(newEmail);
         }
 
+
+        public List<Order> GetAllOrdersForCustomer(Customer customer)
+        {
+            return repo.GetAllOrdersForCustomer(customer.Id);
+        }
+
         public List<Order> GetAllOrdersForCustomerAsync(Customer customer)
         {
-            return repo.GetAllOrdersForCustomerAsync(customer.Id).Result;
+            Task<List<Order>> getOrders = repo.GetAllOrdersForCustomerAsync(customer.Id);
+            return getOrders.Result;
         }
 
     }

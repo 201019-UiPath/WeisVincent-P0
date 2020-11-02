@@ -6,13 +6,13 @@ using Xunit.Sdk;
 
 namespace SufferShopUI.Menus.CustomerMenus
 {
-    internal class CustomerOrderEditorMenu : Menu, IMenu
+    internal class CustomerOrderEditorSubMenu : Menu, IMenu
     {
 
-        private OrderService orderService;
-        public CustomerOrderEditorMenu(ref OrderService orderService, IRepository repo) : base(ref repo)
+        private OrderBuilder OrderBuilder;
+        public CustomerOrderEditorSubMenu(ref OrderBuilder orderBuilder, ref IRepository repo) : base(ref repo)
         {
-            this.orderService = orderService;
+            this.OrderBuilder = orderBuilder;
         }
 
         public override void SetStartingMessage()
@@ -22,9 +22,9 @@ namespace SufferShopUI.Menus.CustomerMenus
 
         public override void SetUserChoices()
         {
-            PossibleOptions = new List<string>(orderService.OrderCart.Count);
+            PossibleOptions = new List<string>(OrderBuilder.OrderCart.Count);
             // Add the line items of the current order as options to edit.
-            PossibleOptions.AddRange(orderService.GetOrderCartAsStrings());
+            PossibleOptions.AddRange(OrderBuilder.GetOrderCartAsStrings());
             PossibleOptions.Add("Use this option to submit your order.");
         }
 
@@ -41,7 +41,7 @@ namespace SufferShopUI.Menus.CustomerMenus
                 {
                     if (selectedChoice == PossibleOptions.Count)
                     {
-                        orderService.BuildAndSubmitOrder();
+                        OrderBuilder.BuildAndSubmitOrder();
                         Console.WriteLine("Your order should be sent off now! We don't need any more of your business, we hate money, bye!");
                         Environment.Exit(0);// TODO: How does the program end for a Customer?
                         break;
@@ -50,7 +50,7 @@ namespace SufferShopUI.Menus.CustomerMenus
                     if (selectedChoice == i)
                     {
                         // Destage the Line Item the user selected and return to the previous menu.
-                        orderService.DestageLineItem(i - 1);
+                        OrderBuilder.DestageLineItem(i - 1);
                         return;
                     }
 
@@ -59,10 +59,10 @@ namespace SufferShopUI.Menus.CustomerMenus
         }
 
 
-        public OrderService RunAndReturn()
+        public OrderBuilder RunAndReturn()
         {
             Run();
-            return orderService;
+            return OrderBuilder;
         }
 
 

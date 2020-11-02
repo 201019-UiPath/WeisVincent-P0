@@ -14,11 +14,11 @@ namespace SufferShopUI.Menus.CustomerMenus
 
         LocationService LocationService;
         private List<Location> AllLocations;
-        public CustomerLocationSelectionMenu(Customer currentCustomer, IRepository repo) : base(ref repo)
+        public CustomerLocationSelectionMenu(Customer currentCustomer, ref IRepository repo) : base(ref repo)
         {
             CurrentCustomer = currentCustomer;
 
-            LocationService = new LocationService(Repo);
+            LocationService = new LocationService(ref Repo);
             AllLocations = LocationService.GetAllLocations();
         }
 
@@ -47,7 +47,7 @@ namespace SufferShopUI.Menus.CustomerMenus
                 if (selectedChoice == PossibleOptions.Count)
                 {
                     Console.WriteLine("Going back, ZOOM");
-                    nextMenu = new CustomerStartMenu(CurrentCustomer, Repo);
+                    nextMenu = new CustomerStartMenu(CurrentCustomer, ref Repo);
                     break;
                 }
 
@@ -56,7 +56,7 @@ namespace SufferShopUI.Menus.CustomerMenus
                     try
                     {
                         selectedLocation = AllLocations[i - 1];
-                        nextMenu = new CustomerOrderMenu(CurrentCustomer, selectedLocation, Repo, LocationService);
+                        nextMenu = new CustomerOrderMenu(ref CurrentCustomer,ref selectedLocation,ref Repo);
                     }
                     catch (IndexOutOfRangeException e)
                     {

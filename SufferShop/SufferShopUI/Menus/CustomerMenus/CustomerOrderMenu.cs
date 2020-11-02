@@ -12,13 +12,16 @@ namespace SufferShopUI.Menus.CustomerMenus
 
         private Customer CurrentCustomer;
 
-        private OrderService OrderService;
+        private OrderBuilder OrderBuilder;
 
-        public CustomerOrderMenu(Customer currentCustomer, Location selectedLocation, IRepository repo, LocationService locationService) : base(ref repo)
+        private bool CartHasItems;
+
+        public CustomerOrderMenu(ref Customer currentCustomer,ref Location selectedLocation,ref IRepository repo) : base(ref repo)
         {
             CurrentCustomer = currentCustomer;
+            CartHasItems = false;
 
-            OrderService = new OrderService(CurrentCustomer, locationService, selectedLocation, Repo);
+            OrderBuilder = new OrderBuilder(ref CurrentCustomer, ref selectedLocation,ref Repo);
         }
 
 
@@ -26,25 +29,31 @@ namespace SufferShopUI.Menus.CustomerMenus
 
         public override void SetStartingMessage()
         {
+            if (OrderBuilder.OrderCart.Count > 0)
+            {
+                CartHasItems = true;
+            };
             StartMessage = "Select a product available at this location to order.";
         }
 
         public override void SetUserChoices()
         {
-            PossibleOptions = new List<string>(OrderService.SelectedLocationStock.Count);
-            foreach (InventoryLineItem entry in OrderService.SelectedLocationStock)
+            PossibleOptions = new List<string>(OrderBuilder.SelectedLocationStock.Count);
+            foreach (InventoryLineItem entry in OrderBuilder.SelectedLocationStock)
             {
                 Product product = entry.Product;
                 int productQuantity = entry.ProductQuantity;
                 string productType = Enum.GetName(typeof(ProductType), product.TypeOfProduct);
 
-                PossibleOptions.Add($"{product.Name}: {product.Description} Part of our {productType} collection.");
+                PossibleOptions.Add($"{product.Name}: {product.Description} Part of our {productType} collection. Quantity: {productQuantity}");
             }
-            PossibleOptions.Add("Use this option to go back, cancelling your order.");
-            if (OrderService.OrderCart.Count! < 1)
+
+            if (CartHasItems)
             {
                 PossibleOptions.Add("Use this option to view and edit your order.");
             };
+            PossibleOptions.Add("Use this option to go back, cancelling your order.");
+            
         }
 
         public override void ExecuteUserChoice()
@@ -53,43 +62,34 @@ namespace SufferShopUI.Menus.CustomerMenus
 
             for (int i = 1; i < PossibleOptions.Count; i++)
             {
-                if (OrderService.OrderCart.Count! < 1)
+                if (CartHasItems)
                 {
-                    if (selectedChoice == PossibleOptions.Count)
-                    {
-                        GoBackToCustomerMenu();
-                        break;
-                    }
-                }
-                else
-                {
-                    if (selectedChoice == PossibleOptions.Count)
+                    if(selectedChoice == PossibleOptions.Count - 1)
                     {
                         EditOrder();
                         break;
                     }
-
-                    if (selectedChoice == PossibleOptions.Count - 1)
-                    {
-                        GoBackToCustomerMenu();
-                        break;
-                    }
+                }
+                if (selectedChoice == PossibleOptions.Count)
+                {
+                    GoBackToCustomerMenu();
+                    break;
                 }
 
                 if (selectedChoice == i)
                 {
                     try
                     {
-                        selectedLineItem = OrderService.SelectedLocationStock[i - 1];
+                        selectedLineItem = OrderBuilder.SelectedLocationStock[i - 1];
 
                         if (selectedLineItem.ProductQuantity > 1)
                         {
                             int selectedQuantity = new CustomerLineItemQuantitySubMenu(selectedLineItem, Repo).RunAndReturn();
-                            OrderService.StageProductForOrder(selectedLineItem, selectedQuantity);
+                            OrderBuilder.StageProductForOrder(selectedLineItem, selectedQuantity);
                         }
                         else
                         {
-                            OrderService.StageProductForOrder(selectedLineItem);
+                            OrderBuilder.StageProductForOrder(selectedLineItem);
                         }
 
                         // Reset this menu with the updated data.
@@ -107,22 +107,21 @@ namespace SufferShopUI.Menus.CustomerMenus
 
         private void EditOrder()
         {
-            CustomerOrderEditorMenu OrderEditor = new CustomerOrderEditorMenu(ref OrderService, Repo);
+            CustomerOrderEditorSubMenu OrderEditor = new CustomerOrderEditorSubMenu(ref OrderBuilder, ref Repo);
             OrderEditor.Run();
             RunAgain();
         }
 
         private void RunAgain()
         {
-            Console.WriteLine("Want to add more suffering to your cart?");
+            Console.WriteLine("\nWant to add more suffering to your cart?");
             Run();
         }
 
         public void GoBackToCustomerMenu()
         {
-            IMenu nextMenu = null;
+            IMenu nextMenu = new CustomerStartMenu(CurrentCustomer, ref Repo);
             Console.WriteLine("Going back, ZOOM");
-            nextMenu = new CustomerStartMenu(CurrentCustomer, Repo);
             MenuUtility.Instance.ReadyNextMenu(nextMenu);
         }
 

@@ -20,6 +20,11 @@ namespace SufferShopDB.Repos.FileRepos
             throw new NotImplementedException();
         }
 
+        public List<OrderLineItem> GetOrderedProductsInAnOrder(int orderId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<List<OrderLineItem>> GetOrderedProductsInAnOrderAsync(int orderId)
         {
             throw new NotImplementedException();

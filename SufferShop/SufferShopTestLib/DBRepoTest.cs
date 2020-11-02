@@ -77,7 +77,7 @@ namespace SufferShopTest
         public void GetManagerByEmailShouldGetManager()
         {
             //Arrange
-            var options = new DbContextOptionsBuilder<SufferShopContext>().UseInMemoryDatabase("GetManagerByEmailShouldGetManager").Options;
+            var options = new DbContextOptionsBuilder<SufferShopContext>()    .EnableSensitiveDataLogging()   .UseInMemoryDatabase("GetManagerByEmailShouldGetManager").Options;
             using var testContext = new SufferShopContext(options);
             repo = new DBRepo(testContext);
 
@@ -102,11 +102,11 @@ namespace SufferShopTest
             using var testContext = new SufferShopContext(options);
             testContext.InventoryLineItems.AddRange(SampleData.GetSampleInventoryLineItems());
             testContext.Locations.AddRange(SampleData.GetSampleLocations());
+            testContext.SaveChanges();
             repo = new DBRepo(testContext);
 
-            
-
-            InventoryLineItem sampleLineItem = repo.GetAllInventoryLineItemsAtLocation(-1).First();
+            int sampleLocationId = repo.GetAllLocations().First().Id;
+            InventoryLineItem sampleLineItem = repo.GetAllInventoryLineItemsAtLocation(sampleLocationId).First();
             int startingQuantity = sampleLineItem.ProductQuantity;
             sampleLineItem.ProductQuantity += 1;
             //Act
@@ -115,7 +115,7 @@ namespace SufferShopTest
 
             //Assert
             using var assertContext = new SufferShopContext(options);
-            Assert.NotEqual(startingQuantity, repo.GetAllInventoryLineItemsAtLocation(-1).ElementAt(0).ProductQuantity);
+            Assert.NotEqual(startingQuantity, sampleLineItem.ProductQuantity);
         }
 
     }

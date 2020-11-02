@@ -12,7 +12,7 @@ namespace SufferShopUI.Menus
     {
         internal readonly StartService startService;
 
-        public LoginMenu(IRepository repo) : base(ref repo)
+        public LoginMenu(ref IRepository repo) : base(ref repo)
         {
             startService = new StartService(ref Repo);
         }
@@ -58,7 +58,7 @@ namespace SufferShopUI.Menus
 
         public void LoginAsCustomer()
         {
-            CustomerService customerService = new CustomerService(Repo);
+            CustomerService customerService = new CustomerService(ref Repo);
             Customer userLoggingIn;
 
 
@@ -70,7 +70,7 @@ namespace SufferShopUI.Menus
             if (userLoggingIn is null)
             {
                 Console.WriteLine("Couldn't find a customer matching that email. You can try again if you want, that'll be fun.");
-                LoginMenu loginMenuButAgain = new LoginMenu(Repo);
+                LoginMenu loginMenuButAgain = new LoginMenu(ref Repo);
                 MenuUtility.Instance.ReadyNextMenu(loginMenuButAgain);
             }
             else if (userLoggingIn is Customer)
@@ -79,19 +79,20 @@ namespace SufferShopUI.Menus
                 userInputPassword = MenuUtility.QueryPassword();
                 while (userInputPassword != userLoggingIn.Password)
                 {
+                    Console.WriteLine("Wrong password. You can try again, though. Why not?");
                     userInputPassword = MenuUtility.QueryPassword();
                 }
             }
 
 
             // TODO: Move to Customer menu.
-            CustomerStartMenu customerMenu = new CustomerStartMenu(userLoggingIn, Repo);
+            CustomerStartMenu customerMenu = new CustomerStartMenu(userLoggingIn, ref Repo);
             MenuUtility.Instance.ReadyNextMenu(customerMenu);
         }
 
         public void LoginAsManager()
         {
-            ManagerService managerService = new ManagerService(Repo);
+            ManagerService managerService = new ManagerService(ref Repo);
 
             Manager managerLoggingIn;
 
@@ -105,7 +106,7 @@ namespace SufferShopUI.Menus
             if (managerLoggingIn is null)
             {
                 Console.WriteLine("Couldn't find a manager matching that email. You can try again if you want, that'll be fun.");
-                LoginMenu loginMenuButAgain = new LoginMenu(Repo);
+                LoginMenu loginMenuButAgain = new LoginMenu(ref Repo);
                 MenuUtility.Instance.ReadyNextMenu(loginMenuButAgain);
             }
             else if (managerLoggingIn is Manager)
@@ -142,7 +143,7 @@ namespace SufferShopUI.Menus
             if (userLoggingIn is null)
             {
                 Console.WriteLine("Couldn't find a user matching that email. You can try again if you want, that'll be fun.");
-                LoginMenu loginMenuButAgain = new LoginMenu(Repo);
+                LoginMenu loginMenuButAgain = new LoginMenu(ref Repo);
                 MenuUtility.Instance.ReadyNextMenu(loginMenuButAgain);
             }
             else if (userLoggingIn is Customer || userLoggingIn is Manager)

@@ -17,8 +17,8 @@ namespace SufferShopBL
         public StartService(ref IRepository repo)
         {
             Repo = repo;
-            customerService = new CustomerService(Repo);
-            managerService = new ManagerService(Repo);
+            customerService = new CustomerService(ref Repo);
+            managerService = new ManagerService(ref Repo);
         }
 
         public static bool ValidateNameInput(string name)

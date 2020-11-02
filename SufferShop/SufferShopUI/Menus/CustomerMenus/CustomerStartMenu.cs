@@ -12,7 +12,7 @@ namespace SufferShopUI.Menus.CustomerMenus
         private readonly Customer CurrentCustomer;
 
         private IMenu NextMenu;
-        public CustomerStartMenu(Customer customer, IRepository repo) : base(ref repo)
+        public CustomerStartMenu(Customer customer, ref IRepository repo) : base(ref repo)
         {
             CurrentCustomer = customer;
         }
@@ -37,10 +37,10 @@ namespace SufferShopUI.Menus.CustomerMenus
             switch (selectedChoice)
             {
                 case 1:
-                    NextMenu = new CustomerOrderHistoryMenu(CurrentCustomer, Repo);
+                    NextMenu = new CustomerOrderHistoryMenu(CurrentCustomer, ref Repo);
                     break;
                 case 2:
-                    NextMenu = new CustomerLocationSelectionMenu(CurrentCustomer, Repo);
+                    NextMenu = new CustomerLocationSelectionMenu(CurrentCustomer, ref Repo);
                     break;
                 case 3:
                     Console.WriteLine("Enjoy your suffering!");

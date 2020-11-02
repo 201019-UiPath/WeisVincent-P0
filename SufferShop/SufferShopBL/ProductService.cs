@@ -9,7 +9,7 @@ namespace SufferShopBL
     {
         readonly IRepository repo;
 
-        public ProductService(IRepository repo)
+        public ProductService(ref IRepository repo)
         {
             this.repo = repo;
         }
@@ -22,6 +22,11 @@ namespace SufferShopBL
         public List<InventoryLineItem> GetAllProductsAtLocation(Location location)
         {
             return repo.GetAllInventoryLineItemsAtLocationAsync(location.Id).Result;
+        }
+
+        public List<OrderLineItem> GetAllProductsInOrder(Order order)
+        {
+            return repo.GetOrderedProductsInAnOrder(order.Id);
         }
 
         public Task<List<OrderLineItem>> GetAllProductsInOrderAsync(Order order)

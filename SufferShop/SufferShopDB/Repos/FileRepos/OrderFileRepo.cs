@@ -41,6 +41,9 @@ namespace SufferShopDB.Repos.FileRepos
             throw new NotImplementedException();
         }
 
-        
+        public void AddOrderAsync(Order order)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

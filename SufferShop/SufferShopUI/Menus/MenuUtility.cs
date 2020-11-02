@@ -142,7 +142,7 @@ namespace SufferShopUI.Menus
         internal static int ProcessUserInputAgainstPossibleChoices(List<string> possibleOptions)
         {
             IInputCondition condition;
-            if (possibleOptions.Count < 10)
+            if (possibleOptions.Count <= 9)
             {
                 condition = new IsOneDigitCondition();
             }
@@ -172,8 +172,9 @@ namespace SufferShopUI.Menus
                 else
                 {
                     userInputIsInRange = true;
+                    return userChoice;
                 }
-                return userChoice;
+                
             } while (!userInputIsInRange);
             throw new Exception("User input was processed incorrectly, validated a false input.");
         }
@@ -214,21 +215,50 @@ namespace SufferShopUI.Menus
 
 
         #region Order History methods
-        internal void ShowOrderHistory(List<Order> ordersToBeShown, ProductService productService, bool isIteratedForward)
+        internal void ShowOrderHistory(ref List<Order> ordersToBeShown,ref OrderService orderService, bool isIteratedForward)
         {
             if (!isIteratedForward)
             {
                 ordersToBeShown.Reverse();
             }
-            foreach (Order order in ordersToBeShown)
+            for (int i = 0;i < ordersToBeShown.Count; i++)
             {
-                DisplayOrderInformation(order, productService);
+                DisplayOrderInformation( ordersToBeShown[i] , ref orderService);
+                if (ordersToBeShown[i] == null)
+                {
+                    Console.WriteLine("okay then, thanks order");
+                    Environment.Exit(0);
+                }
             }
         }
 
-        private async void DisplayOrderInformation(Order order, ProductService productService)
+
+        private void DisplayOrderInformation(Order order,ref OrderService orderService)
         {
-            List<OrderLineItem> OrderedProductsInOrder = await productService.GetAllProductsInOrderAsync(order);
+            List<OrderLineItem> OrderedProductsInOrder = orderService.GetAllProductsInOrder(order);
+
+            DateTime orderTime = DateTimeUtility.GetDateTimeFromUnixEpochAsDouble(order.TimeOrderWasPlaced);
+            if (OrderedProductsInOrder == null)
+            {
+                Console.WriteLine("okay then, thanks time");
+                Environment.Exit(0);
+            }
+
+            StringBuilder orderString = new StringBuilder(
+                $"#{order.Id} at {order.Location.Name} on {orderTime.ToShortDateString()}\n_________________\n    Subtotal: ${order.Subtotal}\n    Products in Order: \n"
+                );
+            foreach (OrderLineItem orderedProduct in OrderedProductsInOrder)
+            {
+                orderString.Append($"      {orderedProduct.ProductQuantity} of {orderedProduct.Product.Name} \n");
+            }
+            string resultingString = orderString.ToString();
+
+            Console.WriteLine(resultingString);
+        }
+
+        private async void DisplayOrderInformationAsync(Order order, OrderService orderService)
+        {
+            List<OrderLineItem> OrderedProductsInOrder = await orderService.GetAllProductsInOrderAsync(order);
 
             DateTime orderTime = DateTimeUtility.GetDateTimeFromUnixEpochAsDouble(order.TimeOrderWasPlaced);
 
@@ -243,7 +273,7 @@ namespace SufferShopUI.Menus
             Console.WriteLine(resultingString);
         }
 
-        public static void ProcessSortingByDate(List<Order> ordersToSort, ref bool sortOrder)
+        public static void ProcessSortingByDate(ref List<Order> ordersToSort, ref bool sortOrder)
         {
             
             string sortStartMessage = "Would you like the results sorted oldest to latest or latest to oldest?";
@@ -266,7 +296,7 @@ namespace SufferShopUI.Menus
             }
         }
 
-        public static void ProcessSortingByPrice(List<Order> ordersToSort, ref bool sortOrder)
+        public static void ProcessSortingByPrice(ref List<Order> ordersToSort, ref bool sortOrder)
         {
             
             string sortStartMessage = "You've chosen to sort orders by subtotal. Sort from lowest to highest subtotal, or highest to lowest subtotal?";

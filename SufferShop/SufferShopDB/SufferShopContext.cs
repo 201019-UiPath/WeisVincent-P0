@@ -14,19 +14,14 @@ namespace SufferShopDB
 
         }
 
-        public SufferShopContext()
-        {
-
-        }
+        public SufferShopContext() { }
 
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<Manager> Managers { get; set; }
         public DbSet<Location> Locations { get; set; }
-
+        public DbSet<Manager> Managers { get; set; }
         public DbSet<InventoryLineItem> InventoryLineItems { get; set; }
-
         public DbSet<OrderLineItem> OrderLineItems { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -63,6 +58,7 @@ namespace SufferShopDB
             modelBuilder.Entity<OrderLineItem>().HasData(SampleData.GetSampleOrderLineItems());
             #endregion
 
+            
 
             modelBuilder.Entity<Customer>().HasKey("Id");
             modelBuilder.Entity<Location>().HasKey("Id");
@@ -77,14 +73,19 @@ namespace SufferShopDB
                 .Property(p => p.TypeOfProduct)
                 .HasConversion<int>();
 
+            
 
-
-            // Location - Manager One to One Relationship
+            // Location - Manager One to Many Relationship
             modelBuilder.Entity<Manager>()
                 .HasOne(m => m.Location)
-                .WithMany(m => m.Managers)
+                .WithMany(l => l.Managers)
+                .HasForeignKey(m => m.LocationId);
+
+            modelBuilder.Entity<Location>()
+                .HasMany(l => l.Managers)
+                .WithOne(m => m.Location)
                 .HasForeignKey(l => l.LocationId);
-            
+
             // Customer - Order One to Many Relationship
             modelBuilder.Entity<Order>()
                 .HasOne(o => o.Customer)

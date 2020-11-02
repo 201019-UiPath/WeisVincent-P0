@@ -19,7 +19,7 @@ namespace SufferShopUI.Menus.ManagerMenus
         {
             CurrentManager = currentManager;
             CurrentLocation = CurrentManager.Location;
-            LocationService = new LocationService(Repo);
+            LocationService = new LocationService(ref Repo);
             
         }
 
@@ -36,8 +36,16 @@ namespace SufferShopUI.Menus.ManagerMenus
 
         public override void SetUserChoices()
         {
-            PossibleOptions = new List<string>(LocationStock.Count);
-            // Add the line items of the current order as options to edit.
+            try
+            {
+                PossibleOptions = new List<string>(LocationStock.Count);
+            } catch (ArgumentOutOfRangeException e)
+            {
+                Console.WriteLine("Your location's stock is completely empty. A manual database change is required.\nTaking you back to the start menu..");
+                Log.Information($"This Manager's location's stock is empty. {e.Message}");
+                GoBackToManagerStartMenu();
+            }
+            // Add the line items of the current location as options to edit.
             PossibleOptions.AddRange(LocationService.GetInventoryStockAsStrings(LocationStock));
             PossibleOptions.Add("Use this option to go back.");
         }
@@ -63,7 +71,7 @@ namespace SufferShopUI.Menus.ManagerMenus
                         if (selectedLineItem.ProductQuantity > 0)
                         {
                             // TODO: Add menus for manager to add or remove this inventory item
-                            new ManagerInventoryLineItemQuantitySubMenu(ref selectedLineItem, Repo).Run();
+                            new ManagerInventoryLineItemQuantitySubMenu(ref selectedLineItem, ref LocationService,ref Repo).Run();
                             LocationService.UpdateInventoryLineItemInRepo(selectedLineItem);
                         }
                         else

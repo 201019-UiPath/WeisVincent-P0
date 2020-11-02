@@ -10,12 +10,17 @@ namespace SufferShopBL
     {
         readonly IRepository repo;
 
-        public LocationService(IRepository repo)
+        public LocationService(ref IRepository repo)
         {
             this.repo = repo;
         }
 
         public List<Location> GetAllLocations()
+        {
+            return repo.GetAllLocations();
+        }
+
+        public List<Location> GetAllLocationsAsync()
         {
             Task<List<Location>> getLocations = repo.GetAllLocationsAsync();
             return getLocations.Result;
@@ -36,10 +41,30 @@ namespace SufferShopBL
             return repo.GetAllOrdersForLocation(location.Id);
         }
 
+        public void AddInventoryLineItemInRepo(InventoryLineItem lineItem)
+        {
+            repo.AddInventoryLineItem(lineItem);
+            repo.SaveChanges();
+        }
+
+        public void UpdateInventoryLineItemInRepo(InventoryLineItem lineItem)
+        {
+            repo.UpdateInventoryLineItem(lineItem);
+            repo.SaveChanges();
+        }
+
+        public void RemoveInventoryLineItemInRepo(InventoryLineItem lineItem)
+        {
+            repo.RemoveInventoryLineItem(lineItem);
+            repo.SaveChanges();
+        }
+
+
+
         public List<string> GetInventoryStockAsStrings(List<InventoryLineItem> inventoryStock)
         {
             List<string> inventoryStockAsStrings = new List<string>(inventoryStock.Count);
-            if (inventoryStock.Count < 1)
+            if (inventoryStock.Count < 1 || inventoryStock == null)
             {
                 return inventoryStockAsStrings;
             }
@@ -53,10 +78,5 @@ namespace SufferShopBL
             return inventoryStockAsStrings;
         }
 
-        public void UpdateInventoryLineItemInRepo(InventoryLineItem lineItem)
-        {
-            repo.UpdateInventoryLineItem(lineItem);
-            repo.SaveChanges();
-        }
     }
 }

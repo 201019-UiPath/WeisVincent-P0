@@ -7,8 +7,8 @@ namespace SufferShopBL
 {
     public class ManagerService
     {
-        readonly IManagerRepo repo;
-        public ManagerService(IManagerRepo repo)
+        readonly IRepository repo;
+        public ManagerService(ref IRepository repo)
         {
             this.repo = repo;
         }

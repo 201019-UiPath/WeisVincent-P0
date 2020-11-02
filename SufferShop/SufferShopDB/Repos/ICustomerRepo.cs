@@ -33,5 +33,21 @@ namespace SufferShopDB.Repos
         Task<Customer> GetCustomerByEmailAsync(string email);
 
         Customer GetCustomerByEmail(string email);
+
+
+
+        /// <summary>
+        /// This gets the order history of a specific customer, specified by that customer's ID.
+        /// </summary>
+        /// <param name="customerID"></param>
+        /// <returns></returns>
+        List<Order> GetAllOrdersForCustomer(int customerId);
+
+        /// <summary>
+        /// This gets the order history of a specific customer, specified by that customer's ID, asynchronously.
+        /// </summary>
+        /// <param name="customerID"></param>
+        /// <returns></returns>
+        Task<List<Order>> GetAllOrdersForCustomerAsync(int customerID);
     }
 }

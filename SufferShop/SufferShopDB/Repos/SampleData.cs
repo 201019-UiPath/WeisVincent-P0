@@ -37,7 +37,7 @@ namespace SufferShopDB.Repos
                 {
                     Id = 2
                 },
-                new Product("Spider Infestation", 12.00, ProductType.Metaphysical,"Become Spiders-Man, and become a hive mind of spiders.")
+                new Product("Spider Infestation", 12.00, ProductType.Metaphysical, "Become Spiders-Man, and become a hive mind of spiders.")
                 {
                     Id = 3
                 }
@@ -98,9 +98,9 @@ namespace SufferShopDB.Repos
             List<Location> sampleLocations = GetSampleLocations();
             return new List<Order>()
             {
-                new Order(sampleCustomers[0].Id, sampleLocations[0].Id, sampleCustomers[0].Address, /*new List<OrderLineItem>() { OrderLineItems[0],OrderLineItems[1] },*/ 23, ReturnSampleTimeForOrder()) { Id = -1 },
-                new Order(sampleCustomers[1].Id, sampleLocations[1].Id, sampleCustomers[1].Address, /*new List<OrderLineItem>() { OrderLineItems[2],OrderLineItems[3] },*/ 18, ReturnSampleTimeForOrder()) { Id = -2 },
-                new Order(sampleCustomers[0].Id, sampleLocations[1].Id, sampleCustomers[0].Address, /*new List<OrderLineItem>() { OrderLineItems[4] },*/ 7, ReturnSampleTimeForOrder()) { Id = -3 },
+                new Order(sampleCustomers[0].Id, sampleLocations[0].Id, sampleCustomers[0].Address, /*new List<OrderLineItem>() { OrderLineItems[0],OrderLineItems[1] },*/ 23, 1602313200.0) { Id = -1 },
+                new Order(sampleCustomers[1].Id, sampleLocations[1].Id, sampleCustomers[1].Address, /*new List<OrderLineItem>() { OrderLineItems[2],OrderLineItems[3] },*/ 18, 1602658800.0) { Id = -2 },
+                new Order(sampleCustomers[0].Id, sampleLocations[1].Id, sampleCustomers[0].Address, /*new List<OrderLineItem>() { OrderLineItems[4] },*/ 7, 1602226800.0) { Id = -3 },
                 //TODO: Populate sample Orders
             };
         }

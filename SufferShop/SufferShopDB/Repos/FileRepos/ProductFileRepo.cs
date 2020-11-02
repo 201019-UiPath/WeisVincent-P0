@@ -15,12 +15,12 @@ namespace SufferShopDB.Repos.FileRepos
             throw new NotImplementedException();
         }
 
-        public Task<List<InventoryLineItem>> GetAllProductsAtLocation(int locationID)
+        public Task<List<InventoryLineItem>> GetAllInventoryEntriesAtLocationAsync(int locationID)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<OrderLineItem>> GetOrderedProductsInAnOrder(int orderId)
+        public Task<List<OrderLineItem>> GetOrderedProductsInAnOrderAsync(int orderId)
         {
             throw new NotImplementedException();
         }

@@ -43,7 +43,7 @@ namespace SufferShopUI.Menus.CustomerMenus
 
         public override void ExecuteUserChoice()
         {
-            CustomerOrders = CustomerService.GetAllOrdersForCustomer(CurrentCustomer);
+            CustomerOrders = CustomerService.GetAllOrdersForCustomerAsync(CurrentCustomer);
 
             List<Order> sortedOrderList = new List<Order>(CustomerOrders.Count);
             bool IsSortOrderForward = false;

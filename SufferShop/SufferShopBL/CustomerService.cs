@@ -7,34 +7,34 @@ namespace SufferShopBL
 {
     public class CustomerService
     {
-        readonly ICustomerRepo repo;
+        readonly IRepository repo;
 
-        public CustomerService(ICustomerRepo repo)
+        public CustomerService(IRepository repo)
         {
             this.repo = repo;
         }
 
         public List<Customer> GetAllCustomers()
         {
-            Task<List<Customer>> getCustomers = repo.GetAllCustomersAsync();
+            List<Customer> getCustomers = repo.GetAllCustomers();
 
-            return getCustomers.Result;
-
+            return getCustomers;
         }
 
-        public void AddCustomer(Customer newCustomer)
+        public void AddCustomerToRepo(Customer newCustomer)
         {
-            repo.AddCustomerAsync(newCustomer);
+            repo.AddCustomer(newCustomer);
+            repo.SaveChanges();
         }
 
         public Customer GetCustomerByEmail(string newEmail)
         {
-            return repo.GetCustomerByEmailAsync(newEmail).Result;
+            return repo.GetCustomerByEmail(newEmail);
         }
 
-        public List<Order> GetAllOrdersForCustomer(Customer customer)
+        public List<Order> GetAllOrdersForCustomerAsync(Customer customer)
         {
-            return repo.GetAllOrdersForCustomer(customer.Id).Result;
+            return repo.GetAllOrdersForCustomerAsync(customer.Id).Result;
         }
 
     }

@@ -65,27 +65,19 @@ namespace SufferShopDB
 
 
             modelBuilder.Entity<Customer>().HasKey("Id");
-
             modelBuilder.Entity<Location>().HasKey("Id");
-
             modelBuilder.Entity<Manager>().HasKey("Id");
-
             modelBuilder.Entity<Order>().HasKey("Id");
-
             modelBuilder.Entity<Product>().HasKey("Id");
-
-            
-
-
-
-
-            
-
-
 
             #region Manual Model Relationship Mapping
 
-            
+
+            modelBuilder.Entity<Product>()
+                .Property(p => p.TypeOfProduct)
+                .HasConversion<int>();
+
+
 
             // Location - Manager One to One Relationship
             modelBuilder.Entity<Manager>()

@@ -15,20 +15,20 @@ namespace SufferShopBL
 
         public List<Manager> GetAllManagers()
         {
-            Task<List<Manager>> getManagers = repo.GetAllManagersAsync();
+            List<Manager> getManagers = repo.GetAllManagers();
 
-            return getManagers.Result;
+            return getManagers;
 
         }
 
         public void AddManager(Manager newManager)
         {
-            repo.AddManagerAsync(newManager);
+            repo.AddManager(newManager);
         }
 
         public Manager GetManagerByEmail(string newEmail)
         {
-            return repo.GetManagerByEmailAsync(newEmail).Result;
+            return repo.GetManagerByEmail(newEmail);
         }
 
 

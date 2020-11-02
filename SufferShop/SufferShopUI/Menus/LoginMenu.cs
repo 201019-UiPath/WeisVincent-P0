@@ -14,7 +14,7 @@ namespace SufferShopUI.Menus
 
         public LoginMenu(IRepository repo) : base(ref repo)
         {
-            startService = new StartService();
+            startService = new StartService(ref Repo);
         }
 
         public override void SetStartingMessage()
@@ -113,6 +113,7 @@ namespace SufferShopUI.Menus
                 userInputPassword = MenuUtility.QueryPassword();
                 while (userInputPassword != managerLoggingIn.Password)
                 {
+                    Console.WriteLine("Wrong password. You can try again, though. Why not?");
                     userInputPassword = MenuUtility.QueryPassword();
                 }
 

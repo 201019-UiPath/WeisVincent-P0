@@ -11,11 +11,12 @@ namespace SufferShopUI.Menus
     {
         private readonly IMenu loginMenu;
 
-        internal StartService startService = new StartService();
+        internal StartService startService;
 
         public SignUpMenu(IRepository repo) : base(ref repo)
         {
             loginMenu = new LoginMenu(Repo);
+            startService = new StartService(ref Repo);
         }
 
         public override void SetStartingMessage()
@@ -68,7 +69,7 @@ namespace SufferShopUI.Menus
                     Customer newCustomer = new Customer(newName, newEmail, newPassword, newAddress);
 
                     CustomerService customerService = new CustomerService(Repo);
-                    customerService.AddCustomer(newCustomer);
+                    customerService.AddCustomerToRepo(newCustomer);
                     break;
                 case 2:
                     Manager newManager = new Manager(newName, newEmail, newPassword);

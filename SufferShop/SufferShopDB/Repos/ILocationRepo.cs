@@ -8,7 +8,11 @@ namespace SufferShopDB.Repos
     {
         Task<List<Location>> GetAllLocationsAsync();
 
-        Task<List<InventoryLineItem>> GetInventoryEntriesAtLocationAsync(int locationId);
-        List<Order> GetAllOrdersForLocation(int locationId);
+        List<InventoryLineItem> GetAllInventoryLineItemsAtLocation(int locationId);
+
+        Task<List<InventoryLineItem>> GetAllInventoryLineItemsAtLocationAsync(int locationId);
+
+        void UpdateInventoryLineItem(InventoryLineItem lineItem);
+
     }
 }

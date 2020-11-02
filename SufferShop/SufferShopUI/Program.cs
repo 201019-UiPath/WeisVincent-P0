@@ -6,6 +6,7 @@ using SufferShopDB.Repos.DBRepos;
 using SufferShopUI.Menus;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace SufferShopUI
 {
@@ -26,6 +27,7 @@ namespace SufferShopUI
 
 
             if (Log.Logger == null) { throw new Exception("Logger isn't working."); }
+
 
             Console.WriteLine("Welcome Friend! What would you like to do today?");
 

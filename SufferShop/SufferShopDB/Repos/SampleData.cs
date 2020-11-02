@@ -10,9 +10,6 @@ namespace SufferShopDB.Repos
     /// </summary>
     public static class SampleData
     {
-
-
-
         public static List<Customer> GetSampleCustomers() {
             return new List<Customer>()
             {
@@ -32,32 +29,17 @@ namespace SufferShopDB.Repos
         {
             return new List<Product>()
             {
-                new Product()
+                new Product( "Burning", 20.00, ProductType.Physical, "The sensation of being on fire, usually caused by being on fire.")
                 {
-                    Id = -1,
-                    Name = "Burning",
-                    Price = 20.00,
-                    TypeOfProduct = ProductType.Physical,
-                    Description = "The sensation of being on fire, usually caused by being on fire.",
-
+                    Id = 1
                 },
-                new Product()
+                new Product("Sad Puppy Picture", 8.00, ProductType.Emotional, "They're really cute, actually, if your brain is messed up.")
                 {
-                    Id = -2,
-                    Name = "Sad Puppy Picture",
-                    Price = 8.00,
-                    TypeOfProduct = ProductType.Emotional,
-                    Description = "They're really cute, actually, if your brain is messed up.",
-
+                    Id = 2
                 },
-                new Product()
+                new Product("Spider Infestation", 12.00, ProductType.Metaphysical,"Become Spiders-Man, and become a hive mind of spiders.")
                 {
-                    Id = -3,
-                    Name = "Spider Infestation",
-                    Price = 12.00,
-                    TypeOfProduct = ProductType.Metaphysical,
-                    Description = "Become Spiders-Man, and become a hive mind of spiders.",
-
+                    Id = 3
                 }
             };
         }
@@ -83,20 +65,15 @@ namespace SufferShopDB.Repos
         public static List<Location> GetSampleLocations()
         {
             return new List<Location>() {
-                new Location() {
+                new Location("Hell","Earth's core, presumably.") {
                     Id = -1,
-                    Name = "Hell",
-                    Address = "Earth's core, presumably.",
                 },
-                new Location() {
+                new Location( "Dirty Sock", "In a laundry hamper") {
                     Id = -2,
-                    Name = "Dirty Sock",
-                    Address = "In a laundry hamper"
                 },
-                new Location() {
+                new Location("Phoenix", "1 E Washington St., #230, Phoenix, AZ 85004") {
                     Id = -3,
-                    Name = "Phoenix",
-                    Address = "1 E Washington St., #230, Phoenix, AZ 85004"
+                    
                 }
             };
         }

@@ -20,22 +20,18 @@ namespace SufferShopDB.Repos
         /// </summary>
         /// <param name="customerID"></param>
         /// <returns></returns>
-        Task<List<Order>> GetCustomerOrderHistoryAsync(int customerID);
+        Task<List<Order>> GetAllOrdersForCustomerAsync(int customerID);
 
 
         /// <summary>
-        /// This gets the order history of a specific location, specified by that locations ID, asynchronously.
+        /// This gets the order history of a specific location, specified by that locations ID asynchronously.
         /// </summary>
         /// <param name="locationId"></param>
         /// <returns></returns>
-        Task<List<Order>> GetLocationOrderHistoryAsync(int locationId);
+        Task<List<Order>> GetAllOrdersForLocationAsync(int locationId);
 
-        /// <summary>
-        /// This gets the order history of a specific location, specified by that locations ID.
-        /// </summary>
-        /// <param name="locationId"></param>
-        /// <returns></returns>
-        List<Order> GetLocationOrderHistory(int locationID);
+        
+        List<Order> GetAllOrdersForLocation(int locationID);
 
         void RemoveInventoryLineItemsFromLocation(List<InventoryLineItem> lineItems);
 

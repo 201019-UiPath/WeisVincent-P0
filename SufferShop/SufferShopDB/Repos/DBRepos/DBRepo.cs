@@ -22,7 +22,11 @@ namespace SufferShopDB.Repos.DBRepos
         public void AddCustomerAsync(Customer customer)
         {
             context.Customers.AddAsync(customer);
-            context.SaveChangesAsync();
+        }
+
+        public void AddCustomer(Customer customer)
+        {
+            context.Customers.Add(customer);
         }
 
         public Task<List<Customer>> GetAllCustomersAsync()
@@ -30,9 +34,20 @@ namespace SufferShopDB.Repos.DBRepos
             return context.Customers.ToListAsync();
         }
 
-        public Task<List<Order>> GetAllOrdersForCustomer(int customerId)
+        public List<Customer> GetAllCustomers()
+        {
+            return context.Customers.ToList();
+        }
+
+
+        public Task<List<Order>> GetAllOrdersForCustomerAsync(int customerId)
         {
             return context.Orders.Where(o => o.CustomerId == customerId).ToListAsync();
+        }
+
+        public List<Order> GetAllOrdersForCustomer(int customerId)
+        {
+            return context.Orders.Where(o => o.CustomerId == customerId).ToList();
         }
 
         public Task<Customer> GetCustomerByEmailAsync(string email)
@@ -40,18 +55,39 @@ namespace SufferShopDB.Repos.DBRepos
             return context.Customers.Where(c => c.Email == email).FirstAsync();
         }
 
+        public Customer GetCustomerByEmail(string email)
+        {
+            Customer customerWithEmail;
+            try
+            {
+                customerWithEmail = context.Customers.Where(m => m.Email == email).First();
+            }
+            catch (InvalidOperationException e)
+            {
+                Log.Error(e.Message);
+                customerWithEmail = null;
+            }
+
+            return customerWithEmail;
+        }
+
         #endregion
 
+
         #region Manager Methods
-        public void AddManagerAsync(Manager manager)
+        public void AddManager(Manager manager)
         {
-            context.Managers.AddAsync(manager);
-            context.SaveChangesAsync();
+            context.Managers.Add(manager);
         }
 
         public Task<List<Manager>> GetAllManagersAsync()
         {
             return context.Managers.ToListAsync();
+        }
+
+        public List<Manager> GetAllManagers()
+        {
+            return context.Managers.ToList();
         }
 
         public Task<Manager> GetManagerByEmailAsync(string email)
@@ -61,12 +97,25 @@ namespace SufferShopDB.Repos.DBRepos
             {
                 managerWithEmail = context.Managers.Where(m => m.Email == email).FirstAsync();
             }
-            catch (ArgumentNullException e)
+            catch (InvalidOperationException e)
             {
                 Log.Error(e.Message);
+                managerWithEmail = null;
             }
-            finally
+
+            return managerWithEmail;
+        }
+
+        public Manager GetManagerByEmail(string email)
+        {
+            Manager managerWithEmail;
+            try
             {
+                managerWithEmail = context.Managers.Where(m => m.Email == email).First();
+            }
+            catch (InvalidOperationException e)
+            {
+                Log.Error(e.Message);
                 managerWithEmail = null;
             }
 
@@ -77,26 +126,29 @@ namespace SufferShopDB.Repos.DBRepos
 
 
         //TODO: Implement everything under this
+        #region Location Methods
+        public List<Location> GetAllLocations()
+        {
+            return context.Locations.ToList();
+        }
+
         public Task<List<Location>> GetAllLocationsAsync()
         {
             return context.Locations.ToListAsync();
         }
 
-        public Task<List<Order>> GetCustomerOrderHistoryAsync(int CustomerId)
+        public List<Order> GetAllOrdersForLocation(int locationID)
         {
-            return context.Orders.Where(o => o.CustomerId == CustomerId).ToListAsync();
+            return context.Orders.Where(o => o.LocationId == locationID).ToList();
         }
 
-
-        public List<Order> GetLocationOrderHistory(int locationID)
+        public Task<List<Order>> GetAllOrdersForLocationAsync(int locationID)
         {
-            throw new System.NotImplementedException();
+            return context.Orders.Where(o => o.LocationId == locationID).ToListAsync();
         }
 
-        Task<List<Order>> IOrderRepo.GetLocationOrderHistoryAsync(int locationID)
-        {
-            throw new System.NotImplementedException();
-        }
+        #endregion
+
 
         #region Product methods
         public void AddNewProductToStock(int newProductId, int locationId)
@@ -109,7 +161,12 @@ namespace SufferShopDB.Repos.DBRepos
             throw new System.NotImplementedException();
         }
 
-        public Task<List<InventoryLineItem>> GetAllProductsAtLocation(int locationID)
+        public List<InventoryLineItem> GetAllInventoryLineItemsAtLocation(int locationID)
+        {
+            return context.InventoryLineItems.Where(ie => ie.LocationId == locationID).ToList();
+        }
+
+        public Task<List<InventoryLineItem>> GetAllInventoryLineItemsAtLocationAsync(int locationID)
         {
             return context.InventoryLineItems.Where(ie => ie.LocationId == locationID).ToListAsync();
         }
@@ -117,16 +174,16 @@ namespace SufferShopDB.Repos.DBRepos
 
 
 
+        public List<OrderLineItem> GetOrderedProductsInAnOrder(int orderId)
+        {
+            return context.OrderLineItems.Where(op => op.OrderId == orderId).ToList();
+        }
 
-        public Task<List<OrderLineItem>> GetOrderedProductsInAnOrder(int orderId)
+        public Task<List<OrderLineItem>> GetOrderedProductsInAnOrderAsync(int orderId)
         {
             return context.OrderLineItems.Where(op => op.OrderId == orderId).ToListAsync();
         }
 
-        public Task<List<InventoryLineItem>> GetInventoryEntriesAtLocationAsync(int locationId)
-        {
-            return context.InventoryLineItems.Where(ie => ie.LocationId == locationId).ToListAsync();
-        }
 
 
         #region Order methods
@@ -135,8 +192,6 @@ namespace SufferShopDB.Repos.DBRepos
         {
             context.Orders.AddAsync(order);
         }
-
-
 
         public void RemoveInventoryLineItemsFromLocation(List<InventoryLineItem> lineItems)
         {
@@ -155,9 +210,9 @@ namespace SufferShopDB.Repos.DBRepos
             context.SaveChanges();
         }
 
-        public List<Order> GetAllOrdersForLocation(int locationId)
+        public void UpdateInventoryLineItem(InventoryLineItem lineItem)
         {
-            return context.Orders.Where(o => o.LocationId == locationId).ToList();
+            context.InventoryLineItems.Update(lineItem);
         }
     }
 }

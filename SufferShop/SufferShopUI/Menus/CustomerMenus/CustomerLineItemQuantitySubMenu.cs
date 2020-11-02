@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace SufferShopUI.Menus.CustomerMenus
 {
-    internal class CustomerLineItemQuantityMenu : Menu, IMenu
+    internal class CustomerLineItemQuantitySubMenu : Menu, IMenu
     {
 
         private Product selectedProduct;
@@ -17,7 +17,7 @@ namespace SufferShopUI.Menus.CustomerMenus
         private int maxQuantity;
 
         private int selectedQuantity;
-        public CustomerLineItemQuantityMenu(InventoryLineItem selectedLineItem, IRepository repo) : base(ref repo)
+        public CustomerLineItemQuantitySubMenu(InventoryLineItem selectedLineItem, IRepository repo) : base(ref repo)
         {
             selectedProduct = selectedLineItem.Product;
             maxQuantity = selectedLineItem.ProductQuantity;

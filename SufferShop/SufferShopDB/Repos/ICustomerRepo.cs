@@ -7,20 +7,31 @@ namespace SufferShopDB.Repos
     public interface ICustomerRepo
     {
         /// <summary>
-        /// This adds a customer entry to the data storage place.
+        /// This adds a customer entry to the data storage place asynchronously.
         /// </summary>
         /// <param name="customer"></param>
         void AddCustomerAsync(Customer customer);
 
         /// <summary>
-        /// This gets all customers from data storage place
+        /// This adds a customer entry to the data storage place.
+        /// </summary>
+        /// <param name="customer"></param>
+        void AddCustomer(Customer customer);
+
+        /// <summary>
+        /// This gets all customers from data storage place asynchronously.
         /// </summary>
         /// <returns></returns>
         Task<List<Customer>> GetAllCustomersAsync();
 
-        Task<List<Order>> GetAllOrdersForCustomer(int customerId);
-
+        /// <summary>
+        /// This gets all customers from data storage place.
+        /// </summary>
+        /// <returns></returns>
+        List<Customer> GetAllCustomers();
 
         Task<Customer> GetCustomerByEmailAsync(string email);
+
+        Customer GetCustomerByEmail(string email);
     }
 }

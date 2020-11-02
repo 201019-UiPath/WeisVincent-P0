@@ -19,6 +19,11 @@ namespace SufferShopUI.Menus.ManagerMenus
 
         public override void SetStartingMessage()
         {
+            if (CurrentManager.Location == null)
+            {
+                Console.WriteLine("damnit");
+            }
+            // TODO: Manager's location is null at this point. How do I fix that trash?
             StartMessage = $"{CurrentManager.Name}, provider of suffering at the {CurrentManager.Location.Name} branch! Welcome back! \n You may view the order history of your managed branch, or manage inventory!";
         }
 
@@ -39,7 +44,7 @@ namespace SufferShopUI.Menus.ManagerMenus
                     NextMenu = new ManagerLocationOrderHistoryMenu(CurrentManager, ref Repo);
                     break;
                 case 2:
-                    NextMenu = new ManagerLocationInventoryMenu(CurrentManager, ref Repo);
+                    NextMenu = new ManagerInventoryManagementMenu(CurrentManager, ref Repo);
                     break;
                 case 3:
                     Console.WriteLine("Done with your job already? See ya!");

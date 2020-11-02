@@ -56,7 +56,7 @@ namespace SufferShopUI.Menus.CustomerMenus
                     try
                     {
                         selectedLocation = AllLocations[i - 1];
-                        nextMenu = new CustomerLocationOrderMenu(CurrentCustomer, selectedLocation, Repo, LocationService);
+                        nextMenu = new CustomerOrderMenu(CurrentCustomer, selectedLocation, Repo, LocationService);
                     }
                     catch (IndexOutOfRangeException e)
                     {

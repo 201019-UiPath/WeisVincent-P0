@@ -14,20 +14,9 @@ namespace SufferShopTest
 
         private DBRepo repo;
 
-        private readonly Customer testCustomer = new Customer("Mister Sample", "sample.email@sample.email", "samplepassword", "Sample Place")
-        {
-            //Id = -10,
-        };
+        private readonly Customer testCustomer = new Customer("Mister Sample", "sample.email@sample.email", "samplepassword", "Sample Place");
 
-        //private readonly List<Customer> testCustomers = SampleData.Customers;
-
-
-        private void Seed(SufferShopContext testcontext)
-        {
-            // testcontext.Customers.AddRange(testCustomers);
-            // testcontext.SaveChanges();
-
-        }
+        private readonly Manager testManager = new Manager("Master Sample", "really.cool@manager.email", "samplepassword") { Id = -50, LocationId = -2 };
 
         [Fact]
         public void AddCustomerShouldAdd()
@@ -38,12 +27,12 @@ namespace SufferShopTest
             repo = new DBRepo(testContext);
 
             //Act
-            repo.AddCustomerAsync(testCustomer);
+            repo.AddCustomer(testCustomer);
+            repo.SaveChanges();
 
             //Assert
             using var assertContext = new SufferShopContext(options);
             Assert.NotNull(assertContext.Customers.Single(c => c.Id == testCustomer.Id));
-
         }
 
 
@@ -56,13 +45,77 @@ namespace SufferShopTest
             repo = new DBRepo(testContext);
 
             //Act
-            repo.AddCustomerAsync(testCustomer);
+            repo.AddCustomer(testCustomer);
+            repo.SaveChanges();
+            Customer fetchedTestCustomer = repo.GetCustomerByEmail(testCustomer.Email);
 
             //Assert
             using var assertContext = new SufferShopContext(options);
 
-            Assert.NotNull(assertContext.Customers.Single(c => c.Email == testCustomer.Email));
+            Assert.NotNull(assertContext.Customers.Single(c => c.Id == fetchedTestCustomer.Id));
+        }
 
+
+        [Fact]
+        public void AddManagerShouldAdd()
+        {
+            //Arrange
+            var options = new DbContextOptionsBuilder<SufferShopContext>().UseInMemoryDatabase("AddManagerShouldAdd").Options;
+            using var testContext = new SufferShopContext(options);
+            repo = new DBRepo(testContext);
+
+            //Act
+            repo.AddManager(testManager);
+            repo.SaveChanges();
+
+            //Assert
+            using var assertContext = new SufferShopContext(options);
+            Assert.NotNull(assertContext.Managers.Single(m => m.Id == testManager.Id));
+        }
+
+        [Fact]
+        public void GetManagerByEmailShouldGetManager()
+        {
+            //Arrange
+            var options = new DbContextOptionsBuilder<SufferShopContext>().UseInMemoryDatabase("GetManagerByEmailShouldGetManager").Options;
+            using var testContext = new SufferShopContext(options);
+            repo = new DBRepo(testContext);
+
+            //Act
+            repo.AddManager(testManager);
+            repo.SaveChanges();
+
+
+            Manager fetchedTestManager = repo.GetManagerByEmail(testManager.Email);
+
+            //Assert
+            using var assertContext = new SufferShopContext(options);
+            //Assert.Equal(testManager, fetchedTestManager);
+            Assert.NotNull(assertContext.Managers.Single(m => m.Id == fetchedTestManager.Id));
+        }
+
+        [Fact]
+        public void UpdateInventoryLineItemShouldUpdateLineItem()
+        {
+            //Arrange
+            var options = new DbContextOptionsBuilder<SufferShopContext>().UseInMemoryDatabase("UpdateInventoryLineItemShouldUpdateLineItem").Options;
+            using var testContext = new SufferShopContext(options);
+            testContext.InventoryLineItems.AddRange(SampleData.GetSampleInventoryLineItems());
+            testContext.Locations.AddRange(SampleData.GetSampleLocations());
+            repo = new DBRepo(testContext);
+
+            
+
+            InventoryLineItem sampleLineItem = repo.GetAllInventoryLineItemsAtLocation(-1).First();
+            int startingQuantity = sampleLineItem.ProductQuantity;
+            sampleLineItem.ProductQuantity += 1;
+            //Act
+            repo.UpdateInventoryLineItem(sampleLineItem);
+            repo.SaveChanges();
+
+            //Assert
+            using var assertContext = new SufferShopContext(options);
+            Assert.NotEqual(startingQuantity, repo.GetAllInventoryLineItemsAtLocation(-1).ElementAt(0).ProductQuantity);
         }
 
     }

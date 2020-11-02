@@ -12,6 +12,11 @@ namespace SufferShopDB.Repos.FileRepos
     {
         const string filepathCustomers = "SufferShopDB/SampleData/Customers.txt";
 
+        public void AddCustomer(Customer customer)
+        {
+            throw new NotImplementedException();
+        }
+
 
 
         /// <summary>
@@ -25,6 +30,11 @@ namespace SufferShopDB.Repos.FileRepos
                 await JsonSerializer.SerializeAsync(fs, customer);
                 Console.WriteLine("Customer is being written to file");
             }
+        }
+
+        public List<Customer> GetAllCustomers()
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -48,7 +58,12 @@ namespace SufferShopDB.Repos.FileRepos
             return allHeroes;
         }
 
-        public Task<List<Order>> GetAllOrdersForCustomer(int customerId)
+        public Task<List<Order>> GetAllOrdersForCustomerAsync(int customerId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Customer GetCustomerByEmail(string email)
         {
             throw new NotImplementedException();
         }

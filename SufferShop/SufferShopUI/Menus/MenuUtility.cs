@@ -159,7 +159,7 @@ namespace SufferShopUI.Menus
                 string userInput = Console.ReadLine().Trim();
                 while (!validator.ValidateInput(userInput))
                 {
-                    Console.WriteLine("That input wasn't it, sufferer. Give it another go, it needs to be a number.");
+                    Console.WriteLine("That input wasn't it, sufferer. Give it another go, it needs to be a whole number.");
                     userInput = Console.ReadLine().Trim();
                 }
 
@@ -177,6 +177,39 @@ namespace SufferShopUI.Menus
             } while (!userInputIsInRange);
             throw new Exception("User input was processed incorrectly, validated a false input.");
         }
+
+        internal int QueryQuantity()
+        {
+            IInputCondition condition;
+            condition = new IsOneOrTwoDigitsCondition();
+
+            InputValidator validator = new InputValidator(condition);
+
+            bool userInputIsInRange = false;
+            do
+            {
+                string userInput = Console.ReadLine().Trim();
+                while (!validator.ValidateInput(userInput))
+                {
+                    Console.WriteLine("That input wasn't it, sufferer. Give it another go, it needs to be a whole number.");
+                    userInput = Console.ReadLine().Trim();
+                }
+
+                int userChoice = int.Parse(userInput);
+                if (userChoice < 1 && userChoice > 50)
+                {
+                    Console.WriteLine("That input wasn't it, sufferer. Give it another go, it needs to be between 0 and 50.");
+                    continue;
+                }
+                else
+                {
+                    userInputIsInRange = true;
+                }
+                return userChoice;
+            } while (!userInputIsInRange);
+            throw new Exception("User input was processed incorrectly, validated a false input.");
+        }
+
         #endregion
 
 

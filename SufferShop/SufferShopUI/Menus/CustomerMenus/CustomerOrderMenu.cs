@@ -7,14 +7,14 @@ using System.Collections.Generic;
 
 namespace SufferShopUI.Menus.CustomerMenus
 {
-    internal class CustomerLocationOrderMenu : Menu, IMenu
+    internal class CustomerOrderMenu : Menu, IMenu
     {
 
         private Customer CurrentCustomer;
 
         private OrderService OrderService;
 
-        public CustomerLocationOrderMenu(Customer currentCustomer, Location selectedLocation, IRepository repo, LocationService locationService) : base(ref repo)
+        public CustomerOrderMenu(Customer currentCustomer, Location selectedLocation, IRepository repo, LocationService locationService) : base(ref repo)
         {
             CurrentCustomer = currentCustomer;
 
@@ -49,7 +49,6 @@ namespace SufferShopUI.Menus.CustomerMenus
 
         public override void ExecuteUserChoice()
         {
-            
             InventoryLineItem selectedLineItem;
 
             for (int i = 1; i < PossibleOptions.Count; i++)
@@ -77,8 +76,6 @@ namespace SufferShopUI.Menus.CustomerMenus
                     }
                 }
 
-
-
                 if (selectedChoice == i)
                 {
                     try
@@ -87,8 +84,7 @@ namespace SufferShopUI.Menus.CustomerMenus
 
                         if (selectedLineItem.ProductQuantity > 1)
                         {
-
-                            int selectedQuantity = new CustomerLineItemQuantityMenu(selectedLineItem, Repo).RunAndReturn();
+                            int selectedQuantity = new CustomerLineItemQuantitySubMenu(selectedLineItem, Repo).RunAndReturn();
                             OrderService.StageProductForOrder(selectedLineItem, selectedQuantity);
                         }
                         else

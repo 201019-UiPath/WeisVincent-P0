@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SufferShopDB.Models
 {
@@ -32,7 +33,7 @@ namespace SufferShopDB.Models
 
         [ForeignKey("Location")]
         public int LocationId { get; set; }
-
+        [Required]
         public Location Location { get; set; }
 
     }

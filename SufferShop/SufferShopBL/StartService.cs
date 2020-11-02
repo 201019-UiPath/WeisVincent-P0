@@ -1,5 +1,6 @@
 ﻿using SufferShopDB;
 using SufferShopDB.Models;
+using SufferShopDB.Repos;
 using SufferShopDB.Repos.DBRepos;
 using SufferShopLib.Validation;
 using System;
@@ -8,14 +9,16 @@ namespace SufferShopBL
 {
     public sealed class StartService
     {
-        readonly CustomerService customerService = new CustomerService(new DBRepo(new SufferShopContext()));
-        readonly ManagerService managerService = new ManagerService(new DBRepo(new SufferShopContext()));
+        IRepository Repo;
 
+        readonly CustomerService customerService;
+        readonly ManagerService managerService;
 
-
-        public StartService()
+        public StartService(ref IRepository repo)
         {
-
+            Repo = repo;
+            customerService = new CustomerService(Repo);
+            managerService = new ManagerService(Repo);
         }
 
         public static bool ValidateNameInput(string name)

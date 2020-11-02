@@ -20,7 +20,7 @@ namespace SufferShopDB.Repos.FileRepos
             throw new NotImplementedException();
         }
 
-        public Task<List<InventoryLineItem>> GetInventoryEntriesAtLocationAsync(int locationId)
+        public Task<List<InventoryLineItem>> GetAllInventoryLineItemsAtLocationAsync(int locationId)
         {
             throw new NotImplementedException();
         }
@@ -31,7 +31,14 @@ namespace SufferShopDB.Repos.FileRepos
             throw new NotImplementedException();
         }
 
+        public List<InventoryLineItem> GetAllInventoryLineItemsAtLocation(int locationId)
+        {
+            throw new NotImplementedException();
+        }
 
-
+        public void UpdateInventoryLineItem(InventoryLineItem lineItem)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

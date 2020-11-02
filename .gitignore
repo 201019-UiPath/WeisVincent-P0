@@ -350,3 +350,4 @@ MigrationBackup/
 .ionide/
 /SufferShop/appsettings.json
 /SufferShop/SufferShopUI/appsettings.json
+/SufferShop/SufferShopDB/Migrations

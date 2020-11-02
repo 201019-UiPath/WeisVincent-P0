@@ -9,11 +9,12 @@ namespace SufferShopDB.Models
     {
         // TODO: Create Location constructors
 
-        /*public Location(string name, string address)
+        public Location(string name, string address)
         {
             Name = name;
             Address = address;
-        }*/
+        }
+
         [Key]
         public int Id { get; set; }
 

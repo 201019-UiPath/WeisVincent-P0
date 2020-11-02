@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,10 +17,13 @@ namespace SufferShopDB.Models
 
 
 
-        /*public Product(string name, double price, ProductType typeOfProduct, string description)
+        internal Product(string name, double price, ProductType typeOfProduct, string description)
         {
-
-        }*/
+            Name = name;
+            Price = price;
+            TypeOfProduct = typeOfProduct;
+            Description = description;
+        }
 
         [Key]
         public int Id { get; set; }

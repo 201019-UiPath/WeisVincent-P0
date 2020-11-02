@@ -12,13 +12,18 @@ namespace SufferShopDB.Repos.FileRepos
 
         const string filepathManagers = "SufferShopDB/SampleData/Managers.txt";
 
-        public async void AddManagerAsync(Manager manager)
+        public async void AddManager(Manager manager)
         {
             using (FileStream fs = File.Create(filepathManagers))
             {
                 await JsonSerializer.SerializeAsync(fs, manager);
                 Console.WriteLine("Customer is being written to file");
             }
+        }
+
+        public List<Manager> GetAllManagers()
+        {
+            throw new NotImplementedException();
         }
 
         public Task<List<Manager>> GetAllManagersAsync()

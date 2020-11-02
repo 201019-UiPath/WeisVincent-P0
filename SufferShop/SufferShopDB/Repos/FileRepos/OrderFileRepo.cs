@@ -14,6 +14,11 @@ namespace SufferShopDB.Repos.FileRepos
             throw new NotImplementedException();
         }
 
+        public Task<List<Order>> GetAllOrdersForCustomerAsync(int customerID)
+        {
+            throw new NotImplementedException();
+        }
+
         // TODO: Implement this
         public List<Order> GetCustomerOrderHistory(int CustomerID)
         {
@@ -21,7 +26,12 @@ namespace SufferShopDB.Repos.FileRepos
         }
 
         // TODO: Implement this
-        public List<Order> GetLocationOrderHistory(int locationID)
+        public List<Order> GetAllOrdersForLocation(int locationID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Order>> GetAllOrdersForLocationAsync(int locationId)
         {
             throw new NotImplementedException();
         }
@@ -31,16 +41,6 @@ namespace SufferShopDB.Repos.FileRepos
             throw new NotImplementedException();
         }
 
-        // TODO: Implement this
-        Task<List<Order>> IOrderRepo.GetCustomerOrderHistoryAsync(int CustomerID)
-        {
-            throw new NotImplementedException();
-        }
-
-        // TODO: Implement this
-        Task<List<Order>> IOrderRepo.GetLocationOrderHistoryAsync(int locationID)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

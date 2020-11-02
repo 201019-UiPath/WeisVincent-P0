@@ -1,3 +1,6 @@
+using SufferShopDB.Models;
+using System.Collections.Generic;
+
 namespace SufferShopDB.Repos
 {
     /// <summary>
@@ -9,7 +12,5 @@ namespace SufferShopDB.Repos
         void SaveChangesAsync();
 
         void SaveChanges();
-
-
     }
 }

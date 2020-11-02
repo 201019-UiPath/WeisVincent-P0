@@ -12,9 +12,8 @@ namespace SufferShopDB.Repos
         void RemoveProductAtLocation(int removedProductId, int locationId);
 
 
-        Task<List<OrderLineItem>> GetOrderedProductsInAnOrder(int orderId);
+        Task<List<OrderLineItem>> GetOrderedProductsInAnOrderAsync(int orderId);
 
-        Task<List<InventoryLineItem>> GetAllProductsAtLocation(int locationID);
 
 
     }

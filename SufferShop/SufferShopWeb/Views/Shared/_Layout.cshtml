@@ -31,7 +31,7 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            @RenderBody()
+            @RenderBody() <!--This method injects the body text from each cshtml view that you make.-->
         </main>
     </div>
 
@@ -43,6 +43,9 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
+    @RenderSection("Scripts", required: false) 
+    @RenderSection("AdditionalThings", required: false)
+    <!-- This function renders a Section called "Scripts" which is tagged as not required which means you can configure page-specific sections,
+        things unique to a certain view or type of views.-->
 </body>
 </html>

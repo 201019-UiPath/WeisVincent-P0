@@ -20,7 +20,11 @@ namespace SufferShopWeb.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            // Passing viewdata to the Index.cshtml file
+            Customer customer = new Customer() { Id = 1, alias = "The Ultimate Customer", name = "Mr. Customer" };
+            ViewData["CustomerUsingViewData"] = customer;
+            ViewBag.CustomerButInABag= customer;
+            return View(customer);
         }
 
         public IActionResult Privacy()

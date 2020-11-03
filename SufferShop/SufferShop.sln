@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		appsettings.json = appsettings.json
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SufferShopWeb", "SufferShopWeb\SufferShopWeb.csproj", "{8D08D610-AC9C-4E98-AFB1-FF64DEDEE134}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SufferShopTest", "SufferShopTest\SufferShopTest.csproj", "{7B1E4983-C227-450D-A034-63B7446BF3A4}"
 EndProject
 Global
@@ -76,6 +78,18 @@ Global
 		{4316044B-3E96-4CF8-8E76-6E002A513E25}.Release|x64.Build.0 = Release|Any CPU
 		{4316044B-3E96-4CF8-8E76-6E002A513E25}.Release|x86.ActiveCfg = Release|Any CPU
 		{4316044B-3E96-4CF8-8E76-6E002A513E25}.Release|x86.Build.0 = Release|Any CPU
+		{8D08D610-AC9C-4E98-AFB1-FF64DEDEE134}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D08D610-AC9C-4E98-AFB1-FF64DEDEE134}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D08D610-AC9C-4E98-AFB1-FF64DEDEE134}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8D08D610-AC9C-4E98-AFB1-FF64DEDEE134}.Debug|x64.Build.0 = Debug|Any CPU
+		{8D08D610-AC9C-4E98-AFB1-FF64DEDEE134}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8D08D610-AC9C-4E98-AFB1-FF64DEDEE134}.Debug|x86.Build.0 = Debug|Any CPU
+		{8D08D610-AC9C-4E98-AFB1-FF64DEDEE134}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D08D610-AC9C-4E98-AFB1-FF64DEDEE134}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D08D610-AC9C-4E98-AFB1-FF64DEDEE134}.Release|x64.ActiveCfg = Release|Any CPU
+		{8D08D610-AC9C-4E98-AFB1-FF64DEDEE134}.Release|x64.Build.0 = Release|Any CPU
+		{8D08D610-AC9C-4E98-AFB1-FF64DEDEE134}.Release|x86.ActiveCfg = Release|Any CPU
+		{8D08D610-AC9C-4E98-AFB1-FF64DEDEE134}.Release|x86.Build.0 = Release|Any CPU
 		{7B1E4983-C227-450D-A034-63B7446BF3A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7B1E4983-C227-450D-A034-63B7446BF3A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B1E4983-C227-450D-A034-63B7446BF3A4}.Debug|x64.ActiveCfg = Debug|Any CPU

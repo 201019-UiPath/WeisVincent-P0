@@ -16,12 +16,12 @@ namespace SufferShopUI.Menus.CustomerMenus
 
         private bool CartHasItems;
 
-        public CustomerOrderMenu(ref Customer currentCustomer,ref Location selectedLocation,ref IRepository repo) : base(ref repo)
+        public CustomerOrderMenu(ref Customer currentCustomer, ref Location selectedLocation, ref IRepository repo) : base(ref repo)
         {
             CurrentCustomer = currentCustomer;
             CartHasItems = false;
 
-            OrderBuilder = new OrderBuilder(ref CurrentCustomer, ref selectedLocation,ref Repo);
+            OrderBuilder = new OrderBuilder(ref CurrentCustomer, ref selectedLocation, ref Repo);
         }
 
 
@@ -48,7 +48,7 @@ namespace SufferShopUI.Menus.CustomerMenus
             };
 
             PossibleOptions.Add("Use this option to go back, cancelling your order.");
-            
+
         }
 
         public override void ExecuteUserChoice()
@@ -59,7 +59,7 @@ namespace SufferShopUI.Menus.CustomerMenus
             {
                 if (CartHasItems)
                 {
-                    if(selectedChoice == PossibleOptions.Count - 1)
+                    if (selectedChoice == PossibleOptions.Count - 1)
                     {
                         EditOrder();
                         break;
@@ -80,7 +80,7 @@ namespace SufferShopUI.Menus.CustomerMenus
                         if (selectedLineItem.ProductQuantity > 1)
                         {
                             // This submenu will stage the next line item for order itself.
-                            new CustomerLineItemQuantitySubMenu(ref selectedLineItem,ref OrderBuilder,ref Repo).Run();  
+                            new CustomerLineItemQuantitySubMenu(ref selectedLineItem, ref OrderBuilder, ref Repo).Run();
                         }
                         else
                         {

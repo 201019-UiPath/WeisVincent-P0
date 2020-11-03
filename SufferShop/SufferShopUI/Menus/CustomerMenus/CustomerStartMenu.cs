@@ -45,8 +45,8 @@ namespace SufferShopUI.Menus.CustomerMenus
                 case 3:
                     Console.WriteLine("Enjoy your suffering!");
                     return;
-                    //Environment.Exit(Environment.ExitCode);
-                    //break;
+                //Environment.Exit(Environment.ExitCode);
+                //break;
                 default:
                     throw new NotImplementedException();
                     //break;

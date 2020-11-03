@@ -1,9 +1,6 @@
 ﻿using SufferShopDB.Models;
 using SufferShopDB.Repos;
-using SufferShopLib;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SufferShopBL
@@ -12,7 +9,7 @@ namespace SufferShopBL
     {
         readonly IRepository Repo;
 
-        
+
         public OrderService(ref IRepository repo)
         {
             Repo = repo;
@@ -20,7 +17,7 @@ namespace SufferShopBL
 
 
 
-        
+
         public void UpdateLineItemsInLocationInventory()
         {
 

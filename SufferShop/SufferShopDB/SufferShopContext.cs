@@ -58,7 +58,7 @@ namespace SufferShopDB
             modelBuilder.Entity<OrderLineItem>().HasData(SampleData.GetSampleOrderLineItems());
             #endregion
 
-            
+
 
             modelBuilder.Entity<Customer>().HasKey("Id");
             modelBuilder.Entity<Location>().HasKey("Id");
@@ -73,7 +73,7 @@ namespace SufferShopDB
                 .Property(p => p.TypeOfProduct)
                 .HasConversion<int>();
 
-            
+
 
             // Location - Manager One to Many Relationship
             modelBuilder.Entity<Manager>()
@@ -104,7 +104,7 @@ namespace SufferShopDB
                 .HasOne(oli => oli.Product)
                 .WithMany(o => o.LocationsWithProduct)
                 .HasForeignKey(oli => oli.ProductId);
-            
+
             #endregion
 
             #region Order - Product Many to Many Relationship (OrderLineItem)
@@ -123,7 +123,7 @@ namespace SufferShopDB
 
             #endregion
 
-            
+
 
 
 

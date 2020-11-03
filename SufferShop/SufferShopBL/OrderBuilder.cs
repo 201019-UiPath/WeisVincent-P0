@@ -23,7 +23,7 @@ namespace SufferShopBL
         public OrderBuilder(ref Customer currentCustomer, ref Location selectedLocation, ref IRepository repo)
         {
             OrderService = new OrderService(ref repo);
-            
+
             CurrentCustomer = currentCustomer;
             SelectedLocation = selectedLocation;
 
@@ -40,7 +40,7 @@ namespace SufferShopBL
                 return OrderCart.FindLast(sli => sli.affectedInventoryLineItem == inventoryLineItem);
             }
             else return null;
-            
+
         }
 
         public void DestageLineItem(int index)
@@ -56,7 +56,7 @@ namespace SufferShopBL
             OrderCart.RemoveAt(index);
         }
 
-        
+
 
         public void StageProductForOrder(InventoryLineItem selection, int quantityOrdered)
         {
@@ -64,7 +64,8 @@ namespace SufferShopBL
             if (existingStagedLineItem != null)
             {
                 existingStagedLineItem.Quantity += quantityOrdered;
-            } else AddLineItemToCart(selection, quantityOrdered);
+            }
+            else AddLineItemToCart(selection, quantityOrdered);
         }
 
         public void StageProductForOrder(InventoryLineItem selection)
@@ -172,7 +173,8 @@ namespace SufferShopBL
                 if (OrderCart.Exists(sli => sli.affectedInventoryLineItem == entry))
                 {
                     productQuantity = OrderCart.FindLast(sli => sli.affectedInventoryLineItem == entry).GetNewQuantityOfAffectedInventoryLineItem();
-                } else productQuantity = entry.ProductQuantity;
+                }
+                else productQuantity = entry.ProductQuantity;
                 string productType = Enum.GetName(typeof(ProductType), product.TypeOfProduct);
 
                 availableItems.Add($"{product.Name}: {product.Description} Part of our {productType} collection. Quantity: {productQuantity}");

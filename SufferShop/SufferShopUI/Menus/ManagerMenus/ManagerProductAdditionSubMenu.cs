@@ -9,24 +9,24 @@ namespace SufferShopUI.Menus.ManagerMenus
 {
     internal class ManagerProductAdditionSubMenu : Menu, IMenu
     {
-        private Location CurrentLocation;
-        private List<InventoryLineItem> locationStock;
-        private LocationService locationService;
-        private ProductService productService;
+        private readonly Location CurrentLocation;
+        private readonly List<InventoryLineItem> locationStock;
+        private readonly LocationService locationService;
+        private readonly ProductService productService;
 
-        private List<Product> UnstockedProducts;
+        private readonly List<Product> UnstockedProducts;
 
         public ManagerProductAdditionSubMenu(ref Location location, ref List<InventoryLineItem> locationStock, ref LocationService locationService, ref IRepository repo) : base(ref repo)
         {
-            this.CurrentLocation = location;
+            CurrentLocation = location;
             if (locationStock != null)
             {
                 this.locationStock = locationStock;
             }
             else locationStock = new List<InventoryLineItem>();
-            
+
             this.locationService = locationService;
-            this.productService = new ProductService(ref Repo);
+            productService = new ProductService(ref Repo);
             UnstockedProducts = GetProductsNotStockedAtLocation();
         }
 

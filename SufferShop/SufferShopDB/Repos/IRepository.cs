@@ -1,6 +1,3 @@
-using SufferShopDB.Models;
-using System.Collections.Generic;
-
 namespace SufferShopDB.Repos
 {
     /// <summary>

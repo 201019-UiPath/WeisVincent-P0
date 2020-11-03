@@ -3,7 +3,6 @@ using SufferShopDB;
 using SufferShopDB.Models;
 using SufferShopDB.Repos;
 using SufferShopDB.Repos.DBRepos;
-using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -77,7 +76,7 @@ namespace SufferShopTest
         public void GetManagerByEmailShouldGetManager()
         {
             //Arrange
-            var options = new DbContextOptionsBuilder<SufferShopContext>()    .EnableSensitiveDataLogging()   .UseInMemoryDatabase("GetManagerByEmailShouldGetManager").Options;
+            var options = new DbContextOptionsBuilder<SufferShopContext>().UseInMemoryDatabase("GetManagerByEmailShouldGetManager").Options;
             using var testContext = new SufferShopContext(options);
             repo = new DBRepo(testContext);
 
@@ -90,7 +89,6 @@ namespace SufferShopTest
 
             //Assert
             using var assertContext = new SufferShopContext(options);
-            //Assert.Equal(testManager, fetchedTestManager);
             Assert.NotNull(assertContext.Managers.Single(m => m.Id == fetchedTestManager.Id));
         }
 
@@ -100,16 +98,21 @@ namespace SufferShopTest
             //Arrange
             var options = new DbContextOptionsBuilder<SufferShopContext>().UseInMemoryDatabase("UpdateInventoryLineItemShouldUpdateLineItem").Options;
             using var testContext = new SufferShopContext(options);
-            testContext.InventoryLineItems.AddRange(SampleData.GetSampleInventoryLineItems());
+            // add sample data to testContext
             testContext.Locations.AddRange(SampleData.GetSampleLocations());
+            testContext.InventoryLineItems.AddRange(SampleData.GetSampleInventoryLineItems());
             testContext.SaveChanges();
+
             repo = new DBRepo(testContext);
 
+            //Act
+            // get a location that has an InventoryLineItem
             int sampleLocationId = repo.GetAllLocations().First().Id;
             InventoryLineItem sampleLineItem = repo.GetAllInventoryLineItemsAtLocation(sampleLocationId).First();
             int startingQuantity = sampleLineItem.ProductQuantity;
             sampleLineItem.ProductQuantity += 1;
-            //Act
+
+
             repo.UpdateInventoryLineItem(sampleLineItem);
             repo.SaveChanges();
 

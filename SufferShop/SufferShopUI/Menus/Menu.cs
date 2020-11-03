@@ -1,5 +1,4 @@
 ﻿using SufferShopDB.Repos;
-using SufferShopLib.Validation;
 using System;
 using System.Collections.Generic;
 using Xunit.Sdk;
@@ -17,7 +16,8 @@ namespace SufferShopUI.Menus
 
         protected IRepository Repo;
 
-        public Menu(ref IRepository repo) {
+        public Menu(ref IRepository repo)
+        {
             Repo = repo;
         }
 

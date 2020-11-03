@@ -17,7 +17,7 @@ namespace SufferShopDB.Repos
         void AddOrderAsync(Order order);
 
 
-        
+
 
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace SufferShopDB.Repos
         /// <returns></returns>
         Task<List<Order>> GetAllOrdersForLocationAsync(int locationId);
 
-        
+
         List<Order> GetAllOrdersForLocation(int locationID);
 
         void RemoveInventoryLineItemsFromLocation(List<InventoryLineItem> lineItems);

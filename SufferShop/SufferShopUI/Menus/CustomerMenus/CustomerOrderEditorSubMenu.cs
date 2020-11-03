@@ -9,10 +9,10 @@ namespace SufferShopUI.Menus.CustomerMenus
     internal class CustomerOrderEditorSubMenu : Menu, IMenu
     {
 
-        private OrderBuilder OrderBuilder;
+        private readonly OrderBuilder OrderBuilder;
         public CustomerOrderEditorSubMenu(ref OrderBuilder orderBuilder, ref IRepository repo) : base(ref repo)
         {
-            this.OrderBuilder = orderBuilder;
+            OrderBuilder = orderBuilder;
         }
 
         public override void SetStartingMessage()

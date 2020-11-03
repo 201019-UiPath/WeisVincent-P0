@@ -2,11 +2,9 @@
 using SufferShopBL;
 using SufferShopDB.Models;
 using SufferShopDB.Repos;
-using SufferShopLib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SufferShopUI.Menus.CustomerMenus
 {
@@ -15,14 +13,12 @@ namespace SufferShopUI.Menus.CustomerMenus
         private readonly Customer CurrentCustomer;
         private readonly CustomerService CustomerService;
         private List<Order> CustomerOrders;
-        ProductService ProductService;
         OrderService OrderService;
 
         public CustomerOrderHistoryMenu(Customer customer, ref IRepository repo) : base(ref repo)
         {
             CurrentCustomer = customer;
             CustomerService = new CustomerService(ref Repo);
-            ProductService = new ProductService(ref Repo);
             OrderService = new OrderService(ref Repo);
 
         }
@@ -47,30 +43,30 @@ namespace SufferShopUI.Menus.CustomerMenus
         public override void ExecuteUserChoice()
         {
             CustomerOrders = CustomerService.GetAllOrdersForCustomer(CurrentCustomer);
-            
+
             List<Order> sortedOrderList = new List<Order>(CustomerOrders.Count);
 
             sortedOrderList = CustomerOrders;
-            
+
             bool IsSortOrderForward = false;
 
-            IMenu previousMenu = new CustomerStartMenu(CurrentCustomer,ref Repo);
+            IMenu previousMenu = new CustomerStartMenu(CurrentCustomer, ref Repo);
 
             switch (selectedChoice)
             {
                 case 1:
                     sortedOrderList = CustomerOrders.OrderBy(o => o.Subtotal).ToList();
-                    MenuUtility.ProcessSortingByDate(ref sortedOrderList, ref IsSortOrderForward);
+                    MenuUtility.ProcessSortingByDate(ref IsSortOrderForward);
                     break;
                 case 2:
                     sortedOrderList = CustomerOrders.OrderBy(o => o.TimeOrderWasPlaced).ToList();
-                    MenuUtility.ProcessSortingByPrice(ref sortedOrderList, ref IsSortOrderForward);
+                    MenuUtility.ProcessSortingByPrice(ref IsSortOrderForward);
                     break;
                 case 3:
                     Console.WriteLine("Going back.");
                     MenuUtility.Instance.ReadyNextMenu(previousMenu);
                     return;
-                    //break;
+                //break;
                 default:
                     sortedOrderList = null;
                     throw new NotImplementedException();
@@ -85,7 +81,7 @@ namespace SufferShopUI.Menus.CustomerMenus
                     Environment.Exit(0);
                 }
 
-                MenuUtility.Instance.ShowOrderHistory(ref sortedOrderList,ref OrderService, IsSortOrderForward);
+                MenuUtility.Instance.ShowOrderHistory(ref sortedOrderList, ref OrderService, IsSortOrderForward);
                 Console.WriteLine("Really interesting list, right?");
             }
             catch (NullReferenceException e)
@@ -98,7 +94,7 @@ namespace SufferShopUI.Menus.CustomerMenus
 
         }
 
-        
+
 
     }
 }

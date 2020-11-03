@@ -27,8 +27,8 @@ namespace SufferShopDB.Models
 
         public Manager(string name, string email, string password, Location managedLocation) : base(name, email, password)
         {
-            this.Location = managedLocation;
-            this.LocationId = managedLocation.Id;
+            Location = managedLocation;
+            LocationId = managedLocation.Id;
         }
 
         [ForeignKey("Location")]

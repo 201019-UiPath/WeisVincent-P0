@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SufferShopLib
 {
     public static class DateTimeUtility
     {
-        static DateTime EpochTime1970 = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        static readonly DateTime EpochTime1970 = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
         public static double GetUnixEpochAsDouble(this DateTime dateTime)
         {
@@ -17,9 +15,9 @@ namespace SufferShopLib
 
         public static DateTime GetDateTimeFromUnixEpochAsDouble(this double dateTimeAsDoublePOSIX)
         {
-            
+
             DateTime convertedTime = (EpochTime1970 + TimeSpan.FromSeconds(dateTimeAsDoublePOSIX));
-            
+
 
             return convertedTime;
         }

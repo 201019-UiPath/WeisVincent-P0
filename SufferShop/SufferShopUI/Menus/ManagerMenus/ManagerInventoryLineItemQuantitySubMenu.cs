@@ -8,15 +8,13 @@ namespace SufferShopUI.Menus.ManagerMenus
 {
     internal class ManagerInventoryLineItemQuantitySubMenu : Menu, IMenu
     {
-        private InventoryLineItem selectedLineItem;
-        private IRepository repo;
-        private LocationService LocationService;
+        private readonly InventoryLineItem selectedLineItem;
+        private readonly LocationService LocationService;
 
-        public ManagerInventoryLineItemQuantitySubMenu(ref InventoryLineItem selectedLineItem,ref LocationService locationService,ref IRepository repo) : base(ref repo)
+        public ManagerInventoryLineItemQuantitySubMenu(ref InventoryLineItem selectedLineItem, ref LocationService locationService, ref IRepository repo) : base(ref repo)
         {
             LocationService = locationService;
             this.selectedLineItem = selectedLineItem;
-            this.repo = repo;
         }
 
         public override void SetStartingMessage()
@@ -69,7 +67,7 @@ namespace SufferShopUI.Menus.ManagerMenus
         }
 
 
-        
+
 
 
 

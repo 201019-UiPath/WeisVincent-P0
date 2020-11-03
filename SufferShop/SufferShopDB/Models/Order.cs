@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -11,33 +10,33 @@ namespace SufferShopDB.Models
 
         // TODO: Review constructor for Order class, you left good stuff in it
 
-        internal Order(int customerId, int locationId, string address,  double Subtotal, double timeOrderWasPlaced)
+        internal Order(int customerId, int locationId, string address, double Subtotal, double timeOrderWasPlaced)
         {
             //TODO: How to deal with Order Id
-            this.CustomerId = customerId;
-            this.Address = address;
-            this.LocationId = locationId;
+            CustomerId = customerId;
+            Address = address;
+            LocationId = locationId;
             this.Subtotal = Subtotal;
-            this.TimeOrderWasPlaced = timeOrderWasPlaced;
+            TimeOrderWasPlaced = timeOrderWasPlaced;
         }
 
         public Order(Customer customer, Location locationPlaced, double subtotal, double timeOrderWasPlaced)
             : this(customer.Id, locationPlaced.Id, locationPlaced.Address, subtotal, timeOrderWasPlaced)
         {
-            this.Customer = customer;
+            Customer = customer;
 
-            this.Location = locationPlaced;
+            Location = locationPlaced;
 
-            this.OrderLineItems = new List<OrderLineItem>();
+            OrderLineItems = new List<OrderLineItem>();
 
-            this.TimeOrderWasPlaced = timeOrderWasPlaced;
-            this.TimeOrderWasFulfilled = -1;
+            TimeOrderWasPlaced = timeOrderWasPlaced;
+            TimeOrderWasFulfilled = -1;
         }
 
-        public Order(Customer customer, Location locationPlaced, List<OrderLineItem> orderLineItems, double subtotal, double timeOrderWasPlaced) 
+        public Order(Customer customer, Location locationPlaced, List<OrderLineItem> orderLineItems, double subtotal, double timeOrderWasPlaced)
             : this(customer, locationPlaced, subtotal, timeOrderWasPlaced)
         {
-            this.OrderLineItems = orderLineItems;
+            OrderLineItems = orderLineItems;
         }
 
 

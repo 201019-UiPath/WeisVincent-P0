@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SufferShopDB.Models
 {
@@ -26,16 +25,16 @@ namespace SufferShopDB.Models
 
         internal InventoryLineItem(int locationId, int productId, int productQuantity)
         {
-            this.LocationId = locationId;
-            this.ProductId = productId;
-            this.ProductQuantity = productQuantity;
-            
+            LocationId = locationId;
+            ProductId = productId;
+            ProductQuantity = productQuantity;
+
         }
 
         public InventoryLineItem(Location location, Product product, int productQuantity) : this(location.Id, product.Id, productQuantity)
         {
-            this.Product = product;
-            this.Location = location;
+            Product = product;
+            Location = location;
         }
 
 

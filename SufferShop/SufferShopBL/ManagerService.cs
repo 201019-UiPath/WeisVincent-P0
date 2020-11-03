@@ -1,7 +1,6 @@
 ﻿using SufferShopDB.Models;
 using SufferShopDB.Repos;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace SufferShopBL
 {

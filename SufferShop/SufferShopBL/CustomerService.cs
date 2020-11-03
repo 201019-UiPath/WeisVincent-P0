@@ -35,7 +35,7 @@ namespace SufferShopBL
                 throw new NullException(possibleExistingCustomer);
             }
 
-            
+
         }
 
         public Customer GetCustomerByEmail(string newEmail)

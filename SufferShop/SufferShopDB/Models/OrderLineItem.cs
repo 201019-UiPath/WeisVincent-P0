@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SufferShopDB.Models
 {
@@ -30,11 +29,11 @@ namespace SufferShopDB.Models
             ProductQuantity = productQuantity;
         }
 
-        public OrderLineItem( Order order, Product product, int quantityOfProduct) : this(order.Id, product.Id, quantityOfProduct)
+        public OrderLineItem(Order order, Product product, int quantityOfProduct) : this(order.Id, product.Id, quantityOfProduct)
         {
-            this.Product = product;
+            Product = product;
 
-            this.Order = order;
+            Order = order;
         }
     }
 }

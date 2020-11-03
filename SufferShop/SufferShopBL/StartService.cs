@@ -1,7 +1,5 @@
-﻿using SufferShopDB;
-using SufferShopDB.Models;
+﻿using SufferShopDB.Models;
 using SufferShopDB.Repos;
-using SufferShopDB.Repos.DBRepos;
 using SufferShopLib.Validation;
 using System;
 
@@ -9,7 +7,7 @@ namespace SufferShopBL
 {
     public sealed class StartService
     {
-        IRepository Repo;
+        readonly IRepository Repo;
 
         readonly CustomerService customerService;
         readonly ManagerService managerService;
@@ -23,30 +21,26 @@ namespace SufferShopBL
 
         public static bool ValidateNameInput(string name)
         {
-            InputValidator inputValidator = new InputValidator();
-            inputValidator.InputConditions = InputConditions.NameConditions;
+            InputValidator inputValidator = new InputValidator(InputConditions.NameConditions);
             return inputValidator.ValidateInput(name);
         }
 
         #region Input Validation
         public static bool ValidateEmailInput(string email)
         {
-            InputValidator inputValidator = new InputValidator();
-            inputValidator.InputConditions = InputConditions.EmailConditions;
+            InputValidator inputValidator = new InputValidator(InputConditions.EmailConditions);
             return inputValidator.ValidateInput(email);
         }
 
         public static bool ValidatePasswordInput(string password)
         {
-            InputValidator inputValidator = new InputValidator();
-            inputValidator.InputConditions = InputConditions.PasswordConditions;
+            InputValidator inputValidator = new InputValidator(InputConditions.PasswordConditions);
             return inputValidator.ValidateInput(password);
         }
 
         public static bool ValidateAddressInput(string address)
         {
-            InputValidator inputValidator = new InputValidator();
-            inputValidator.InputConditions = InputConditions.AddressConditions;
+            InputValidator inputValidator = new InputValidator(InputConditions.AddressConditions);
             return inputValidator.ValidateInput(address);
         }
 

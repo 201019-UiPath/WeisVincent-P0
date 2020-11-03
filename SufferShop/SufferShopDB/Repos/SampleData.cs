@@ -10,7 +10,8 @@ namespace SufferShopDB.Repos
     /// </summary>
     public static class SampleData
     {
-        public static List<Customer> GetSampleCustomers() {
+        public static List<Customer> GetSampleCustomers()
+        {
             return new List<Customer>()
             {
                 new Customer("Nick West","nevanwest@west.com","nevaniscool","Nick's house")
@@ -73,13 +74,13 @@ namespace SufferShopDB.Repos
                 },
                 new Location("Phoenix", "1 E Washington St., #230, Phoenix, AZ 85004") {
                     Id = -3,
-                    
+
                 }
             };
         }
 
 
-       
+
 
         private static double ReturnSampleTimeForOrder()
         {
@@ -133,7 +134,7 @@ namespace SufferShopDB.Repos
                 new OrderLineItem(sampleOrders[1].Id, sampleProducts[1].Id, 1),
                 new OrderLineItem(sampleOrders[2].Id, sampleProducts[1].Id, 6),
 
-                
+
             };
         }
 

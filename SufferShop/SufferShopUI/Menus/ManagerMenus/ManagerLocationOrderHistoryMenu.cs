@@ -10,19 +10,15 @@ namespace SufferShopUI.Menus.ManagerMenus
 {
     internal class ManagerLocationOrderHistoryMenu : Menu, IMenu
     {
-        private Manager currentManager;
-        private readonly ManagerService managerService;
+        private readonly Manager currentManager;
         private List<Order> LocationOrders;
 
         private readonly LocationService LocationService;
-        private readonly ProductService ProductService;
 
         public ManagerLocationOrderHistoryMenu(Manager currentManager, ref IRepository repo) : base(ref repo)
         {
             this.currentManager = currentManager;
-            managerService = new ManagerService(ref Repo);
             LocationService = new LocationService(ref Repo);
-            ProductService = new ProductService(ref Repo);
         }
 
         public override void SetStartingMessage()
@@ -47,22 +43,22 @@ namespace SufferShopUI.Menus.ManagerMenus
             bool IsSortOrderForward = false;
 
 
-            IMenu previousMenu = new ManagerStartMenu(currentManager,ref Repo);
+            IMenu previousMenu = new ManagerStartMenu(currentManager, ref Repo);
 
             switch (selectedChoice)
             {
                 case 1:
                     sortedOrderList = LocationOrders.OrderBy(o => o.Subtotal).ToList();
-                    MenuUtility.ProcessSortingByDate(ref sortedOrderList, ref IsSortOrderForward);
+                    MenuUtility.ProcessSortingByDate(ref IsSortOrderForward);
 
                     break;
                 case 2:
                     sortedOrderList = LocationOrders.OrderBy(o => o.TimeOrderWasPlaced).ToList();
-                    MenuUtility.ProcessSortingByPrice(ref sortedOrderList, ref IsSortOrderForward);
+                    MenuUtility.ProcessSortingByPrice(ref IsSortOrderForward);
                     break;
                 case 3:
                     Console.WriteLine("Going back.");
-                    
+
                     MenuUtility.Instance.ReadyNextMenu(previousMenu);
                     return;
                 //break;
@@ -75,7 +71,7 @@ namespace SufferShopUI.Menus.ManagerMenus
             try
             {
                 OrderService orderService = new OrderService(ref Repo);
-                MenuUtility.Instance.ShowOrderHistory(ref sortedOrderList,ref orderService, IsSortOrderForward);
+                MenuUtility.Instance.ShowOrderHistory(ref sortedOrderList, ref orderService, IsSortOrderForward);
             }
             catch (NullReferenceException e)
             {
@@ -85,10 +81,10 @@ namespace SufferShopUI.Menus.ManagerMenus
 
             Console.WriteLine("Really interesting list, right?");
 
-            
+
             MenuUtility.Instance.ReadyNextMenu(previousMenu);
         }
 
-        
+
     }
 }

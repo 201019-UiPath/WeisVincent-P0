@@ -1,7 +1,6 @@
 ﻿using Serilog;
 using SufferShopBL;
 using SufferShopDB.Models;
-using SufferShopDB.Repos;
 using SufferShopLib;
 using SufferShopLib.Validation;
 using System;
@@ -174,7 +173,7 @@ namespace SufferShopUI.Menus
                     userInputIsInRange = true;
                     return userChoice;
                 }
-                
+
             } while (!userInputIsInRange);
             throw new Exception("User input was processed incorrectly, validated a false input.");
         }
@@ -232,15 +231,15 @@ namespace SufferShopUI.Menus
 
 
         #region Order History methods
-        internal void ShowOrderHistory(ref List<Order> ordersToBeShown,ref OrderService orderService, bool isIteratedForward)
+        internal void ShowOrderHistory(ref List<Order> ordersToBeShown, ref OrderService orderService, bool isIteratedForward)
         {
             if (!isIteratedForward)
             {
                 ordersToBeShown.Reverse();
             }
-            for (int i = 0;i < ordersToBeShown.Count; i++)
+            for (int i = 0; i < ordersToBeShown.Count; i++)
             {
-                DisplayOrderInformation( ordersToBeShown[i] , ref orderService);
+                DisplayOrderInformation(ordersToBeShown[i], ref orderService);
                 if (ordersToBeShown[i] == null)
                 {
                     Console.WriteLine("okay then, thanks order");
@@ -250,7 +249,7 @@ namespace SufferShopUI.Menus
         }
 
 
-        private void DisplayOrderInformation(Order order,ref OrderService orderService)
+        private void DisplayOrderInformation(Order order, ref OrderService orderService)
         {
             List<OrderLineItem> OrderedProductsInOrder = orderService.GetAllProductsInOrder(order);
 
@@ -290,50 +289,38 @@ namespace SufferShopUI.Menus
             Console.WriteLine(resultingString);
         }
 
-        public static void ProcessSortingByDate(ref List<Order> ordersToSort, ref bool sortOrder)
+        public static void ProcessSortingByDate(ref bool sortOrder)
         {
-            
+
             string sortStartMessage = "Would you like the results sorted oldest to latest or latest to oldest?";
             List<string> sortOptions = new List<string>(2)
                     {
                         "Oldest to Latest.", "Latest to Oldest."
                     };
-            MenuUtility.DisplayPossibleChoicesToUser(sortStartMessage, sortOptions);
-            switch (MenuUtility.ProcessUserInputAgainstPossibleChoices(sortOptions))
+            DisplayPossibleChoicesToUser(sortStartMessage, sortOptions);
+            sortOrder = (ProcessUserInputAgainstPossibleChoices(sortOptions)) switch
             {
-                case 1:
-                    sortOrder = true;
-                    break;
-                case 2:
-                    sortOrder = false;
-                    break;
-                default:
-                    throw new NotImplementedException();
-                    //break;
-            }
+                1 => true,
+                2 => false,
+                _ => throw new NotImplementedException(),
+            };
         }
 
-        public static void ProcessSortingByPrice(ref List<Order> ordersToSort, ref bool sortOrder)
+        public static void ProcessSortingByPrice(ref bool sortOrder)
         {
-            
+
             string sortStartMessage = "You've chosen to sort orders by subtotal. Sort from lowest to highest subtotal, or highest to lowest subtotal?";
             List<string> sortOptions = new List<string>(2)
                     {
                         "Lowest to highest.", "Highest to Lowest."
                     };
             DisplayPossibleChoicesToUser(sortStartMessage, sortOptions);
-            switch (ProcessUserInputAgainstPossibleChoices(sortOptions))
+            sortOrder = (ProcessUserInputAgainstPossibleChoices(sortOptions)) switch
             {
-                case 1:
-                    sortOrder = true;
-                    break;
-                case 2:
-                    sortOrder = false;
-                    break;
-                default:
-                    throw new NotImplementedException();
-                    //break;
-            }
+                1 => true,
+                2 => false,
+                _ => throw new NotImplementedException(),
+            };
         }
 
 

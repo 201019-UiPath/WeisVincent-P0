@@ -3,7 +3,6 @@ using SufferShopDB.Models;
 using SufferShopDB.Repos;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SufferShopUI.Menus.ManagerMenus
 {
@@ -12,7 +11,7 @@ namespace SufferShopUI.Menus.ManagerMenus
         private readonly Manager CurrentManager;
 
         private IMenu NextMenu;
-        internal ManagerStartMenu(Manager manager,ref IRepository repo) : base(ref repo)
+        internal ManagerStartMenu(Manager manager, ref IRepository repo) : base(ref repo)
         {
             CurrentManager = manager;
         }
@@ -66,6 +65,6 @@ namespace SufferShopUI.Menus.ManagerMenus
             }
         }
 
-        
+
     }
 }

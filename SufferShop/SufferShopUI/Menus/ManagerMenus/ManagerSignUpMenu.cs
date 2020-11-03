@@ -8,10 +8,9 @@ namespace SufferShopUI.Menus.ManagerMenus
     internal sealed class ManagerSignUpMenu : Menu, IMenu
     {
         private readonly LocationService locationService;
+        readonly List<Location> PossibleLocations;
 
-        List<Location> PossibleLocations;
-
-        private Manager ManagerPickingALocation;
+        private readonly Manager ManagerPickingALocation;
 
 
 

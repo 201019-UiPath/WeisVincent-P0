@@ -4,13 +4,12 @@ using SufferShopDB.Models;
 using SufferShopDB.Repos;
 using System;
 using System.Collections.Generic;
-using Xunit.Sdk;
 
 namespace SufferShopUI.Menus.ManagerMenus
 {
     internal class ManagerInventoryManagementMenu : Menu, IMenu
     {
-        private Manager CurrentManager;
+        private readonly Manager CurrentManager;
         private Location CurrentLocation;
         private LocationService LocationService;
         private List<InventoryLineItem> LocationStock;
@@ -20,7 +19,7 @@ namespace SufferShopUI.Menus.ManagerMenus
             CurrentManager = currentManager;
             CurrentLocation = CurrentManager.Location;
             LocationService = new LocationService(ref Repo);
-            
+
         }
 
         public override void SetStartingMessage()
@@ -40,7 +39,8 @@ namespace SufferShopUI.Menus.ManagerMenus
                 PossibleOptions = new List<string>(LocationStock.Count);
                 // Add the line items of the current location as options to edit.
                 PossibleOptions.AddRange(LocationService.GetInventoryStockAsStrings(LocationStock));
-            } catch (ArgumentOutOfRangeException e)
+            }
+            catch (ArgumentOutOfRangeException e)
             {
                 Log.Information($"This Manager's location's stock is empty. {e.Message}");
             }
@@ -78,7 +78,7 @@ namespace SufferShopUI.Menus.ManagerMenus
                         if (selectedLineItem.ProductQuantity > 0)
                         {
                             // TODO: Add menus for manager to add or remove this inventory item
-                            new ManagerInventoryLineItemQuantitySubMenu(ref selectedLineItem, ref LocationService,ref Repo).Run();
+                            new ManagerInventoryLineItemQuantitySubMenu(ref selectedLineItem, ref LocationService, ref Repo).Run();
                             LocationService.UpdateInventoryLineItemInRepo(selectedLineItem);
                         }
                         else
@@ -107,7 +107,7 @@ namespace SufferShopUI.Menus.ManagerMenus
         {
             IMenu nextMenu;
             Console.WriteLine("Going back, ZOOM");
-            nextMenu = new ManagerStartMenu(CurrentManager,ref Repo);
+            nextMenu = new ManagerStartMenu(CurrentManager, ref Repo);
             MenuUtility.Instance.ReadyNextMenu(nextMenu);
         }
 
@@ -115,7 +115,7 @@ namespace SufferShopUI.Menus.ManagerMenus
         {
             IMenu newSubMenu;
             Console.WriteLine("Going back, ZOOM");
-            newSubMenu = new ManagerProductAdditionSubMenu(ref CurrentLocation, ref LocationStock, ref LocationService,ref Repo);
+            newSubMenu = new ManagerProductAdditionSubMenu(ref CurrentLocation, ref LocationStock, ref LocationService, ref Repo);
             newSubMenu.Run();
         }
 

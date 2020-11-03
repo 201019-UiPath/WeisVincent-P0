@@ -6,7 +6,6 @@ using SufferShopDB.Repos.DBRepos;
 using SufferShopUI.Menus;
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace SufferShopUI
 {

@@ -10,10 +10,8 @@ namespace SufferShopUI.Menus.CustomerMenus
     internal class CustomerLocationSelectionMenu : Menu, IMenu
     {
         private Customer CurrentCustomer;
-
-
-        LocationService LocationService;
-        private List<Location> AllLocations;
+        readonly LocationService LocationService;
+        private readonly List<Location> AllLocations;
         public CustomerLocationSelectionMenu(Customer currentCustomer, ref IRepository repo) : base(ref repo)
         {
             CurrentCustomer = currentCustomer;
@@ -56,7 +54,7 @@ namespace SufferShopUI.Menus.CustomerMenus
                     try
                     {
                         selectedLocation = AllLocations[i - 1];
-                        nextMenu = new CustomerOrderMenu(ref CurrentCustomer,ref selectedLocation,ref Repo);
+                        nextMenu = new CustomerOrderMenu(ref CurrentCustomer, ref selectedLocation, ref Repo);
                     }
                     catch (IndexOutOfRangeException e)
                     {

@@ -13,6 +13,7 @@ namespace SufferShopUI.Menus.ManagerMenus
 
         public ManagerInventoryLineItemQuantitySubMenu(ref InventoryLineItem selectedLineItem, ref LocationService locationService, ref IRepository repo) : base(ref repo)
         {
+            Log.Logger.Information("Instantiated Customer Order Editor Submenu.");
             LocationService = locationService;
             this.selectedLineItem = selectedLineItem;
         }

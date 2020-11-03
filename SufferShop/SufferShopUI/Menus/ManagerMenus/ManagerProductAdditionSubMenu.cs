@@ -18,6 +18,7 @@ namespace SufferShopUI.Menus.ManagerMenus
 
         public ManagerProductAdditionSubMenu(ref Location location, ref List<InventoryLineItem> locationStock, ref LocationService locationService, ref IRepository repo) : base(ref repo)
         {
+            Log.Logger.Information("Instantiated Customer Order Editor Submenu.");
             CurrentLocation = location;
             if (locationStock != null)
             {

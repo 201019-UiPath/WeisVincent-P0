@@ -52,9 +52,9 @@ namespace SufferShopBL
 
             Customer userAsCustomer = customerService.GetCustomerByEmail(email);
             Manager userAsManager = managerService.GetManagerByEmail(email);
-            if (userAsCustomer.Equals(null))
+            if (userAsCustomer == null)
             {
-                if (userAsManager.Equals(null))
+                if (userAsManager == null)
                 {
                     return null;
                 }

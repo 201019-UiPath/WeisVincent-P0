@@ -22,6 +22,7 @@ namespace SufferShopUI.Menus.CustomerMenus
         private readonly OrderBuilder OrderBuilder;
         public CustomerLineItemQuantitySubMenu(ref InventoryLineItem selectedLineItem, ref OrderBuilder orderBuilder, ref IRepository repo) : base(ref repo)
         {
+            Log.Logger.Information("Instantiated Customer Line Item Quantity Selection Submenu.");
             SelectedLineItem = selectedLineItem;
             selectedProduct = selectedLineItem.Product;
             OrderBuilder = orderBuilder;

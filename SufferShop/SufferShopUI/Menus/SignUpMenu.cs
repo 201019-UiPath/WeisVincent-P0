@@ -90,7 +90,7 @@ namespace SufferShopUI.Menus
                     throw new NotImplementedException();
                     //break;
             }
-
+            Console.WriteLine("You've now signed up! Now type all that garbage again to login!");
             MenuUtility.Instance.ReadyNextMenu(loginMenu);
 
         }

@@ -1,4 +1,5 @@
-﻿using SufferShopBL;
+﻿using Serilog;
+using SufferShopBL;
 using SufferShopDB.Repos;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace SufferShopUI.Menus.CustomerMenus
         private readonly OrderBuilder OrderBuilder;
         public CustomerOrderEditorSubMenu(ref OrderBuilder orderBuilder, ref IRepository repo) : base(ref repo)
         {
+            Log.Logger.Information("Instantiated Customer Order Editor Submenu.");
             OrderBuilder = orderBuilder;
         }
 

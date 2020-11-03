@@ -119,7 +119,7 @@ namespace SufferShopUI.Menus
                 }
 
                 // TODO: Move to Manager menu.
-                ManagerStartMenu managerMenu = new ManagerStartMenu(managerLoggingIn, Repo);
+                ManagerStartMenu managerMenu = new ManagerStartMenu(managerLoggingIn,ref Repo);
                 MenuUtility.Instance.ReadyNextMenu(managerMenu);
 
             }

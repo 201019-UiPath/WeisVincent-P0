@@ -17,7 +17,7 @@ namespace SufferShopDB.Models
 
 
 
-        internal Product(string name, double price, ProductType typeOfProduct, string description)
+        public Product(string name, double price, ProductType typeOfProduct, string description)
         {
             Name = name;
             Price = price;
@@ -36,6 +36,9 @@ namespace SufferShopDB.Models
 
         [Column("Type")]
         public ProductType TypeOfProduct { get; set; }
+
+        [NotMapped]
+        public string TypeOfProductAsString { get { return Enum.GetName(typeof(ProductType), TypeOfProduct); } }
 
         [Column("Description")]
         public string Description { get; set; }

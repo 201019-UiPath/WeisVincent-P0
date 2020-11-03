@@ -31,7 +31,7 @@ namespace SufferShopBL
             return repo.GetAllInventoryLineItemsAtLocationAsync(location.Id);
         }
 
-        public List<InventoryLineItem> GetAllProductsAtLocation(Location location)
+        public List<InventoryLineItem> GetAllProductsStockedAtLocation(Location location)
         {
             return repo.GetAllInventoryLineItemsAtLocation(location.Id);
         }

@@ -25,13 +25,12 @@ namespace SufferShopUI.Menus.ManagerMenus
 
         public override void SetStartingMessage()
         {
-            LocationStock = LocationService.GetAllProductsAtLocation(CurrentLocation);
-
+            LocationStock = LocationService.GetAllProductsStockedAtLocation(CurrentLocation);
+            StartMessage = $"Inventory for {CurrentLocation.Name}. Which inventory would you like to replenish/remove?";
             if (LocationStock.Count < 1)
             {
-                throw new NotEmptyException();
+                StartMessage = $"Inventory for {CurrentLocation.Name}. It's empty. Want to add something?";
             }
-            StartMessage = $"Inventory for {CurrentLocation.Name}. Which inventory would you like to replenish/remove?";
         }
 
         public override void SetUserChoices()
@@ -39,14 +38,13 @@ namespace SufferShopUI.Menus.ManagerMenus
             try
             {
                 PossibleOptions = new List<string>(LocationStock.Count);
+                // Add the line items of the current location as options to edit.
+                PossibleOptions.AddRange(LocationService.GetInventoryStockAsStrings(LocationStock));
             } catch (ArgumentOutOfRangeException e)
             {
-                Console.WriteLine("Your location's stock is completely empty. A manual database change is required.\nTaking you back to the start menu..");
                 Log.Information($"This Manager's location's stock is empty. {e.Message}");
-                GoBackToManagerStartMenu();
             }
-            // Add the line items of the current location as options to edit.
-            PossibleOptions.AddRange(LocationService.GetInventoryStockAsStrings(LocationStock));
+            PossibleOptions.Add("Use this option to add a new product not listed here.");
             PossibleOptions.Add("Use this option to go back.");
         }
 
@@ -61,6 +59,15 @@ namespace SufferShopUI.Menus.ManagerMenus
                     GoBackToManagerStartMenu();
                     break;
                 }
+
+                if (selectedChoice == PossibleOptions.Count - 1)
+                {
+                    RunProductAdditionSubmenu();
+                    // Reset this menu with the updated data.
+                    RunAgain();
+                    break;
+                }
+
 
                 if (selectedChoice == i)
                 {
@@ -96,12 +103,20 @@ namespace SufferShopUI.Menus.ManagerMenus
             Run();
         }
 
-        public void GoBackToManagerStartMenu()
+        private void GoBackToManagerStartMenu()
         {
             IMenu nextMenu;
             Console.WriteLine("Going back, ZOOM");
-            nextMenu = new ManagerStartMenu(CurrentManager, Repo);
+            nextMenu = new ManagerStartMenu(CurrentManager,ref Repo);
             MenuUtility.Instance.ReadyNextMenu(nextMenu);
+        }
+
+        private void RunProductAdditionSubmenu()
+        {
+            IMenu newSubMenu;
+            Console.WriteLine("Going back, ZOOM");
+            newSubMenu = new ManagerProductAdditionSubMenu(ref CurrentLocation, ref LocationStock, ref LocationService,ref Repo);
+            newSubMenu.Run();
         }
 
 

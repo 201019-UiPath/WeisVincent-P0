@@ -17,6 +17,7 @@ namespace SufferShopBL
         public void AddProductToStock(Product addedProduct, Location targetLocation)
         {
             repo.AddNewProductToStock(addedProduct.Id, targetLocation.Id);
+            repo.SaveChanges();
         }
 
         public List<InventoryLineItem> GetAllProductsAtLocation(Location location)
@@ -32,6 +33,17 @@ namespace SufferShopBL
         public Task<List<OrderLineItem>> GetAllProductsInOrderAsync(Order order)
         {
             return repo.GetOrderedProductsInAnOrderAsync(order.Id);
+        }
+
+        public List<Product> GetAllProducts()
+        {
+            return repo.GetAllProducts();
+        }
+
+        public void AddNewProduct(Product product)
+        {
+            repo.AddNewProduct(product);
+            repo.SaveChanges();
         }
 
     }

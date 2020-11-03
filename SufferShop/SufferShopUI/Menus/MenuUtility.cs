@@ -108,12 +108,12 @@ namespace SufferShopUI.Menus
 
             #region Ask User for address
 
-            Console.WriteLine("Enter your name:");
+            Console.WriteLine("Enter your address:");
             string inputAddress = Console.ReadLine().Trim();
 
             while (!StartService.ValidateAddressInput(inputAddress))
             {
-                Console.WriteLine("Your input must be a valid name.");
+                Console.WriteLine("Your input must be a valid address.");
                 Console.WriteLine("Enter your name:");
                 inputAddress = Console.ReadLine().Trim();
             }
@@ -179,7 +179,24 @@ namespace SufferShopUI.Menus
             throw new Exception("User input was processed incorrectly, validated a false input.");
         }
 
-        internal int QueryQuantity()
+        internal static string QueryDescription()
+        {
+            Console.WriteLine("Enter your description:");
+            string inputDescription = Console.ReadLine().Trim();
+
+            InputValidator validator = new InputValidator(new NotEmptyInputCondition());
+            const int maxLength = 140;
+            while (!validator.ValidateInput(inputDescription) || inputDescription.Length > maxLength)
+            {
+                Console.WriteLine($"Your input must be a valid description, no more than {maxLength} characters.");
+                Console.WriteLine("Enter your description:");
+                inputDescription = Console.ReadLine().Trim();
+            }
+
+            return inputDescription;
+        }
+
+        internal static int QueryQuantity()
         {
             IInputCondition condition;
             condition = new IsOneOrTwoDigitsCondition();
@@ -197,7 +214,7 @@ namespace SufferShopUI.Menus
                 }
 
                 int userChoice = int.Parse(userInput);
-                if (userChoice < 1 && userChoice > 50)
+                if (userChoice < 1 && userChoice > 80)
                 {
                     Console.WriteLine("That input wasn't it, sufferer. Give it another go, it needs to be between 0 and 50.");
                     continue;
@@ -205,8 +222,8 @@ namespace SufferShopUI.Menus
                 else
                 {
                     userInputIsInRange = true;
+                    return userChoice;
                 }
-                return userChoice;
             } while (!userInputIsInRange);
             throw new Exception("User input was processed incorrectly, validated a false input.");
         }

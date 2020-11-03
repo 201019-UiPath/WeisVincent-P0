@@ -28,7 +28,7 @@ namespace SufferShopBL
             SelectedLocation = selectedLocation;
 
             LocationService locationService = new LocationService(ref repo);
-            SelectedLocationStock = locationService.GetAllProductsAtLocation(SelectedLocation);
+            SelectedLocationStock = locationService.GetAllProductsStockedAtLocation(SelectedLocation);
 
             OrderCart = new List<StagedLineItem>();
         }

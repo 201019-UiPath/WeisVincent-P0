@@ -31,15 +31,15 @@ namespace SufferShopDB.Repos
             {
                 new Product( "Burning", 20.00, ProductType.Physical, "The sensation of being on fire, usually caused by being on fire.")
                 {
-                    Id = 1
+                    Id = -1
                 },
                 new Product("Sad Puppy Picture", 8.00, ProductType.Emotional, "They're really cute, actually, if your brain is messed up.")
                 {
-                    Id = 2
+                    Id = -2
                 },
                 new Product("Spider Infestation", 12.00, ProductType.Metaphysical, "Become Spiders-Man, and become a hive mind of spiders.")
                 {
-                    Id = 3
+                    Id = -3
                 }
             };
         }

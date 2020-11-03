@@ -10,12 +10,27 @@ namespace SufferShopDB.Repos.FileRepos
 
         const string filepathProducts = "SufferShopDB/SampleData/Products.txt";
 
+        public void AddNewProduct(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
         public void AddNewProductToStock(int newProductId, int locationId)
         {
             throw new NotImplementedException();
         }
 
         public Task<List<InventoryLineItem>> GetAllInventoryEntriesAtLocationAsync(int locationID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Product> GetAllProducts()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Product>> GetAllProductsAsync()
         {
             throw new NotImplementedException();
         }

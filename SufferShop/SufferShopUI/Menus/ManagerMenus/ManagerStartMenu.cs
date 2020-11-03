@@ -12,7 +12,7 @@ namespace SufferShopUI.Menus.ManagerMenus
         private readonly Manager CurrentManager;
 
         private IMenu NextMenu;
-        internal ManagerStartMenu(Manager manager, IRepository repo) : base(ref repo)
+        internal ManagerStartMenu(Manager manager,ref IRepository repo) : base(ref repo)
         {
             CurrentManager = manager;
         }

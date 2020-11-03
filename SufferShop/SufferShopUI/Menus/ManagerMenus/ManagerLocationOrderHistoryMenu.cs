@@ -47,7 +47,7 @@ namespace SufferShopUI.Menus.ManagerMenus
             bool IsSortOrderForward = false;
 
 
-            IMenu previousMenu = new ManagerStartMenu(currentManager, Repo);
+            IMenu previousMenu = new ManagerStartMenu(currentManager,ref Repo);
 
             switch (selectedChoice)
             {

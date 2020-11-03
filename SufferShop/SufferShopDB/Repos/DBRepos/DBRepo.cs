@@ -240,6 +240,21 @@ namespace SufferShopDB.Repos.DBRepos
         {
             throw new NotImplementedException();
         }
-        
+
+        public List<Product> GetAllProducts()
+        {
+            return context.Products.ToList();
+        }
+
+        public Task<List<Product>> GetAllProductsAsync()
+        {
+            Task<List<Product>> getProducts = context.Products.ToListAsync();
+            return getProducts;
+        }
+
+        public void AddNewProduct(Product product)
+        {
+            context.Products.Add(product);
+        }
     }
 }

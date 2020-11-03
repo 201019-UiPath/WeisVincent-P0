@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SufferShopBL
 {
-    public struct StagedLineItem
+    public class StagedLineItem
     {
         public InventoryLineItem affectedInventoryLineItem;
 

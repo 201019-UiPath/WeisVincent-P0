@@ -1,26 +1,37 @@
 ﻿using Serilog;
+using SufferShopBL;
 using SufferShopDB.Models;
 using SufferShopDB.Repos;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SufferShopUI.Menus.CustomerMenus
 {
     internal class CustomerLineItemQuantitySubMenu : Menu, IMenu
     {
-
-        private Product selectedProduct;
+        private readonly InventoryLineItem SelectedLineItem;
+        private readonly Product selectedProduct;
 
         /// <summary>
-        /// This number cannot be less than two, and should be as great as the number of the selected product in the user's chosen location.
+        /// This number cannot be less than two, and should be as great as the number of the selected product the user can buy.
         /// </summary>
-        private int maxQuantity;
+        private readonly int maxQuantity;
 
         private int selectedQuantity;
-        public CustomerLineItemQuantitySubMenu(InventoryLineItem selectedLineItem, IRepository repo) : base(ref repo)
+
+        private readonly OrderBuilder OrderBuilder;
+        public CustomerLineItemQuantitySubMenu(ref InventoryLineItem selectedLineItem, ref OrderBuilder orderBuilder, ref IRepository repo) : base(ref repo)
         {
+            SelectedLineItem = selectedLineItem;
             selectedProduct = selectedLineItem.Product;
-            maxQuantity = selectedLineItem.ProductQuantity;
+            OrderBuilder = orderBuilder;
+            StagedLineItem stagedLineItem = OrderBuilder.GetStagedLineItemForAffectedLineItemIfItExists(selectedLineItem);
+            if (stagedLineItem != null)
+            {
+                maxQuantity = stagedLineItem.GetNewQuantityOfAffectedInventoryLineItem();
+            }
+            else maxQuantity = selectedLineItem.ProductQuantity;
         }
 
 
@@ -57,6 +68,7 @@ namespace SufferShopUI.Menus.CustomerMenus
                     try
                     {
                         selectedQuantity = i;
+                        OrderBuilder.StageProductForOrder(SelectedLineItem, selectedQuantity);
                     }
                     catch (IndexOutOfRangeException e)
                     {

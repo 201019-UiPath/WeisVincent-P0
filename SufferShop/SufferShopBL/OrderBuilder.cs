@@ -12,8 +12,8 @@ namespace SufferShopBL
     //TODO: Refactor this entire stupid class
     public class OrderBuilder
     {
-        OrderService OrderService;
-        Customer CurrentCustomer;
+        private readonly OrderService OrderService;
+        private readonly Customer CurrentCustomer;
         private readonly Location SelectedLocation;
 
         public List<StagedLineItem> OrderCart;
@@ -33,7 +33,15 @@ namespace SufferShopBL
             OrderCart = new List<StagedLineItem>();
         }
 
-
+        public StagedLineItem GetStagedLineItemForAffectedLineItemIfItExists(InventoryLineItem inventoryLineItem)
+        {
+            if (OrderCart.Exists(sli => sli.affectedInventoryLineItem == inventoryLineItem))
+            {
+                return OrderCart.FindLast(sli => sli.affectedInventoryLineItem == inventoryLineItem);
+            }
+            else return null;
+            
+        }
 
         public void DestageLineItem(int index)
         {
@@ -45,9 +53,6 @@ namespace SufferShopBL
                 //return;
             }
 
-            InventoryLineItem ReturnedItem = selectedStagedLineItem.affectedInventoryLineItem;
-            //SelectedLocationStock.Add(ReturnedItem);
-
             OrderCart.RemoveAt(index);
         }
 
@@ -55,7 +60,11 @@ namespace SufferShopBL
 
         public void StageProductForOrder(InventoryLineItem selection, int quantityOrdered)
         {
-            AddLineItemToCart(selection, quantityOrdered);
+            StagedLineItem existingStagedLineItem = GetStagedLineItemForAffectedLineItemIfItExists(selection);
+            if (existingStagedLineItem != null)
+            {
+                existingStagedLineItem.Quantity += quantityOrdered;
+            } else AddLineItemToCart(selection, quantityOrdered);
         }
 
         public void StageProductForOrder(InventoryLineItem selection)
@@ -95,10 +104,24 @@ namespace SufferShopBL
             {
                 OrderLineItem newOrderLineItem = new OrderLineItem(order, lineItem.Product, lineItem.Quantity);
                 orderLineItems.Add(newOrderLineItem);
+
+                ProcessStagedLineItemOutOfInventory(lineItem);
             }
             return orderLineItems;
         }
 
+        private void ProcessStagedLineItemOutOfInventory(StagedLineItem lineItem)
+        {
+            int newQuantity = lineItem.GetNewQuantityOfAffectedInventoryLineItem();
+            if (newQuantity < 1)
+            {
+                SelectedLocationStock.Remove(lineItem.affectedInventoryLineItem);
+            }
+            else
+            {
+                SelectedLocationStock.Find(ili => ili.ProductId == lineItem.affectedInventoryLineItem.ProductId).ProductQuantity = newQuantity;
+            }
+        }
 
         private double GetTimeOrderIsPlaced()
         {
@@ -111,7 +134,7 @@ namespace SufferShopBL
         {
             //TODO: Create new Order, process the updated inventory list, and Add new OrderLineItems to reflect what's in the order.
 
-            Order newOrder = new Order(CurrentCustomer, SelectedLocation, GetCurrentSubtotalOfCart(ref OrderCart), GetTimeOrderIsPlaced());
+            Order newOrder = new Order(CurrentCustomer, SelectedLocation, GetCurrentSubtotalOfCart(), GetTimeOrderIsPlaced());
             List<OrderLineItem> orderLineItems = ProcessOrderCartIntoOrderLineItems(ref OrderCart, newOrder);
 
             foreach (OrderLineItem lineItem in orderLineItems)
@@ -124,7 +147,7 @@ namespace SufferShopBL
             //TODO: What to do about this line: OrderService.RemoveLineItemsFromLocationInventory(InventoryMarkedForRemoval);
         }
 
-        private double GetCurrentSubtotalOfCart(ref List<StagedLineItem> orderCart)
+        private double GetCurrentSubtotalOfCart()
         {
             double totalPrice = 0.0;
             foreach (StagedLineItem lineItem in OrderCart)
@@ -134,7 +157,7 @@ namespace SufferShopBL
             return totalPrice;
         }
 
-        public List<string> ReturnAvailableItemsAsStrings()
+        public List<string> ReturnAvailableProductsAsStrings()
         {
             if (SelectedLocationStock.Count < 1)
             {
@@ -145,7 +168,11 @@ namespace SufferShopBL
             foreach (InventoryLineItem entry in SelectedLocationStock)
             {
                 Product product = entry.Product;
-                int productQuantity = entry.ProductQuantity;
+                int productQuantity;
+                if (OrderCart.Exists(sli => sli.affectedInventoryLineItem == entry))
+                {
+                    productQuantity = OrderCart.FindLast(sli => sli.affectedInventoryLineItem == entry).GetNewQuantityOfAffectedInventoryLineItem();
+                } else productQuantity = entry.ProductQuantity;
                 string productType = Enum.GetName(typeof(ProductType), product.TypeOfProduct);
 
                 availableItems.Add($"{product.Name}: {product.Description} Part of our {productType} collection. Quantity: {productQuantity}");

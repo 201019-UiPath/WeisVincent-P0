@@ -24,6 +24,7 @@ namespace SufferShopBL
         public void AddManager(Manager newManager)
         {
             repo.AddManager(newManager);
+            repo.SaveChanges();
         }
 
         public Manager GetManagerByEmail(string newEmail)

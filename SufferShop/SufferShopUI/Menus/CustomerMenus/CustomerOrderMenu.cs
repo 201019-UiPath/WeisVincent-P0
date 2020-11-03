@@ -10,7 +10,7 @@ namespace SufferShopUI.Menus.CustomerMenus
     internal class CustomerOrderMenu : Menu, IMenu
     {
 
-        private Customer CurrentCustomer;
+        private readonly Customer CurrentCustomer;
 
         private OrderBuilder OrderBuilder;
 
@@ -39,19 +39,14 @@ namespace SufferShopUI.Menus.CustomerMenus
         public override void SetUserChoices()
         {
             PossibleOptions = new List<string>(OrderBuilder.SelectedLocationStock.Count);
-            foreach (InventoryLineItem entry in OrderBuilder.SelectedLocationStock)
-            {
-                Product product = entry.Product;
-                int productQuantity = entry.ProductQuantity;
-                string productType = Enum.GetName(typeof(ProductType), product.TypeOfProduct);
 
-                PossibleOptions.Add($"{product.Name}: {product.Description} Part of our {productType} collection. Quantity: {productQuantity}");
-            }
+            PossibleOptions.AddRange(OrderBuilder.ReturnAvailableProductsAsStrings());
 
             if (CartHasItems)
             {
                 PossibleOptions.Add("Use this option to view and edit your order.");
             };
+
             PossibleOptions.Add("Use this option to go back, cancelling your order.");
             
         }
@@ -84,8 +79,8 @@ namespace SufferShopUI.Menus.CustomerMenus
 
                         if (selectedLineItem.ProductQuantity > 1)
                         {
-                            int selectedQuantity = new CustomerLineItemQuantitySubMenu(selectedLineItem, Repo).RunAndReturn();
-                            OrderBuilder.StageProductForOrder(selectedLineItem, selectedQuantity);
+                            // This submenu will stage the next line item for order itself.
+                            new CustomerLineItemQuantitySubMenu(ref selectedLineItem,ref OrderBuilder,ref Repo).Run();  
                         }
                         else
                         {

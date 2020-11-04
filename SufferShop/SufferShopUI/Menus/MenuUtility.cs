@@ -185,7 +185,7 @@ namespace SufferShopUI.Menus
                 }
 
                 int userChoice = int.Parse(userInput);
-                if (userChoice < 1 && userChoice > possibleOptions.Count)
+                if (userChoice < 1 || userChoice > possibleOptions.Count)
                 {
                     Console.WriteLine("That input wasn't it, sufferer. Give it another go, it needs to be one of the offered choices.");
                     continue;

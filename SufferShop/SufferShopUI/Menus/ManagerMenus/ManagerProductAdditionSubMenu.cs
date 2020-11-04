@@ -55,7 +55,7 @@ namespace SufferShopUI.Menus.ManagerMenus
                 if (selectedChoice == PossibleOptions.Count)
                 {
                     return;
-                    break;
+                    //break;
                 }
 
                 if (selectedChoice == PossibleOptions.Count - 1)

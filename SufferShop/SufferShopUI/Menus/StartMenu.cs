@@ -6,8 +6,7 @@ namespace SufferShopUI.Menus
 {
 
     /// <summary>
-    /// This is a sample menu to practice interfaces, menu creation, and XML documentation. This utilized the VSCode C# XML Documentation Extension:
-    /// VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=k--kato.docomment
+    /// This is the starting menu for the program, implementing the IMenu interface in order to enforce menu structure.
     /// </summary> 
     public sealed class StartMenu : Menu, IMenu
     {

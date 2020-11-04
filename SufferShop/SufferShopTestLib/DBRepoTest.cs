@@ -79,6 +79,7 @@ namespace SufferShopTest
             var options = new DbContextOptionsBuilder<SufferShopContext>().UseInMemoryDatabase("GetManagerByEmailShouldGetManager").Options;
             using var testContext = new SufferShopContext(options);
             repo = new DBRepo(testContext);
+            testContext.Locations.AddRange(SampleData.GetSampleLocations());
 
             //Act
             repo.AddManager(testManager);
@@ -88,8 +89,8 @@ namespace SufferShopTest
             Manager fetchedTestManager = repo.GetManagerByEmail(testManager.Email);
 
             //Assert
-            using var assertContext = new SufferShopContext(options);
-            Assert.NotNull(assertContext.Managers.Single(m => m.Id == fetchedTestManager.Id));
+            //using var assertContext = new SufferShopContext(options);
+            Assert.NotNull(testContext.Managers.Single(m => m.Id == fetchedTestManager.Id));
         }
 
         [Fact]
@@ -99,8 +100,9 @@ namespace SufferShopTest
             var options = new DbContextOptionsBuilder<SufferShopContext>().UseInMemoryDatabase("UpdateInventoryLineItemShouldUpdateLineItem").Options;
             using var testContext = new SufferShopContext(options);
             // add sample data to testContext
-            testContext.Locations.AddRange(SampleData.GetSampleLocations());
             testContext.InventoryLineItems.AddRange(SampleData.GetSampleInventoryLineItems());
+            testContext.Locations.AddRange(SampleData.GetSampleLocations());
+            testContext.Products.AddRange(SampleData.GetSampleProducts());
             testContext.SaveChanges();
 
             repo = new DBRepo(testContext);
@@ -108,7 +110,7 @@ namespace SufferShopTest
             //Act
             // get a location that has an InventoryLineItem
             int sampleLocationId = repo.GetAllLocations().First().Id;
-            InventoryLineItem sampleLineItem = repo.GetAllInventoryLineItemsAtLocation(sampleLocationId).First();
+            InventoryLineItem sampleLineItem = repo.GetAllInventoryLineItemsAtLocation(sampleLocationId).FindLast(ili=>ili.LocationId == sampleLocationId);
             int startingQuantity = sampleLineItem.ProductQuantity;
             sampleLineItem.ProductQuantity += 1;
 
@@ -117,7 +119,7 @@ namespace SufferShopTest
             repo.SaveChanges();
 
             //Assert
-            using var assertContext = new SufferShopContext(options);
+            //using var assertContext = new SufferShopContext(options);
             Assert.NotEqual(startingQuantity, sampleLineItem.ProductQuantity);
         }
 

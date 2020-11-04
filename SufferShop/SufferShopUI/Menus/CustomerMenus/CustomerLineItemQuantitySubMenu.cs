@@ -13,9 +13,9 @@ namespace SufferShopUI.Menus.CustomerMenus
         private readonly Product selectedProduct;
 
         /// <summary>
-        /// This number cannot be less than two, and should be as great as the number of the selected product the user can buy.
+        /// This number cannot be less than one, and should be as great as the number of the selected product the user can buy.
         /// </summary>
-        private readonly int maxQuantity;
+        private int maxQuantity;
 
         private int selectedQuantity;
 
@@ -42,7 +42,7 @@ namespace SufferShopUI.Menus.CustomerMenus
 
         public override void SetUserChoices()
         {
-            PossibleOptions = new List<string>(maxQuantity);
+            PossibleOptions = new List<string>(maxQuantity+1);
 
             for (int i = 1; i <= maxQuantity; i++)
             {
@@ -61,7 +61,7 @@ namespace SufferShopUI.Menus.CustomerMenus
 
         public override void ExecuteUserChoice()
         {
-            for (int i = 1; i < PossibleOptions.Count; i++)
+            for (int i = 1; i <= PossibleOptions.Count; i++)
             {
                 if (selectedChoice == i)
                 {
@@ -80,12 +80,7 @@ namespace SufferShopUI.Menus.CustomerMenus
             }
         }
 
-
-        public int RunAndReturn()
-        {
-            Run();
-            return selectedQuantity;
-        }
+        
 
     }
 }

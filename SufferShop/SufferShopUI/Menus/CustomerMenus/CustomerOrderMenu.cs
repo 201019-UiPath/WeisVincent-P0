@@ -77,14 +77,16 @@ namespace SufferShopUI.Menus.CustomerMenus
                     {
                         selectedLineItem = OrderBuilder.SelectedLocationStock[i - 1];
 
-                        if (selectedLineItem.ProductQuantity > 1)
+                        int productQuantity = OrderBuilder.GetAvailableQuantityOfInventoryLineItem(selectedLineItem);
+
+                        if (productQuantity > 0)
                         {
                             // This submenu will stage the next line item for order itself.
                             new CustomerLineItemQuantitySubMenu(ref selectedLineItem, ref OrderBuilder, ref Repo).Run();
                         }
                         else
                         {
-                            OrderBuilder.StageProductForOrder(selectedLineItem);
+                            Console.WriteLine("Can't order this one, chief. The rest of its stock is in your cart. Silly goose.");
                         }
 
                         // Reset this menu with the updated data.

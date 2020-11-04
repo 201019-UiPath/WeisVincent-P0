@@ -62,6 +62,28 @@ namespace SufferShopUI.Menus
             #endregion
         }
 
+        public static string QueryProductName()
+        {
+
+            #region Ask User for Name
+
+            Console.WriteLine("Enter a name for the Product:");
+            string inputName = Console.ReadLine().Trim();
+
+            // TODO: Refine conditions for Product names.
+            InputValidator validator = new InputValidator(new NotEmptyInputCondition());
+            while (!validator.ValidateInput(inputName))
+            {
+                Console.WriteLine("Your input must be a valid product name.");
+                Console.WriteLine("Enter a name for the Product:");
+                inputName = Console.ReadLine().Trim();
+            }
+
+            return inputName;
+
+            #endregion
+        }
+
 
         public static string QueryEmail()
         {

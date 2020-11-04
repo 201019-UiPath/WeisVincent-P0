@@ -30,6 +30,12 @@ namespace SufferShopBL
             Repo.SaveChanges();
         }
 
+        public void RemoveLineItemFromLocationInventory(InventoryLineItem inventoryLineItem)
+        {
+            Repo.RemoveInventoryLineItemFromLocation(inventoryLineItem);
+            Repo.SaveChanges();
+        }
+
         public void AddOrderToRepo(Order order)
         {
             Repo.AddOrder(order);

@@ -51,8 +51,8 @@ namespace SufferShopUI.Menus.ManagerMenus
 
             // At this point, the Run method should complete, 
             // and the ball SHOULD be thrown back to the SignUpMenu court and continue execution.
-            LoginMenu loginMenu = new LoginMenu(ref Repo);
-            MenuUtility.Instance.ReadyNextMenu(loginMenu);
+            //LoginMenu loginMenu = new LoginMenu(ref Repo);
+            //MenuUtility.Instance.ReadyNextMenu(loginMenu);
         }
 
         public Manager RunAndReturnManagerWithSelectedLocation()

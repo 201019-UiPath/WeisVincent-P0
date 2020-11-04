@@ -214,6 +214,11 @@ namespace SufferShopDB.Repos.DBRepos
             context.Orders.AddAsync(order);
         }
 
+        public void RemoveInventoryLineItemFromLocation(InventoryLineItem lineItem)
+        {
+            context.InventoryLineItems.Remove(lineItem);
+        }
+
         public void RemoveInventoryLineItemsFromLocation(List<InventoryLineItem> lineItems)
         {
             context.InventoryLineItems.RemoveRange(lineItems);

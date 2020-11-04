@@ -115,9 +115,11 @@ namespace SufferShopBL
         private void ProcessStagedLineItemOutOfInventory(StagedLineItem lineItem)
         {
             int newQuantity = lineItem.GetNewQuantityOfAffectedInventoryLineItem();
+            
             if (newQuantity < 1)
             {
-                SelectedLocationStock.Remove(lineItem.affectedInventoryLineItem);
+                OrderService.RemoveLineItemFromLocationInventory(SelectedLocationStock.Find(ili => ili.ProductId == lineItem.affectedInventoryLineItem.ProductId));
+                SelectedLocationStock.Remove(SelectedLocationStock.Find(ili => ili.ProductId == lineItem.affectedInventoryLineItem.ProductId));
             }
             else
             {
@@ -174,12 +176,9 @@ namespace SufferShopBL
             foreach (InventoryLineItem entry in SelectedLocationStock)
             {
                 Product product = entry.Product;
-                int productQuantity;
-                if (OrderCart.Exists(sli => sli.affectedInventoryLineItem == entry))
-                {
-                    productQuantity = OrderCart.FindLast(sli => sli.affectedInventoryLineItem == entry).GetNewQuantityOfAffectedInventoryLineItem();
-                }
-                else productQuantity = entry.ProductQuantity;
+
+                int productQuantity = GetAvailableQuantityOfInventoryLineItem(entry);
+
                 string productType = Enum.GetName(typeof(ProductType), product.TypeOfProduct);
 
                 availableItems.Add($"{product.Name}: {product.Description} Part of our {productType} collection. Quantity: {productQuantity}");
@@ -187,5 +186,17 @@ namespace SufferShopBL
 
             return availableItems;
         }
+
+        public int GetAvailableQuantityOfInventoryLineItem(InventoryLineItem selectedLineItem)
+        {
+            int productQuantity;
+            if (OrderCart.Exists(sli => sli.affectedInventoryLineItem == selectedLineItem))
+            {
+                productQuantity = OrderCart.FindLast(sli => sli.affectedInventoryLineItem == selectedLineItem).GetNewQuantityOfAffectedInventoryLineItem();
+            }
+            else productQuantity = selectedLineItem.ProductQuantity;
+            return productQuantity;
+        }
+        
     }
 }

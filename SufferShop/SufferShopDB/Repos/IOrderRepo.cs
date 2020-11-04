@@ -30,6 +30,8 @@ namespace SufferShopDB.Repos
 
         List<Order> GetAllOrdersForLocation(int locationID);
 
+        void RemoveInventoryLineItemFromLocation(InventoryLineItem lineItem);
+
         void RemoveInventoryLineItemsFromLocation(List<InventoryLineItem> lineItems);
 
 

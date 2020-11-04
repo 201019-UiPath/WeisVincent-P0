@@ -109,8 +109,9 @@ namespace SufferShopUI.Menus.ManagerMenus
 
         private Product InputBrandNewProduct()
         {
-            string newName = MenuUtility.QueryName();
+            string newName = MenuUtility.QueryProductName();
 
+            // TODO: Allow prices to be decimal numbers with two decimal points. More validation.
             Console.WriteLine("Enter a valid whole number price. We don't do that round-up 59.99 garbage here.");
             double newPrice = MenuUtility.QueryQuantity();
 

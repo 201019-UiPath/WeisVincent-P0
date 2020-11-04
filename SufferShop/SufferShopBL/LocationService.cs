@@ -49,6 +49,11 @@ namespace SufferShopBL
 
         public void UpdateInventoryLineItemInRepo(InventoryLineItem lineItem)
         {
+            if (lineItem.ProductQuantity < 1)
+            {
+                RemoveInventoryLineItemInRepo(lineItem);
+                return;
+            }
             repo.UpdateInventoryLineItem(lineItem);
             repo.SaveChanges();
         }

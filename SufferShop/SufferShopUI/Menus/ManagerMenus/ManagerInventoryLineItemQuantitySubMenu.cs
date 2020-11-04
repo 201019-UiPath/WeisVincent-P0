@@ -1,4 +1,5 @@
-﻿using SufferShopBL;
+﻿using Serilog;
+using SufferShopBL;
 using SufferShopDB.Models;
 using SufferShopDB.Repos;
 using System;
@@ -52,10 +53,11 @@ namespace SufferShopUI.Menus.ManagerMenus
                         selectedQuantityDelta = MenuUtility.QueryQuantity();
                     }
                     selectedLineItem.ProductQuantity -= selectedQuantityDelta;
-                    if (selectedLineItem.ProductQuantity <= 0)
-                    {
-                        LocationService.RemoveInventoryLineItemInRepo(selectedLineItem);
-                    }
+                    // This code is now unnecessary and is handled by LocationService.
+                    //if (selectedLineItem.ProductQuantity <= 0)
+                    //{
+                    //    LocationService.RemoveInventoryLineItemInRepo(selectedLineItem);
+                    //}
 
                     break;
                 case 3:

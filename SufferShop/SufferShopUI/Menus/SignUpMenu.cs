@@ -47,7 +47,7 @@ namespace SufferShopUI.Menus
             {
                 Console.WriteLine("That email already exists for a user of the program. You really should be logging in instead. \n Taking you back to the start..");
                 MenuUtility.Instance.ReadyNextMenu(new StartMenu(ref Repo));
-
+                return;
             }
 
             // 3: ask for password, then name and address

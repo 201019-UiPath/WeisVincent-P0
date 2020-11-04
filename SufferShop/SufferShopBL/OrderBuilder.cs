@@ -5,6 +5,7 @@ using SufferShopLib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SufferShopBL
 {
@@ -138,10 +139,14 @@ namespace SufferShopBL
             Order newOrder = new Order(CurrentCustomer, SelectedLocation, GetCurrentSubtotalOfCart(), GetTimeOrderIsPlaced());
             List<OrderLineItem> orderLineItems = ProcessOrderCartIntoOrderLineItems(ref OrderCart, newOrder);
 
+            StringBuilder orderItemsListedToCustomer = new StringBuilder("Adding Cart Items to order:");
             foreach (OrderLineItem lineItem in orderLineItems)
             {
+                orderItemsListedToCustomer.AppendLine($"    --- {lineItem.ProductQuantity} of {lineItem.Product.Name}");
                 newOrder.AddLineItemToOrder(lineItem);
             }
+            Console.WriteLine(orderItemsListedToCustomer.ToString());
+            Console.WriteLine($"Submitting order now...");
 
             // TODO: Update Database with the new order, new order line items, and removal of Inventory line items
             OrderService.AddOrderToRepo(newOrder);

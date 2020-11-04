@@ -69,6 +69,7 @@ namespace SufferShopUI.Menus
         public void QueryUserChoice()
         {
             selectedChoice = MenuUtility.ProcessUserInputAgainstPossibleChoices(PossibleOptions);
+            Console.WriteLine();
         }
 
 

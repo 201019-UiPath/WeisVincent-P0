@@ -19,7 +19,7 @@ namespace SufferShopLib.Validation
 
         public static readonly List<IInputCondition> AddressConditions = new List<IInputCondition>(1)
         {
-            new NotEmptyInputCondition() //TODO: Add more address conditions if possible?
+            new NotEmptyInputCondition() //TODO: Add more address conditions if possible
         };
 
 

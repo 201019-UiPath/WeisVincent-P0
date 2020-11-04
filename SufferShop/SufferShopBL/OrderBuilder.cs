@@ -42,6 +42,7 @@ namespace SufferShopBL
 
         public StagedLineItem GetStagedLineItemForAffectedLineItemIfItExists(InventoryLineItem inventoryLineItem)
         {
+            Log.Logger.Information("Checking to see if an inventory line item has been added to the order cart already..");
             if (OrderCart.Exists(sli => sli.affectedInventoryLineItem == inventoryLineItem))
             {
                 return OrderCart.FindLast(sli => sli.affectedInventoryLineItem == inventoryLineItem);
@@ -52,6 +53,7 @@ namespace SufferShopBL
 
         public void DestageLineItem(int index)
         {
+            Log.Logger.Information("Removing a staged line item from the user's order cart..");
             StagedLineItem selectedStagedLineItem = OrderCart.ElementAt(index);
 
             if (selectedStagedLineItem.GetType() != typeof(StagedLineItem))
@@ -67,9 +69,11 @@ namespace SufferShopBL
 
         public void StageProductForOrder(InventoryLineItem selection, int quantityOrdered)
         {
+            
             StagedLineItem existingStagedLineItem = GetStagedLineItemForAffectedLineItemIfItExists(selection);
             if (existingStagedLineItem != null)
             {
+                Log.Logger.Information("Changing the quantity of an existing line item in the order cart..");
                 existingStagedLineItem.Quantity += quantityOrdered;
             }
             else AddLineItemToCart(selection, quantityOrdered);
@@ -83,13 +87,15 @@ namespace SufferShopBL
 
         private void AddLineItemToCart(InventoryLineItem selection, int quantityOrdered)
         {
-
+            Log.Logger.Information("Adding a staged line item to the user's order cart..");
             StagedLineItem newLineItem = new StagedLineItem(selection.Product, quantityOrdered, selection);
             OrderCart.Add(newLineItem);
         }
 
+        // TODO: Move this to a UI class.
         public List<string> GetOrderCartAsStrings()
         {
+            Log.Logger.Information("Converting the order cart to strings to be displayed in the console..");
             List<string> OrderCartAsStrings = new List<string>(OrderCart.Count);
             if (OrderCart.Count < 1)
             {
@@ -107,6 +113,7 @@ namespace SufferShopBL
 
         private List<OrderLineItem> ProcessOrderCartIntoOrderLineItems(ref List<StagedLineItem> orderCart, Order order)
         {
+            Log.Logger.Information("Processing the order cart into order line items for the repository..");
             List<OrderLineItem> orderLineItems = new List<OrderLineItem>(orderCart.Count);
             foreach (StagedLineItem lineItem in orderCart)
             {
@@ -120,6 +127,7 @@ namespace SufferShopBL
 
         private void ProcessStagedLineItemOutOfInventory(StagedLineItem lineItem)
         {
+            Log.Logger.Information("Removing ordered product from inventory by changing or removing inventory line items..");
             int newQuantity = lineItem.GetNewQuantityOfAffectedInventoryLineItem();
             
             if (newQuantity < 1)
@@ -143,7 +151,7 @@ namespace SufferShopBL
         public void BuildAndSubmitOrder()
         {
             //TODO: Create new Order, process the updated inventory list, and Add new OrderLineItems to reflect what's in the order.
-
+            Log.Logger.Information("Starting Order processing and submission..");
             Order newOrder = new Order(CurrentCustomer, SelectedLocation, GetCurrentSubtotalOfCart(), GetTimeOrderIsPlaced());
             List<OrderLineItem> orderLineItems = ProcessOrderCartIntoOrderLineItems(ref OrderCart, newOrder);
 
@@ -171,8 +179,10 @@ namespace SufferShopBL
             return totalPrice;
         }
 
+        // TODO: Move this to a UI class.
         public List<string> ReturnAvailableProductsAsStrings()
         {
+            Log.Logger.Information("Processing available inventory stock as strings to be displayed in the console..");
             if (SelectedLocationStock.Count < 1)
             {
                 Log.Error("The stock of the user's selected location was empty when used to display options. Can't successfully display non-existent options.");
@@ -195,6 +205,7 @@ namespace SufferShopBL
 
         public int GetAvailableQuantityOfInventoryLineItem(InventoryLineItem selectedLineItem)
         {
+            Log.Logger.Information("Computing amount of product stock at a location that isn't already ordered by the current customer..");
             int productQuantity;
             if (OrderCart.Exists(sli => sli.affectedInventoryLineItem == selectedLineItem))
             {

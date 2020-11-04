@@ -1,4 +1,5 @@
-﻿using SufferShopDB.Models;
+﻿using Serilog;
+using SufferShopDB.Models;
 using SufferShopDB.Repos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ namespace SufferShopBL
         public List<Customer> GetAllCustomers()
         {
             List<Customer> getCustomers = repo.GetAllCustomers();
-
+            Log.Logger.Information("Fetching list of customers...");
             return getCustomers;
         }
 
@@ -32,6 +33,7 @@ namespace SufferShopBL
             Customer possibleExistingCustomer = repo.GetCustomerByEmail(newCustomer.Email);
             if (possibleExistingCustomer == null)
             {
+                Log.Logger.Information("Adding new customer to repository..");
                 repo.AddCustomer(newCustomer);
                 repo.SaveChanges();
             }
@@ -45,17 +47,20 @@ namespace SufferShopBL
 
         public Customer GetCustomerByEmail(string newEmail)
         {
+            Log.Logger.Information("Retrieving customer data from repository by an email address..");
             return repo.GetCustomerByEmail(newEmail);
         }
 
 
         public List<Order> GetAllOrdersForCustomer(Customer customer)
         {
+            Log.Logger.Information("Retrieving all orders associated with a certain customer...");
             return repo.GetAllOrdersForCustomer(customer.Id);
         }
 
         public List<Order> GetAllOrdersForCustomerAsync(Customer customer)
         {
+            Log.Logger.Information("Retrieving all orders associated with a certain customer asynchronously...");
             Task<List<Order>> getOrders = repo.GetAllOrdersForCustomerAsync(customer.Id);
             return getOrders.Result;
         }

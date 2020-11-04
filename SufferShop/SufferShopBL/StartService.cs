@@ -1,4 +1,5 @@
-﻿using SufferShopDB.Models;
+﻿using Serilog;
+using SufferShopDB.Models;
 using SufferShopDB.Repos;
 using SufferShopLib.Validation;
 using System;
@@ -25,6 +26,7 @@ namespace SufferShopBL
 
         public static bool ValidateNameInput(string name)
         {
+            Log.Logger.Information("Validating the input of a name..");
             InputValidator inputValidator = new InputValidator(InputConditions.NameConditions);
             return inputValidator.ValidateInput(name);
         }
@@ -32,18 +34,21 @@ namespace SufferShopBL
         #region Input Validation
         public static bool ValidateEmailInput(string email)
         {
+            Log.Logger.Information("Validating the input of an email..");
             InputValidator inputValidator = new InputValidator(InputConditions.EmailConditions);
             return inputValidator.ValidateInput(email);
         }
 
         public static bool ValidatePasswordInput(string password)
         {
+            Log.Logger.Information("Validating the input of a password..");
             InputValidator inputValidator = new InputValidator(InputConditions.PasswordConditions);
             return inputValidator.ValidateInput(password);
         }
 
         public static bool ValidateAddressInput(string address)
         {
+            Log.Logger.Information("Validating the input of an address..");
             InputValidator inputValidator = new InputValidator(InputConditions.AddressConditions);
             return inputValidator.ValidateInput(address);
         }
@@ -53,7 +58,7 @@ namespace SufferShopBL
         #region Interaction with DB
         public User GetUserByEmail(string email)
         {
-
+            Log.Logger.Information("Retrieving a user by their email by querying both the Customer and Manager collections in the repository..");
             Customer userAsCustomer = customerService.GetCustomerByEmail(email);
             Manager userAsManager = managerService.GetManagerByEmail(email);
             if (userAsCustomer == null)

@@ -1,4 +1,5 @@
-﻿using SufferShopDB.Models;
+﻿using Serilog;
+using SufferShopDB.Models;
 using SufferShopDB.Repos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -20,12 +21,14 @@ namespace SufferShopBL
 
         public void AddProductToStock(Product addedProduct, Location targetLocation)
         {
+            Log.Logger.Information("Adding a product entry to a location stock..");
             repo.AddNewProductToStock(addedProduct.Id, targetLocation.Id);
             repo.SaveChanges();
         }
 
         public List<InventoryLineItem> GetAllProductsAtLocation(Location location)
         {
+            Log.Logger.Information("Retrieving all products available at a location..");
             return repo.GetAllInventoryLineItemsAtLocationAsync(location.Id).Result;
         }
 
@@ -41,11 +44,13 @@ namespace SufferShopBL
 
         public List<Product> GetAllProducts()
         {
+            Log.Logger.Information("Retrieving all products available from the catalogue..");
             return repo.GetAllProducts();
         }
 
         public void AddNewProduct(Product product)
         {
+            Log.Logger.Information("Adding a new product to the store catalogue repository..");
             repo.AddNewProduct(product);
             repo.SaveChanges();
         }

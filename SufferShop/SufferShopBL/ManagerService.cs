@@ -1,4 +1,5 @@
-﻿using SufferShopDB.Models;
+﻿using Serilog;
+using SufferShopDB.Models;
 using SufferShopDB.Repos;
 using System.Collections.Generic;
 
@@ -18,6 +19,7 @@ namespace SufferShopBL
 
         public List<Manager> GetAllManagers()
         {
+            Log.Logger.Information("Retrieving a list of all managers from the repository..");
             List<Manager> getManagers = repo.GetAllManagers();
 
             return getManagers;
@@ -26,12 +28,14 @@ namespace SufferShopBL
 
         public void AddManager(Manager newManager)
         {
+            Log.Logger.Information("Retrieving a list of all managers from the repository..");
             repo.AddManager(newManager);
             repo.SaveChanges();
         }
 
         public Manager GetManagerByEmail(string newEmail)
         {
+            Log.Logger.Information("Retrieving a manager by email address from the repository..");
             return repo.GetManagerByEmail(newEmail);
         }
 

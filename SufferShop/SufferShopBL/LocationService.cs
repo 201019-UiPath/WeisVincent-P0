@@ -1,4 +1,5 @@
-﻿using SufferShopDB.Models;
+﻿using Serilog;
+using SufferShopDB.Models;
 using SufferShopDB.Repos;
 using System;
 using System.Collections.Generic;
@@ -21,32 +22,38 @@ namespace SufferShopBL
 
         public List<Location> GetAllLocations()
         {
+            Log.Logger.Information("Retrieving list of locations from the repository..");
             return repo.GetAllLocations();
         }
 
         public List<Location> GetAllLocationsAsync()
         {
+            Log.Logger.Information("Retrieving list of locations from repository asynchronously..");
             Task<List<Location>> getLocations = repo.GetAllLocationsAsync();
             return getLocations.Result;
         }
 
         public Task<List<InventoryLineItem>> GetAllProductsAtLocationAsync(Location location)
         {
+            Log.Logger.Information("Retrieving list of products at a location from the repository..");
             return repo.GetAllInventoryLineItemsAtLocationAsync(location.Id);
         }
 
         public List<InventoryLineItem> GetAllProductsStockedAtLocation(Location location)
         {
+            Log.Logger.Information("Retrieving list of inventory stock at a location from the repository..");
             return repo.GetAllInventoryLineItemsAtLocation(location.Id);
         }
 
         public List<Order> GetAllOrdersForLocation(Location location)
         {
+            Log.Logger.Information("Retrieving list of orders associated with a location from the repository..");
             return repo.GetAllOrdersForLocation(location.Id);
         }
 
         public void AddInventoryLineItemInRepo(InventoryLineItem lineItem)
         {
+            Log.Logger.Information("Adding new inventory line item to repository..");
             repo.AddInventoryLineItem(lineItem);
             repo.SaveChanges();
         }
@@ -58,18 +65,20 @@ namespace SufferShopBL
                 RemoveInventoryLineItemInRepo(lineItem);
                 return;
             }
+            Log.Logger.Information("Updating an existing inventory line item in the repository..");
             repo.UpdateInventoryLineItem(lineItem);
             repo.SaveChanges();
         }
 
         public void RemoveInventoryLineItemInRepo(InventoryLineItem lineItem)
         {
+            Log.Logger.Information("Removing an inventory line item from repository..");
             repo.RemoveInventoryLineItem(lineItem);
             repo.SaveChanges();
         }
 
 
-
+        // TODO: Move this to a UI class.
         public List<string> GetInventoryStockAsStrings(List<InventoryLineItem> inventoryStock)
         {
             List<string> inventoryStockAsStrings = new List<string>(inventoryStock.Count);
@@ -83,6 +92,8 @@ namespace SufferShopBL
             {
                 inventoryStockAsStrings.Add($"{entry.ProductQuantity} of {entry.Product.Name}");
             }
+
+            Log.Logger.Information("Processing location stock into set of strings for the UI.");
 
             return inventoryStockAsStrings;
         }

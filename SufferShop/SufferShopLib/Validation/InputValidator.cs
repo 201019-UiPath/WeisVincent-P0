@@ -4,6 +4,10 @@ using System.Data;
 
 namespace SufferShopLib.Validation
 {
+    /// <summary>
+    /// This is an Input Validation class designed to work with any condition or number of conditions, defined in classes that implement IInputCondition.
+    /// This class can be instantiated with any number of conditions greater than 0, and can then be used with the ValidateInput() method to validate a string against those conditions.
+    /// </summary>
     public sealed class InputValidator
     {
 

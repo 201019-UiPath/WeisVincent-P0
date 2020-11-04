@@ -2,6 +2,10 @@
 
 namespace SufferShopBL
 {
+    /// <summary>
+    /// This class represents a locally staged item in a customer's order cart.
+    /// It includes information on what the user is ordering and what store inventory will be affected.
+    /// </summary>
     public class StagedLineItem
     {
         public InventoryLineItem affectedInventoryLineItem;

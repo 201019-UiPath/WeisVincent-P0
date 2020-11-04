@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 namespace SufferShopBL
 {
+    /// <summary>
+    /// This class handles manager-specific business logic for the SufferShop using a repository that implements IRepository.
+    /// This includes adding new managers and getting manager info by email.
+    /// </summary>
     public class ManagerService
     {
         readonly IRepository repo;

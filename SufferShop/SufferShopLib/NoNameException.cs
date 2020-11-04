@@ -1,5 +1,7 @@
 using System;
-
+/// <summary>
+/// A barebones customer exception intended to be used if a user of a program ends up with an empty name property.
+/// </summary>
 public class NoNameException : Exception
 {
 

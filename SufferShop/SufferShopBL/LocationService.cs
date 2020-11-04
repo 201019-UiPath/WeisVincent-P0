@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace SufferShopBL
 {
+    /// <summary>
+    /// This class handles location-specific business logic for the SufferShop using a repository that implements IRepository.
+    /// This includes updating location inventory and fetching stock items abd order histories.
+    /// </summary>
     public class LocationService
     {
         readonly IRepository repo;

@@ -1,7 +1,9 @@
 namespace SufferShopUI.Menus
 {
     /// <summary>
-    /// A basic menu interface.
+    /// A menu interface implemented by every menu and submenu in the SufferShopUI.
+    /// This interface is used with the Menu abstract class to allows the display and input logic to be encapsulated in an abstract class,
+    /// while having the interface require the menus to set necessary variables and process user decisions with each menu pass.
     /// </summary>
     public interface IMenu
     {

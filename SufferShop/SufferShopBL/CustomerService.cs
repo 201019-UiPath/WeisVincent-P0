@@ -6,6 +6,11 @@ using Xunit.Sdk;
 
 namespace SufferShopBL
 {
+
+    /// <summary>
+    /// This class handles customer-specific business logic for the SufferShop using a repository that implements IRepository.
+    /// This includes adding new customers, getting customer information by email, and getting customer order histories.
+    /// </summary>
     public class CustomerService
     {
         readonly IRepository repo;

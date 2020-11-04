@@ -101,6 +101,7 @@ namespace SufferShopTest
             using var testContext = new SufferShopContext(options);
             // add sample data to testContext
             testContext.InventoryLineItems.AddRange(SampleData.GetSampleInventoryLineItems());
+            // This data needs to be added so that navigation properties of the Inventory Line Items aren't null.
             testContext.Locations.AddRange(SampleData.GetSampleLocations());
             testContext.Products.AddRange(SampleData.GetSampleProducts());
             testContext.SaveChanges();

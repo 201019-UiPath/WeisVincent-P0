@@ -11,6 +11,12 @@ namespace SufferShopBL
 {
 
     //TODO: Refactor this entire stupid class
+
+    /// <summary>
+    /// This class handles the creation and display of new orders and order carts for current users.
+    /// It is in desperate need of simplification, but it manages locally staged line items and quantity computation 
+    /// as well as storing relevant information until the customer submits their order.
+    /// </summary>
     public class OrderBuilder
     {
         private readonly OrderService OrderService;

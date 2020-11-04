@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 
 namespace SufferShopBL
 {
+    /// <summary>
+    /// This class handles product-specific business logic for the SufferShop using a repository that implements IRepository.
+    /// This includes adding new abstract product entries to the repository and getting the products in an order or at location.
+    /// </summary>
     public class ProductService
     {
         readonly IRepository repo;

@@ -2,6 +2,9 @@
 
 namespace SufferShopLib
 {
+    /// <summary>
+    /// This class handles date-time logic, designed for use with order entries and history storage, for conversions to and from a Database friendly number
+    /// </summary>
     public static class DateTimeUtility
     {
         static readonly DateTime EpochTime1970 = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);

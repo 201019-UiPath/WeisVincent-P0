@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 
 namespace SufferShopBL
 {
+    /// <summary>
+    /// This class handles order-specific business logic for the SufferShop using a repository that implements IRepository.
+    /// This includes logic that happens during the submission of a new order, such as updating inventory and adding a new order entry.
+    /// </summary>
     public class OrderService
     {
         readonly IRepository Repo;
@@ -15,12 +19,8 @@ namespace SufferShopBL
             Repo = repo;
         }
 
-
-
-
         public void UpdateLineItemsInLocationInventory()
         {
-
             Repo.SaveChanges();
         }
 

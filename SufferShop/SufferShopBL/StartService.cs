@@ -5,6 +5,10 @@ using System;
 
 namespace SufferShopBL
 {
+    /// <summary>
+    /// This class handles sign-in and log-in business logic for the SufferShop using a repository that implements IRepository.
+    /// This is where all authentication requests, sign-ups, and sign-ins are born and die.
+    /// </summary>
     public sealed class StartService
     {
         readonly IRepository Repo;

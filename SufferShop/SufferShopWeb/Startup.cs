@@ -49,7 +49,10 @@ namespace SufferShopWeb
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    // This maps the default route of the application on opening, like a home page.
                     name: "default",
+                    // The id in this pattern has a ? mark to make it optional.
+                    // THIS is conventional based routing.
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }

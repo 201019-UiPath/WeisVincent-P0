@@ -1,13 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SufferShopDB;
+using SufferShopDB.Repos;
+using SufferShopDB.Repos.DBRepos;
 
 namespace SufferShopWeb
 {
@@ -23,7 +22,12 @@ namespace SufferShopWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // This adds the views alongside the controllers that utilize them.
             services.AddControllersWithViews();
+            services.AddDbContext<SufferShopContext>(options => options.UseNpgsql(Configuration.GetConnectionString("MouthShopDB")));
+            // This adds a scoped service, meaning that a new one is made and reused within a request made, which means multiple can be used at once by many users.
+            // Think of this as shorthand for, "Hey, ASP.Net. If any of my controllers need an IRepository, use the DBRepo implementation."
+            services.AddScoped<IRepository, DBRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +58,12 @@ namespace SufferShopWeb
                     // The id in this pattern has a ? mark to make it optional.
                     // THIS is conventional based routing.
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+                endpoints.MapControllerRoute(name: "customer",
+                    pattern: "Customer/{*Index}",
+                    defaults: new { controller = "Customer", action = "Index" });
+
             });
         }
     }

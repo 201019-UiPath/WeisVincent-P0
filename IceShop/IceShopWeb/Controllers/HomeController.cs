@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using mvc = IceShopWeb.Models;
+using db = IceShopDB.Models;
 using IceShopWeb.Models;
 
 namespace IceShopWeb.Controllers
@@ -27,9 +29,12 @@ namespace IceShopWeb.Controllers
 
 
             // Passing viewdata to the Index.cshtml file
-            Customer customer = new Customer() { Id = 1, alias = "The Ultimate Customer", name = "Mr. Customer" };
+            mvc.Customer customer = new mvc.Customer() { Id = 1, Address = "The Ultimate Customer", Name = "Mr. Customer" };
             ViewData["CustomerUsingViewData"] = customer;
-            ViewBag.CustomerButInABag= customer;
+
+            ViewBag.Homie= customer;
+
+
             return View(customer);
         }
 

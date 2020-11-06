@@ -13,12 +13,12 @@
 
 <div class="text-center">
     <h1 class="display-4">IceShop Web App</h1>
-    <p>Customer Name using ViewData: @customer.name</p>
-    <p>Customer Alias using ViewData: @customer.alias</p>
-    <p>Customer Name but in a bag: @ViewBag.CustomerButInABag.name</p>
-    <p>Customer Name but dynamically: @ViewBag.CustomerButInABag.name</p>
-    <p>Customer ID but with model binding: @ViewBag.id</p>
-    <p>Customer Name but with model binding: @ViewBag.name</p>
+    <p>Customer Name using ViewData: @ViewData["CustomerUsingViewData"]</p>
+    <p>Customer Alias using ViewData: @customer.Address</p>
+    <p>Customer Name but in a bag: @ViewBag.Homie.Id</p>
+    <p>Customer Name but dynamically: @ViewBag.Homie.Name</p>
+    <p>Customer ID but with model binding: @ViewBag.Id</p>
+    <p>Customer Name but with model binding: @ViewBag.Name</p>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 

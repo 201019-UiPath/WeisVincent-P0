@@ -1,12 +1,15 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using IceShopDB.Repos;
+using db=IceShopDB.Models;
+using mvc = IceShopWeb.Models;
 
 namespace IceShopWeb.Controllers
 {
     public class CustomerController : Controller
     {
         private readonly IRepository _repo;
+        
 
         public CustomerController(IRepository repo)
         {
@@ -31,6 +34,34 @@ namespace IceShopWeb.Controllers
             return View(customer);
         }
 
-        
+        // This view is to prompt for the information to be added. It's not a submission.
+        // [HttpGet]
+        public ViewResult AddCustomer()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddCustomer(db.Customer customer)
+        {
+            // TODO: Use Customer MVC Model instead of DB Model
+            if (ModelState.IsValid)
+            {
+                mvc.Customer newCustomer = new mvc.Customer();
+                newCustomer.Name = customer.Name;
+                newCustomer.Email = customer.Email;
+                newCustomer.Password = customer.Password;
+                newCustomer.Address = customer.Address;
+
+
+                _repo.AddCustomer(customer);
+                return Redirect("GetAllCustomers");
+            }
+            else return View();
+            
+            
+        }
+
     }
 }

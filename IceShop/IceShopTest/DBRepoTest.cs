@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using IceShopDB;
+﻿using IceShopDB;
 using IceShopDB.Models;
 using IceShopDB.Repos;
 using IceShopDB.Repos.DBRepos;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Xunit;
 
@@ -111,7 +111,7 @@ namespace IceShopTest
             //Act
             // get a location that has an InventoryLineItem
             int sampleLocationId = repo.GetAllLocations().First().Id;
-            InventoryLineItem sampleLineItem = repo.GetAllInventoryLineItemsAtLocation(sampleLocationId).FindLast(ili=>ili.LocationId == sampleLocationId);
+            InventoryLineItem sampleLineItem = repo.GetAllInventoryLineItemsAtLocation(sampleLocationId).FindLast(ili => ili.LocationId == sampleLocationId);
             int startingQuantity = sampleLineItem.ProductQuantity;
             sampleLineItem.ProductQuantity += 1;
 

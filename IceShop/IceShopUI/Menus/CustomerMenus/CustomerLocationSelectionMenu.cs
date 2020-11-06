@@ -1,7 +1,7 @@
-﻿using Serilog;
-using IceShopBL;
+﻿using IceShopBL;
 using IceShopDB.Models;
 using IceShopDB.Repos;
+using Serilog;
 using System;
 using System.Collections.Generic;
 
@@ -10,7 +10,7 @@ namespace IceShopUI.Menus.CustomerMenus
     internal class CustomerLocationSelectionMenu : Menu, IMenu
     {
         private Customer CurrentCustomer;
-        readonly LocationService LocationService;
+        private readonly LocationService LocationService;
         private readonly List<Location> AllLocations;
         public CustomerLocationSelectionMenu(Customer currentCustomer, ref IRepository repo) : base(ref repo)
         {

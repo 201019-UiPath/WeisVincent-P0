@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using IceShopDB.Repos;
 using Microsoft.AspNetCore.Mvc;
-using IceShopDB.Repos;
-using db=IceShopDB.Models;
+using System.Threading.Tasks;
+using db = IceShopDB.Models;
 using mvc = IceShopWeb.Models;
 
 namespace IceShopWeb.Controllers
@@ -9,7 +9,7 @@ namespace IceShopWeb.Controllers
     public class CustomerController : Controller
     {
         private readonly IRepository _repo;
-        
+
 
         public CustomerController(IRepository repo)
         {
@@ -59,8 +59,8 @@ namespace IceShopWeb.Controllers
                 return Redirect("GetAllCustomers");
             }
             else return View();
-            
-            
+
+
         }
 
     }

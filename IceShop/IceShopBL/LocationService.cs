@@ -1,6 +1,6 @@
-﻿using Serilog;
-using IceShopDB.Models;
+﻿using IceShopDB.Models;
 using IceShopDB.Repos;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,7 +13,7 @@ namespace IceShopBL
     /// </summary>
     public class LocationService
     {
-        readonly IRepository repo;
+        private readonly IRepository repo;
 
         public LocationService(ref IRepository repo)
         {

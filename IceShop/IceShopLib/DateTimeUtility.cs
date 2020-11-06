@@ -7,7 +7,7 @@ namespace IceShopLib
     /// </summary>
     public static class DateTimeUtility
     {
-        static readonly DateTime EpochTime1970 = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        private static readonly DateTime EpochTime1970 = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
         public static double GetUnixEpochAsDouble(this DateTime dateTime)
         {

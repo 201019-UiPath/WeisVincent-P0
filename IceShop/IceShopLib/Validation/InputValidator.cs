@@ -46,10 +46,7 @@ namespace IceShopLib.Validation
             Input = input;
         }
 
-
-
-
-        List<IInputCondition> inputConditions;
+        private List<IInputCondition> inputConditions;
         public List<IInputCondition> InputConditions
         {
             get

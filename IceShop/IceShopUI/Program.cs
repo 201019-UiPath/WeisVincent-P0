@@ -1,22 +1,15 @@
-﻿using Serilog;
-using IceShopDB;
-using IceShopDB.Models;
+﻿using IceShopDB;
 using IceShopDB.Repos;
 using IceShopDB.Repos.DBRepos;
 using IceShopUI.Menus;
+using Serilog;
 using System;
-using System.Collections.Generic;
 
 namespace IceShopUI
 {
     public class Program
     {
-
-        public static User CurrentUser;
-
-        public static Queue<IMenu> MenuChain;
-
-        static void Main()
+        private static void Main()
         {
 
             Log.Logger = new LoggerConfiguration()

@@ -1,6 +1,6 @@
-﻿using Serilog;
-using IceShopDB.Models;
+﻿using IceShopDB.Models;
 using IceShopDB.Repos;
+using Serilog;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,7 +12,7 @@ namespace IceShopBL
     /// </summary>
     public class OrderService
     {
-        readonly IRepository Repo;
+        private readonly IRepository Repo;
 
 
         public OrderService(ref IRepository repo)

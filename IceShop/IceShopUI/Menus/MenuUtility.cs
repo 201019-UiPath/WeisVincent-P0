@@ -1,8 +1,8 @@
-﻿using Serilog;
-using IceShopBL;
+﻿using IceShopBL;
 using IceShopDB.Models;
 using IceShopLib;
 using IceShopLib.Validation;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Text;

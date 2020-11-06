@@ -1,7 +1,7 @@
-﻿using Serilog;
-using IceShopDB.Models;
+﻿using IceShopDB.Models;
 using IceShopDB.Repos;
 using IceShopLib.Validation;
+using Serilog;
 using System;
 
 namespace IceShopBL
@@ -12,10 +12,9 @@ namespace IceShopBL
     /// </summary>
     public sealed class StartService
     {
-        readonly IRepository Repo;
-
-        readonly CustomerService customerService;
-        readonly ManagerService managerService;
+        private readonly IRepository Repo;
+        private readonly CustomerService customerService;
+        private readonly ManagerService managerService;
 
         public StartService(ref IRepository repo)
         {

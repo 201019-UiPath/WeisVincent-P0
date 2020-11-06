@@ -1,5 +1,5 @@
-﻿using Serilog;
-using IceShopDB.Models;
+﻿using IceShopDB.Models;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +10,7 @@ namespace IceShopDB.Repos.FileRepos
 {
     public class CustomerFileRepo : ICustomerRepo
     {
-        const string filepathCustomers = "IceShopDB/SampleData/Customers.txt";
+        private const string filepathCustomers = "IceShopDB/SampleData/Customers.txt";
 
         public void AddCustomer(Customer customer)
         {

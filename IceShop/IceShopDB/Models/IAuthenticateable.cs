@@ -1,6 +1,6 @@
 ﻿namespace IceShopDB.Models
 {
-    interface IAuthenticateable
+    internal interface IAuthenticateable
     {
 
 

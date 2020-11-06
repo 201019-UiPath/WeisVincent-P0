@@ -8,7 +8,7 @@ namespace IceShopUI.Menus.ManagerMenus
     internal sealed class ManagerSignUpMenu : Menu, IMenu
     {
         private readonly LocationService locationService;
-        readonly List<Location> PossibleLocations;
+        private readonly List<Location> PossibleLocations;
 
         private readonly Manager ManagerPickingALocation;
 

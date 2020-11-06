@@ -20,6 +20,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IceShopWeb", "IceShopWeb\Ic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IceShopTest", "IceShopTest\IceShopTest.csproj", "{7B1E4983-C227-450D-A034-63B7446BF3A4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IceShopAPI", "IceShopAPI\IceShopAPI.csproj", "{6D3328E2-204C-4A31-A288-048494DE0703}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -102,6 +104,18 @@ Global
 		{7B1E4983-C227-450D-A034-63B7446BF3A4}.Release|x64.Build.0 = Release|Any CPU
 		{7B1E4983-C227-450D-A034-63B7446BF3A4}.Release|x86.ActiveCfg = Release|Any CPU
 		{7B1E4983-C227-450D-A034-63B7446BF3A4}.Release|x86.Build.0 = Release|Any CPU
+		{6D3328E2-204C-4A31-A288-048494DE0703}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D3328E2-204C-4A31-A288-048494DE0703}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D3328E2-204C-4A31-A288-048494DE0703}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6D3328E2-204C-4A31-A288-048494DE0703}.Debug|x64.Build.0 = Debug|Any CPU
+		{6D3328E2-204C-4A31-A288-048494DE0703}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6D3328E2-204C-4A31-A288-048494DE0703}.Debug|x86.Build.0 = Debug|Any CPU
+		{6D3328E2-204C-4A31-A288-048494DE0703}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D3328E2-204C-4A31-A288-048494DE0703}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D3328E2-204C-4A31-A288-048494DE0703}.Release|x64.ActiveCfg = Release|Any CPU
+		{6D3328E2-204C-4A31-A288-048494DE0703}.Release|x64.Build.0 = Release|Any CPU
+		{6D3328E2-204C-4A31-A288-048494DE0703}.Release|x86.ActiveCfg = Release|Any CPU
+		{6D3328E2-204C-4A31-A288-048494DE0703}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

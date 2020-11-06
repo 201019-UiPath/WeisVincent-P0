@@ -1,6 +1,6 @@
-﻿using Serilog;
-using IceShopBL;
+﻿using IceShopBL;
 using IceShopDB.Repos;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using Xunit.Sdk;

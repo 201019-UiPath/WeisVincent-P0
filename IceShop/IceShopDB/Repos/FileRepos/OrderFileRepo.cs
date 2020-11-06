@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace IceShopDB.Repos.FileRepos
 {
-    class OrderFileRepo : IOrderRepo
+    internal class OrderFileRepo : IOrderRepo
     {
-        const string filepathOrders = "IceShopDB/SampleData/Orders.txt";
+        private const string filepathOrders = "IceShopDB/SampleData/Orders.txt";
 
         public void AddOrder(Order order)
         {

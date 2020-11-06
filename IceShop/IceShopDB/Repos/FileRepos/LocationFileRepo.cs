@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace IceShopDB.Repos.FileRepos
 {
-    class LocationFileRepo : ILocationRepo
+    internal class LocationFileRepo : ILocationRepo
     {
-        const string filepathLocations = "IceShopDB/SampleData/Locations.txt";
-        const string filepathLocationStock = "IceShopDB/SampleData/LocationStock.txt";
+        private const string filepathLocations = "IceShopDB/SampleData/Locations.txt";
+        private const string filepathLocationStock = "IceShopDB/SampleData/LocationStock.txt";
 
         public Task<List<Location>> GetAllLocationsAsync()
         {

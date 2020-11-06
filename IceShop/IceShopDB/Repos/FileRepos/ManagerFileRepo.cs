@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace IceShopDB.Repos.FileRepos
 {
-    class ManagerFileRepo : IManagerRepo
+    internal class ManagerFileRepo : IManagerRepo
     {
-
-        const string filepathManagers = "IceShopDB/SampleData/Managers.txt";
+        private const string filepathManagers = "IceShopDB/SampleData/Managers.txt";
 
         public async void AddManager(Manager manager)
         {

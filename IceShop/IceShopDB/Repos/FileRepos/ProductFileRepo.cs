@@ -7,8 +7,7 @@ namespace IceShopDB.Repos.FileRepos
 {
     public class ProductFileRepo : IProductRepo
     {
-
-        const string filepathProducts = "IceShopDB/SampleData/Products.txt";
+        private const string filepathProducts = "IceShopDB/SampleData/Products.txt";
 
         public void AddNewProduct(Product product)
         {

@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using IceShopDB.Models;
+﻿using IceShopDB.Models;
 using IceShopDB.Repos;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System.IO;
 
 namespace IceShopDB

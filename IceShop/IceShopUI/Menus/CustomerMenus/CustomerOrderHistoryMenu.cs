@@ -1,7 +1,7 @@
-﻿using Serilog;
-using IceShopBL;
+﻿using IceShopBL;
 using IceShopDB.Models;
 using IceShopDB.Repos;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace IceShopUI.Menus.CustomerMenus
         private readonly Customer CurrentCustomer;
         private readonly CustomerService CustomerService;
         private List<Order> CustomerOrders;
-        OrderService OrderService;
+        private OrderService OrderService;
 
         public CustomerOrderHistoryMenu(Customer customer, ref IRepository repo) : base(ref repo)
         {

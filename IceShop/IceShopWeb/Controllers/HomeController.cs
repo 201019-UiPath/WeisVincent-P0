@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using IceShopWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 using mvc = IceShopWeb.Models;
-using db = IceShopDB.Models;
-using IceShopWeb.Models;
 
 namespace IceShopWeb.Controllers
 {
@@ -20,8 +15,8 @@ namespace IceShopWeb.Controllers
             _logger = logger;
         }
 
-        
-        public IActionResult Index(int id = -1, string name="defaultname")
+
+        public IActionResult Index(int id = -1, string name = "defaultname")
         {
 
             ViewBag.id = id;
@@ -32,7 +27,7 @@ namespace IceShopWeb.Controllers
             mvc.Customer customer = new mvc.Customer() { Id = 1, Address = "The Ultimate Customer", Name = "Mr. Customer" };
             ViewData["CustomerUsingViewData"] = customer;
 
-            ViewBag.Homie= customer;
+            ViewBag.Homie = customer;
 
 
             return View(customer);

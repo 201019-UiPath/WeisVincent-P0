@@ -1,6 +1,6 @@
-﻿using Serilog;
-using IceShopDB.Models;
+﻿using IceShopDB.Models;
 using IceShopDB.Repos;
+using Serilog;
 using System.Collections.Generic;
 
 namespace IceShopBL
@@ -11,7 +11,7 @@ namespace IceShopBL
     /// </summary>
     public class ManagerService
     {
-        readonly IRepository repo;
+        private readonly IRepository repo;
         public ManagerService(ref IRepository repo)
         {
             this.repo = repo;

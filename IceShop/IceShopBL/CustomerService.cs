@@ -1,6 +1,6 @@
-﻿using Serilog;
-using IceShopDB.Models;
+﻿using IceShopDB.Models;
 using IceShopDB.Repos;
+using Serilog;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit.Sdk;
@@ -14,7 +14,7 @@ namespace IceShopBL
     /// </summary>
     public class CustomerService
     {
-        readonly IRepository repo;
+        private readonly IRepository repo;
 
         public CustomerService(ref IRepository repo)
         {

@@ -1,7 +1,7 @@
-﻿using Serilog;
-using IceShopBL;
+﻿using IceShopBL;
 using IceShopDB.Models;
 using IceShopDB.Repos;
+using Serilog;
 using System;
 using System.Collections.Generic;
 
@@ -15,7 +15,7 @@ namespace IceShopUI.Menus.CustomerMenus
         /// <summary>
         /// This number cannot be less than one, and should be as great as the number of the selected product the user can buy.
         /// </summary>
-        private int maxQuantity;
+        private readonly int maxQuantity;
 
         private int selectedQuantity;
 
@@ -42,7 +42,7 @@ namespace IceShopUI.Menus.CustomerMenus
 
         public override void SetUserChoices()
         {
-            PossibleOptions = new List<string>(maxQuantity+1);
+            PossibleOptions = new List<string>(maxQuantity + 1);
 
             for (int i = 1; i <= maxQuantity; i++)
             {
@@ -80,7 +80,7 @@ namespace IceShopUI.Menus.CustomerMenus
             }
         }
 
-        
+
 
     }
 }

@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using IceShopDB.Models;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
-using IceShopDB.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -193,7 +193,8 @@ namespace IceShopDB.Repos.DBRepos
 
         public List<OrderLineItem> GetOrderedProductsInAnOrder(int orderId)
         {
-            return context.OrderLineItems.Include("Product").Include("Order").Where(op => op.OrderId == orderId).ToList();
+            // TODO: Remember using AsNoTracking();
+            return context.OrderLineItems.Include("Product").Include("Order").Where(op => op.OrderId == orderId)/*.AsNoTracking()*/.ToList();
         }
 
         public Task<List<OrderLineItem>> GetOrderedProductsInAnOrderAsync(int orderId)

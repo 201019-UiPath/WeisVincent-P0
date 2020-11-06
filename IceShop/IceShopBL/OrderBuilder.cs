@@ -1,7 +1,7 @@
-﻿using Serilog;
-using IceShopDB.Models;
+﻿using IceShopDB.Models;
 using IceShopDB.Repos;
 using IceShopLib;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,7 +69,7 @@ namespace IceShopBL
 
         public void StageProductForOrder(InventoryLineItem selection, int quantityOrdered)
         {
-            
+
             StagedLineItem existingStagedLineItem = GetStagedLineItemForAffectedLineItemIfItExists(selection);
             if (existingStagedLineItem != null)
             {
@@ -129,7 +129,7 @@ namespace IceShopBL
         {
             Log.Logger.Information("Removing ordered product from inventory by changing or removing inventory line items..");
             int newQuantity = lineItem.GetNewQuantityOfAffectedInventoryLineItem();
-            
+
             if (newQuantity < 1)
             {
                 OrderService.RemoveLineItemFromLocationInventory(SelectedLocationStock.Find(ili => ili.ProductId == lineItem.affectedInventoryLineItem.ProductId));
@@ -214,6 +214,6 @@ namespace IceShopBL
             else productQuantity = selectedLineItem.ProductQuantity;
             return productQuantity;
         }
-        
+
     }
 }

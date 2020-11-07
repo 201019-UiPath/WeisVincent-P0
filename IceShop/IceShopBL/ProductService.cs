@@ -14,6 +14,11 @@ namespace IceShopBL
     {
         private readonly IRepository repo;
 
+        public ProductService( IRepository repo)
+        {
+            this.repo = repo;
+        }
+
         public ProductService(ref IRepository repo)
         {
             this.repo = repo;

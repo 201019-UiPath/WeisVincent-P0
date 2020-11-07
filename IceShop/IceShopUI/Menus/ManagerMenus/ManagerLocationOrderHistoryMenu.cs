@@ -49,17 +49,17 @@ namespace IceShopUI.Menus.ManagerMenus
             {
                 case 1:
                     sortedOrderList = LocationOrders.OrderBy(o => o.Subtotal).ToList();
-                    MenuUtility.ProcessSortingByDate(ref IsSortOrderForward);
+                    OrderHistoryUtility.ProcessSortingByDate(ref IsSortOrderForward);
 
                     break;
                 case 2:
                     sortedOrderList = LocationOrders.OrderBy(o => o.TimeOrderWasPlaced).ToList();
-                    MenuUtility.ProcessSortingByPrice(ref IsSortOrderForward);
+                    OrderHistoryUtility.ProcessSortingByPrice(ref IsSortOrderForward);
                     break;
                 case 3:
                     Console.WriteLine("Going back.");
 
-                    MenuUtility.Instance.ReadyNextMenu(previousMenu);
+                    MenuManager.Instance.ReadyNextMenu(previousMenu);
                     return;
                 //break;
                 default:
@@ -71,7 +71,7 @@ namespace IceShopUI.Menus.ManagerMenus
             try
             {
                 OrderService orderService = new OrderService(ref Repo);
-                MenuUtility.Instance.ShowOrderHistory(ref sortedOrderList, ref orderService, IsSortOrderForward);
+                OrderHistoryUtility.ShowOrderHistory(ref sortedOrderList, ref orderService, IsSortOrderForward);
             }
             catch (NullReferenceException e)
             {
@@ -82,7 +82,7 @@ namespace IceShopUI.Menus.ManagerMenus
             Console.WriteLine("Really interesting list, right?");
 
 
-            MenuUtility.Instance.ReadyNextMenu(previousMenu);
+            MenuManager.Instance.ReadyNextMenu(previousMenu);
         }
 
 

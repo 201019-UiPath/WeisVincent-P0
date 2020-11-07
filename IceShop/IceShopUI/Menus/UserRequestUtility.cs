@@ -1,46 +1,17 @@
 ﻿using IceShopBL;
-using IceShopDB.Models;
-using IceShopLib;
 using IceShopLib.Validation;
-using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace IceShopUI.Menus
 {
-    internal sealed class MenuUtility
+    internal static class UserRequestUtility
     {
-        private static readonly MenuUtility _instance = new MenuUtility();
 
-        internal Queue<IMenu> MenuChain;
-
-        static MenuUtility() { }
-        private MenuUtility() { MenuChain = new Queue<IMenu>(); }
-
-        public static MenuUtility Instance { get { return _instance; } }
+        #region User query and input methods
 
 
-        internal void StartMenuChain(IMenu firstMenu)
-        {
-            Log.Information($"Starting menu chain...");
-            ReadyNextMenu(firstMenu);
-            RunThroughMenuChain();
-        }
-
-        internal void ReadyNextMenu(IMenu nextMenu)
-        {
-            Log.Information($"Adding new menu to menu chain: {nextMenu.GetType().Name}");
-            MenuChain.Enqueue(nextMenu);
-        }
-
-        internal void RunThroughMenuChain()
-        {
-            while (MenuChain.Count > 0)
-            {
-                MenuChain.Dequeue().Run();
-            }
-        }
 
         public static string QueryName()
         {
@@ -49,8 +20,8 @@ namespace IceShopUI.Menus
 
             Console.WriteLine("Enter your name:");
             string inputName = Console.ReadLine().Trim();
-
-            while (!StartService.ValidateNameInput(inputName))
+            InputValidator validator = new InputValidator(InputConditions.NameConditions);
+            while (!validator.ValidateInput(inputName))
             {
                 Console.WriteLine("Your input must be a valid name.");
                 Console.WriteLine("Enter your name:");
@@ -92,8 +63,8 @@ namespace IceShopUI.Menus
 
             Console.WriteLine("Enter your email:");
             string inputEmail = Console.ReadLine().Trim();
-
-            while (!StartService.ValidateEmailInput(inputEmail))
+            InputValidator validator = new InputValidator(InputConditions.EmailConditions);
+            while (!validator.ValidateInput(inputEmail))
             {
                 Console.WriteLine("Your input must be in email format.");
                 Console.WriteLine("Enter your email:");
@@ -105,13 +76,33 @@ namespace IceShopUI.Menus
             #endregion
         }
 
+
+        public static string QueryPasswordAndConfirmation()
+        {
+            string newPassword = QueryPassword();
+            Console.WriteLine("Enter the same password to prove to my satisfaction that you can type.");
+            string confirmationPassword = QueryPassword();
+            while (newPassword != confirmationPassword)
+            {
+                Console.WriteLine("Your confirmation password did not match. I'm telling mom. \n Try again.");
+                newPassword = QueryPassword();
+                confirmationPassword = QueryPassword();
+            }
+
+            Console.WriteLine("Your password has been confirmed!");
+            return newPassword;
+        }
+
         public static string QueryPassword()
         {
             #region Ask User for Password
 
             Console.WriteLine("Enter your password:");
             string inputPassword = Console.ReadLine().Trim();
-            while (!StartService.ValidatePasswordInput(inputPassword))
+
+            InputValidator validator = new InputValidator(InputConditions.PasswordConditions);
+
+            while (!validator.ValidateInput(inputPassword))
             {
                 Console.WriteLine("Your input must be non-empty, with at least 8 word characters.");
                 Console.WriteLine("Enter your password:");
@@ -131,8 +122,8 @@ namespace IceShopUI.Menus
 
             Console.WriteLine("Enter your address:");
             string inputAddress = Console.ReadLine().Trim();
-
-            while (!StartService.ValidateAddressInput(inputAddress))
+            InputValidator validator = new InputValidator(InputConditions.AddressConditions);
+            while (!validator.ValidateInput(inputAddress))
             {
                 Console.WriteLine("Your input must be a valid address.");
                 Console.WriteLine("Enter your name:");
@@ -144,21 +135,6 @@ namespace IceShopUI.Menus
             #endregion
         }
 
-        #region User query and input methods
-        internal static void DisplayPossibleChoicesToUser(string startMessage, List<string> possibleOptions)
-        {
-            Console.WriteLine(startMessage);
-            DisplayPossibleChoicesToUser(possibleOptions);
-        }
-
-        internal static void DisplayPossibleChoicesToUser(List<string> possibleOptions)
-        {
-            Console.WriteLine("Press the corresponding number to choose the option that best suits you.");
-            for (int i = 0; i < possibleOptions.Count; i++)
-            {
-                Console.WriteLine($"[{i + 1}]    {possibleOptions[i]}");
-            }
-        }
 
         internal static int ProcessUserInputAgainstPossibleChoices(List<string> possibleOptions)
         {
@@ -248,103 +224,6 @@ namespace IceShopUI.Menus
             } while (!userInputIsInRange);
             throw new Exception("User input was processed incorrectly, validated a false input.");
         }
-
-        #endregion
-
-
-        #region Order History methods
-        internal void ShowOrderHistory(ref List<Order> ordersToBeShown, ref OrderService orderService, bool isIteratedForward)
-        {
-            if (!isIteratedForward)
-            {
-                ordersToBeShown.Reverse();
-            }
-            for (int i = 0; i < ordersToBeShown.Count; i++)
-            {
-                DisplayOrderInformation(ordersToBeShown[i], ref orderService);
-                if (ordersToBeShown[i] == null)
-                {
-                    Console.WriteLine("okay then, thanks order");
-                    Environment.Exit(0);
-                }
-            }
-        }
-
-
-        private void DisplayOrderInformation(Order order, ref OrderService orderService)
-        {
-            List<OrderLineItem> OrderedProductsInOrder = orderService.GetAllProductsInOrder(order);
-
-            DateTime orderTime = DateTimeUtility.GetDateTimeFromUnixEpochAsDouble(order.TimeOrderWasPlaced);
-            if (OrderedProductsInOrder == null)
-            {
-                Console.WriteLine("okay then, thanks time");
-                Environment.Exit(0);
-            }
-
-            StringBuilder orderString = new StringBuilder(
-                $"#{order.Id} at {order.Location.Name} on {orderTime.ToShortDateString()}\n_________________\n    Subtotal: ${order.Subtotal}\n    Products in Order: \n"
-                );
-            foreach (OrderLineItem orderedProduct in OrderedProductsInOrder)
-            {
-                orderString.Append($"      {orderedProduct.ProductQuantity} of {orderedProduct.Product.Name} \n");
-            }
-            string resultingString = orderString.ToString();
-
-            Console.WriteLine(resultingString);
-        }
-
-        private async void DisplayOrderInformationAsync(Order order, OrderService orderService)
-        {
-            List<OrderLineItem> OrderedProductsInOrder = await orderService.GetAllProductsInOrderAsync(order);
-
-            DateTime orderTime = DateTimeUtility.GetDateTimeFromUnixEpochAsDouble(order.TimeOrderWasPlaced);
-
-            StringBuilder orderString = new StringBuilder(
-                $"#{order.Id} at {order.Location.Name} on {orderTime.ToShortDateString()}\n_________________\n    Subtotal: ${order.Subtotal}\n    Products in Order: \n"
-                );
-            foreach (OrderLineItem orderedProduct in OrderedProductsInOrder)
-            {
-                orderString.Append($"      {orderedProduct.ProductQuantity} of {orderedProduct.Product.Name} \n");
-            }
-            string resultingString = orderString.ToString();
-            Console.WriteLine(resultingString);
-        }
-
-        public static void ProcessSortingByDate(ref bool sortOrder)
-        {
-
-            string sortStartMessage = "Would you like the results sorted oldest to latest or latest to oldest?";
-            List<string> sortOptions = new List<string>(2)
-                    {
-                        "Oldest to Latest.", "Latest to Oldest."
-                    };
-            DisplayPossibleChoicesToUser(sortStartMessage, sortOptions);
-            sortOrder = (ProcessUserInputAgainstPossibleChoices(sortOptions)) switch
-            {
-                1 => true,
-                2 => false,
-                _ => throw new NotImplementedException(),
-            };
-        }
-
-        public static void ProcessSortingByPrice(ref bool sortOrder)
-        {
-
-            string sortStartMessage = "You've chosen to sort orders by subtotal. Sort from lowest to highest subtotal, or highest to lowest subtotal?";
-            List<string> sortOptions = new List<string>(2)
-                    {
-                        "Lowest to highest.", "Highest to Lowest."
-                    };
-            DisplayPossibleChoicesToUser(sortStartMessage, sortOptions);
-            sortOrder = (ProcessUserInputAgainstPossibleChoices(sortOptions)) switch
-            {
-                1 => true,
-                2 => false,
-                _ => throw new NotImplementedException(),
-            };
-        }
-
 
         #endregion
 

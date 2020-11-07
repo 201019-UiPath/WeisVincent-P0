@@ -18,11 +18,6 @@ namespace IceShopUI.Menus.ManagerMenus
 
         public override void SetStartingMessage()
         {
-            if (CurrentManager.Location == null)
-            {
-                Console.WriteLine("damnit");
-            }
-            // TODO: Manager's location is null at this point. How do I fix that trash?
             StartMessage = $"{CurrentManager.Name}, provider of suffering at the {CurrentManager.Location.Name} branch! Welcome back! \n You may view the order history of your managed branch, or manage inventory!";
         }
 
@@ -57,7 +52,7 @@ namespace IceShopUI.Menus.ManagerMenus
 
             try
             {
-                MenuUtility.Instance.ReadyNextMenu(NextMenu);
+                MenuManager.Instance.ReadyNextMenu(NextMenu);
             }
             catch (NullReferenceException e)
             {

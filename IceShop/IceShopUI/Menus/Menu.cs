@@ -1,4 +1,6 @@
-﻿using IceShopDB.Repos;
+﻿using IceShopBL;
+using IceShopDB.Repos;
+using IceShopLib.Validation;
 using System;
 using System.Collections.Generic;
 using Xunit.Sdk;
@@ -60,7 +62,7 @@ namespace IceShopUI.Menus
         public void Start()
         {
             Console.WriteLine();
-            MenuUtility.DisplayPossibleChoicesToUser(StartMessage, PossibleOptions);
+            UserResponseUtility.DisplayPossibleChoicesToUser(StartMessage, PossibleOptions);
         }
 
         /// <summary>
@@ -68,13 +70,12 @@ namespace IceShopUI.Menus
         /// </summary>
         public void QueryUserChoice()
         {
-            selectedChoice = MenuUtility.ProcessUserInputAgainstPossibleChoices(PossibleOptions);
+            selectedChoice = UserRequestUtility.ProcessUserInputAgainstPossibleChoices(PossibleOptions);
             Console.WriteLine();
         }
 
 
         public abstract void ExecuteUserChoice();
-
 
     }
 }

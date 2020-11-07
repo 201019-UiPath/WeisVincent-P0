@@ -27,8 +27,8 @@ namespace IceShopUI
             IRepository repo = new DBRepo(context);
             IMenu startMenu = new StartMenu(ref repo);
 
-            MenuUtility.Instance.ReadyNextMenu(startMenu);
-            MenuUtility.Instance.RunThroughMenuChain();
+            MenuManager.Instance.ReadyNextMenu(startMenu);
+            MenuManager.Instance.RunThroughMenuChain();
         }
 
     }

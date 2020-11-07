@@ -12,6 +12,11 @@ namespace IceShopBL
     public class ManagerService
     {
         private readonly IRepository repo;
+        public ManagerService(IRepository repo)
+        {
+            this.repo = repo;
+        }
+
         public ManagerService(ref IRepository repo)
         {
             this.repo = repo;

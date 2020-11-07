@@ -54,7 +54,7 @@ namespace IceShopUI.Menus.CustomerMenus
 
             try
             {
-                MenuUtility.Instance.ReadyNextMenu(NextMenu);
+                MenuManager.Instance.ReadyNextMenu(NextMenu);
             }
             catch (NullReferenceException e)
             {

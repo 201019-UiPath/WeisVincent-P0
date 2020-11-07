@@ -10,12 +10,8 @@ namespace IceShopUI.Menus
 {
     public sealed class LoginMenu : Menu, IMenu
     {
-        internal readonly StartService startService;
 
-        public LoginMenu(ref IRepository repo) : base(ref repo)
-        {
-            startService = new StartService(ref Repo);
-        }
+        public LoginMenu(ref IRepository repo) : base(ref repo) { }
 
         public override void SetStartingMessage()
         {
@@ -64,30 +60,31 @@ namespace IceShopUI.Menus
 
             Console.WriteLine("Please put in your email, then your password to login.");
 
-            userLoggingIn = customerService.GetCustomerByEmail(MenuUtility.QueryEmail());
+            userLoggingIn = customerService.GetCustomerByEmail(UserRequestUtility.QueryEmail());
 
 
             if (userLoggingIn is null)
             {
                 Console.WriteLine("Couldn't find a customer matching that email. You can try again if you want, that'll be fun.");
                 LoginMenu loginMenuButAgain = new LoginMenu(ref Repo);
-                MenuUtility.Instance.ReadyNextMenu(loginMenuButAgain);
+                MenuManager.Instance.ReadyNextMenu(loginMenuButAgain);
+                return;
             }
             else if (userLoggingIn is Customer)
             {
                 string userInputPassword;
-                userInputPassword = MenuUtility.QueryPassword();
+                userInputPassword = UserRequestUtility.QueryPassword();
                 while (userInputPassword != userLoggingIn.Password)
                 {
                     Console.WriteLine("Wrong password. You can try again, though. Why not?");
-                    userInputPassword = MenuUtility.QueryPassword();
+                    userInputPassword = UserRequestUtility.QueryPassword();
                 }
             }
 
 
             // TODO: Move to Customer menu.
             CustomerStartMenu customerMenu = new CustomerStartMenu(userLoggingIn, ref Repo);
-            MenuUtility.Instance.ReadyNextMenu(customerMenu);
+            MenuManager.Instance.ReadyNextMenu(customerMenu);
         }
 
         public void LoginAsManager()
@@ -99,7 +96,7 @@ namespace IceShopUI.Menus
             Console.WriteLine("Please put in your email, then your password to login.");
 
 
-            managerLoggingIn = managerService.GetManagerByEmail(MenuUtility.QueryEmail());
+            managerLoggingIn = managerService.GetManagerByEmail(UserRequestUtility.QueryEmail());
 
             string userInputPassword;
 
@@ -107,20 +104,20 @@ namespace IceShopUI.Menus
             {
                 Console.WriteLine("Couldn't find a manager matching that email. You can try again if you want, that'll be fun.");
                 LoginMenu loginMenuButAgain = new LoginMenu(ref Repo);
-                MenuUtility.Instance.ReadyNextMenu(loginMenuButAgain);
+                MenuManager.Instance.ReadyNextMenu(loginMenuButAgain);
             }
             else if (managerLoggingIn is Manager)
             {
-                userInputPassword = MenuUtility.QueryPassword();
+                userInputPassword = UserRequestUtility.QueryPassword();
                 while (userInputPassword != managerLoggingIn.Password)
                 {
                     Console.WriteLine("Wrong password. You can try again, though. Why not?");
-                    userInputPassword = MenuUtility.QueryPassword();
+                    userInputPassword = UserRequestUtility.QueryPassword();
                 }
 
                 // TODO: Move to Manager menu.
                 ManagerStartMenu managerMenu = new ManagerStartMenu(managerLoggingIn, ref Repo);
-                MenuUtility.Instance.ReadyNextMenu(managerMenu);
+                MenuManager.Instance.ReadyNextMenu(managerMenu);
 
             }
 
@@ -131,6 +128,10 @@ namespace IceShopUI.Menus
 
         public void LoginAsUser()
         {
+
+            StartService startService = new StartService(ref Repo);
+
+
             User userLoggingIn;
 
             // TODO: Implement Login functionality for existing users
@@ -138,20 +139,20 @@ namespace IceShopUI.Menus
             Console.WriteLine("Please put in your email, then your password to login.");
 
 
-            userLoggingIn = startService.GetUserByEmail(MenuUtility.QueryEmail());
+            userLoggingIn = startService.GetUserByEmail(UserRequestUtility.QueryEmail());
 
             if (userLoggingIn is null)
             {
                 Console.WriteLine("Couldn't find a user matching that email. You can try again if you want, that'll be fun.");
                 LoginMenu loginMenuButAgain = new LoginMenu(ref Repo);
-                MenuUtility.Instance.ReadyNextMenu(loginMenuButAgain);
+                MenuManager.Instance.ReadyNextMenu(loginMenuButAgain);
             }
             else if (userLoggingIn is Customer || userLoggingIn is Manager)
             {
-                string userInputPassword = MenuUtility.QueryPassword();
+                string userInputPassword = UserRequestUtility.QueryPassword();
                 while (userInputPassword != userLoggingIn.Password)
                 {
-                    userInputPassword = MenuUtility.QueryPassword();
+                    userInputPassword = UserRequestUtility.QueryPassword();
                 }
             }
 

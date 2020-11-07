@@ -38,7 +38,7 @@ namespace IceShopUI.Menus.ManagerMenus
             {
                 PossibleOptions = new List<string>(LocationStock.Count);
                 // Add the line items of the current location as options to edit.
-                PossibleOptions.AddRange(LocationService.GetInventoryStockAsStrings(LocationStock));
+                PossibleOptions.AddRange(GetInventoryStockAsStrings(LocationStock));
             }
             catch (ArgumentOutOfRangeException e)
             {
@@ -108,7 +108,7 @@ namespace IceShopUI.Menus.ManagerMenus
             IMenu nextMenu;
             Console.WriteLine("Going back, ZOOM");
             nextMenu = new ManagerStartMenu(CurrentManager, ref Repo);
-            MenuUtility.Instance.ReadyNextMenu(nextMenu);
+            MenuManager.Instance.ReadyNextMenu(nextMenu);
         }
 
         private void RunProductAdditionSubmenu()
@@ -119,6 +119,27 @@ namespace IceShopUI.Menus.ManagerMenus
             newSubMenu.Run();
         }
 
+
+
+        // TODO: Move this to a UI class.
+        private List<string> GetInventoryStockAsStrings(List<InventoryLineItem> inventoryStock)
+        {
+            List<string> inventoryStockAsStrings = new List<string>(inventoryStock.Count);
+            if (inventoryStock.Count < 1 || inventoryStock == null)
+            {
+                return inventoryStockAsStrings;
+            }
+
+            Console.WriteLine("So far you've ordered:");
+            foreach (InventoryLineItem entry in inventoryStock)
+            {
+                inventoryStockAsStrings.Add($"{entry.ProductQuantity} of {entry.Product.Name}");
+            }
+
+            Log.Logger.Information("Processing location stock into set of strings for the UI.");
+
+            return inventoryStockAsStrings;
+        }
 
     }
 }

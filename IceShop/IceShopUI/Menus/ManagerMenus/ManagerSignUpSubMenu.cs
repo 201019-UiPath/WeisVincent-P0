@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace IceShopUI.Menus.ManagerMenus
 {
-    internal sealed class ManagerSignUpMenu : Menu, IMenu
+    internal sealed class ManagerSignUpSubMenu : Menu, IMenu
     {
         private readonly LocationService locationService;
         private readonly List<Location> PossibleLocations;
@@ -14,7 +14,7 @@ namespace IceShopUI.Menus.ManagerMenus
 
 
 
-        public ManagerSignUpMenu(ref IRepository repo, ref Manager manager) : base(ref repo)
+        public ManagerSignUpSubMenu(ref IRepository repo, ref Manager manager) : base(ref repo)
         {
             locationService = new LocationService(ref Repo);
             ManagerPickingALocation = manager;

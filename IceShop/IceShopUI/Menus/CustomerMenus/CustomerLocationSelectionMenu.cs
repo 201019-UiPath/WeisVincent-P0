@@ -63,7 +63,7 @@ namespace IceShopUI.Menus.CustomerMenus
                 }
             }
 
-            MenuUtility.Instance.ReadyNextMenu(nextMenu);
+            MenuManager.Instance.ReadyNextMenu(nextMenu);
 
         }
 

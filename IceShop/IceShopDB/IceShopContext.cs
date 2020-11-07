@@ -2,7 +2,9 @@
 using IceShopDB.Repos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.IO;
+using System.Reflection;
 
 namespace IceShopDB
 {
@@ -28,10 +30,17 @@ namespace IceShopDB
         {
             if (!optionsBuilder.IsConfigured)
             {
+                // This will get the current directory the program runs in
+                string whereTheAppRuns = AppDomain.CurrentDomain.BaseDirectory;
+
+                // This will get the parent directory.
+                string projectDirectory = Directory.GetParent(whereTheAppRuns).Parent.Parent.Parent.FullName;
+
                 IConfiguration configuration = new ConfigurationBuilder()
-                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .SetBasePath(projectDirectory) //Directory.GetCurrentDirectory()
                     .AddJsonFile("appsettings.json")
                     .Build();
+
 
                 string connectionString = configuration.GetConnectionString("IceShopDB");
                 optionsBuilder.UseNpgsql(connectionString);

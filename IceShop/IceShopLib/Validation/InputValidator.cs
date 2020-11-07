@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using PresetConditions = IceShopLib.Validation.InputConditions;
 
 namespace IceShopLib.Validation
 {
@@ -73,12 +75,6 @@ namespace IceShopLib.Validation
         public bool ValidateInput(string input)
         {
             Input = input;
-            return InputIsValidated();
-        }
-
-        public bool InputIsValidated()
-        {
-
             foreach (IInputCondition condition in InputConditions)
             {
                 if (!condition.ValidateInput(Input))
@@ -90,6 +86,32 @@ namespace IceShopLib.Validation
             return true;
         }
 
+        
+
+
+        #region Input Validation Static Methods
+        public static bool ValidateEmailInput(string email)
+        {
+            Log.Logger.Information("Validating the input of an email..");
+            InputValidator inputValidator = new InputValidator(PresetConditions.EmailConditions);
+            return inputValidator.ValidateInput(email);
+        }
+
+        public static bool ValidatePasswordInput(string password)
+        {
+            Log.Logger.Information("Validating the input of a password..");
+            InputValidator inputValidator = new InputValidator(PresetConditions.PasswordConditions);
+            return inputValidator.ValidateInput(password);
+        }
+
+        public static bool ValidateAddressInput(string address)
+        {
+            Log.Logger.Information("Validating the input of an address..");
+            InputValidator inputValidator = new InputValidator(PresetConditions.AddressConditions);
+            return inputValidator.ValidateInput(address);
+        }
+
+        #endregion
 
 
     }

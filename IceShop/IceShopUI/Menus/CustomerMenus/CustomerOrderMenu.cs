@@ -40,7 +40,7 @@ namespace IceShopUI.Menus.CustomerMenus
         {
             PossibleOptions = new List<string>(OrderBuilder.SelectedLocationStock.Count);
 
-            PossibleOptions.AddRange(OrderBuilder.ReturnAvailableProductsAsStrings());
+            PossibleOptions.AddRange(ReturnAvailableProductsAsStrings());
 
             if (CartHasItems)
             {
@@ -101,6 +101,30 @@ namespace IceShopUI.Menus.CustomerMenus
 
         }
 
+        // TODO: Move this to a UI class.
+        public List<string> ReturnAvailableProductsAsStrings()
+        {
+            Log.Logger.Information("Processing available inventory stock as strings to be displayed in the console..");
+            if (OrderBuilder.SelectedLocationStock.Count < 1)
+            {
+                Log.Error("The stock of the user's selected location was empty when used to display options. Can't successfully display non-existent options.");
+            }
+            List<string> availableItems = new List<string>(OrderBuilder.SelectedLocationStock.Count);
+
+            foreach (InventoryLineItem entry in OrderBuilder.SelectedLocationStock)
+            {
+                Product product = entry.Product;
+
+                int productQuantity = OrderBuilder.GetAvailableQuantityOfInventoryLineItem(entry);
+
+                string productType = Enum.GetName(typeof(ProductType), product.TypeOfProduct);
+
+                availableItems.Add($"{product.Name}: {product.Description} Part of our {productType} collection. Quantity: {productQuantity}");
+            }
+
+            return availableItems;
+        }
+
 
         private void EditOrder()
         {
@@ -119,7 +143,7 @@ namespace IceShopUI.Menus.CustomerMenus
         {
             IMenu nextMenu = new CustomerStartMenu(CurrentCustomer, ref Repo);
             Console.WriteLine("Going back, ZOOM");
-            MenuUtility.Instance.ReadyNextMenu(nextMenu);
+            MenuManager.Instance.ReadyNextMenu(nextMenu);
         }
 
     }

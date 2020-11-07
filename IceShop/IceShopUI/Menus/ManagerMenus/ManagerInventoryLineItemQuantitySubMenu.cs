@@ -41,16 +41,16 @@ namespace IceShopUI.Menus.ManagerMenus
             {
                 case 1:
                     Console.WriteLine($"How much {selectedLineItem.Product.Name} would you like to add to stock?");
-                    selectedQuantityDelta = MenuUtility.QueryQuantity();
+                    selectedQuantityDelta = UserRequestUtility.QueryQuantity();
                     selectedLineItem.ProductQuantity += selectedQuantityDelta;
                     break;
                 case 2:
                     Console.WriteLine($"How much {selectedLineItem.Product.Name} would you like to remove from stock?");
-                    selectedQuantityDelta = MenuUtility.QueryQuantity();
+                    selectedQuantityDelta = UserRequestUtility.QueryQuantity();
                     while (selectedQuantityDelta > selectedLineItem.ProductQuantity)
                     {
                         Console.WriteLine("You probably shouldn't remove more stock than we have. Might create a black hole. \n Try again.");
-                        selectedQuantityDelta = MenuUtility.QueryQuantity();
+                        selectedQuantityDelta = UserRequestUtility.QueryQuantity();
                     }
                     selectedLineItem.ProductQuantity -= selectedQuantityDelta;
                     // This code is now unnecessary and is handled by LocationService.

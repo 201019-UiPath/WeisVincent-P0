@@ -15,11 +15,18 @@ namespace IceShopBL
     {
         private readonly IRepository repo;
 
-        public LocationService(ref IRepository repo)
+
+        public LocationService(IRepository repo)
         {
             this.repo = repo;
         }
 
+        public LocationService(ref IRepository repo) : this(repo)
+        {
+            this.repo = repo;
+        }
+
+        
         public List<Location> GetAllLocations()
         {
             Log.Logger.Information("Retrieving list of locations from the repository..");
@@ -78,25 +85,7 @@ namespace IceShopBL
         }
 
 
-        // TODO: Move this to a UI class.
-        public List<string> GetInventoryStockAsStrings(List<InventoryLineItem> inventoryStock)
-        {
-            List<string> inventoryStockAsStrings = new List<string>(inventoryStock.Count);
-            if (inventoryStock.Count < 1 || inventoryStock == null)
-            {
-                return inventoryStockAsStrings;
-            }
-
-            Console.WriteLine("So far you've ordered:");
-            foreach (InventoryLineItem entry in inventoryStock)
-            {
-                inventoryStockAsStrings.Add($"{entry.ProductQuantity} of {entry.Product.Name}");
-            }
-
-            Log.Logger.Information("Processing location stock into set of strings for the UI.");
-
-            return inventoryStockAsStrings;
-        }
+        
 
     }
 }

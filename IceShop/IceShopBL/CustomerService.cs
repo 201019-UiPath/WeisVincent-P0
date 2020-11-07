@@ -12,9 +12,14 @@ namespace IceShopBL
     /// This class handles customer-specific business logic for the IceShop using a repository that implements IRepository.
     /// This includes adding new customers, getting customer information by email, and getting customer order histories.
     /// </summary>
-    public class CustomerService
+    public class CustomerService : ICustomerService
     {
         private readonly IRepository repo;
+
+        public CustomerService(IRepository repo)
+        {
+            this.repo = repo;
+        }
 
         public CustomerService(ref IRepository repo)
         {

@@ -14,6 +14,10 @@ namespace IceShopBL
     {
         private readonly IRepository Repo;
 
+        public OrderService( IRepository repo)
+        {
+            Repo = repo;
+        }
 
         public OrderService(ref IRepository repo)
         {

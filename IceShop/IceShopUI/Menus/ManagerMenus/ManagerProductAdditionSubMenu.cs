@@ -109,11 +109,11 @@ namespace IceShopUI.Menus.ManagerMenus
 
         private Product InputBrandNewProduct()
         {
-            string newName = MenuUtility.QueryProductName();
+            string newName = UserRequestUtility.QueryProductName();
 
             // TODO: Allow prices to be decimal numbers with two decimal points. More validation.
             Console.WriteLine("Enter a valid whole number price. We don't do that round-up 59.99 garbage here.");
-            double newPrice = MenuUtility.QueryQuantity();
+            double newPrice = UserRequestUtility.QueryQuantity();
 
             ProductType newType = ProductType.Metaphysical;
 
@@ -122,8 +122,8 @@ namespace IceShopUI.Menus.ManagerMenus
             {
                 possibleTypes.Add(type);
             }
-            MenuUtility.DisplayPossibleChoicesToUser("What type of suffering is this suffering?", possibleTypes);
-            int selectedType = MenuUtility.ProcessUserInputAgainstPossibleChoices(possibleTypes);
+            UserResponseUtility.DisplayPossibleChoicesToUser("What type of suffering is this suffering?", possibleTypes);
+            int selectedType = UserRequestUtility.ProcessUserInputAgainstPossibleChoices(possibleTypes);
             foreach (int type in Enum.GetValues(typeof(ProductType)))
             {
                 if (selectedType == type)
@@ -133,7 +133,7 @@ namespace IceShopUI.Menus.ManagerMenus
                 }
             }
 
-            string newDescription = MenuUtility.QueryDescription();
+            string newDescription = UserRequestUtility.QueryDescription();
 
             return new Product(newName, newPrice, newType, newDescription);
         }

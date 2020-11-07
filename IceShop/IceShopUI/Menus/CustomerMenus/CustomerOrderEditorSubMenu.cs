@@ -26,7 +26,7 @@ namespace IceShopUI.Menus.CustomerMenus
         {
             PossibleOptions = new List<string>(OrderBuilder.OrderCart.Count);
             // Add the line items of the current order as options to edit.
-            PossibleOptions.AddRange(OrderBuilder.GetOrderCartAsStrings());
+            PossibleOptions.AddRange(GetOrderCartAsStrings());
             PossibleOptions.Add("Use this option to submit your order.");
         }
 
@@ -43,6 +43,7 @@ namespace IceShopUI.Menus.CustomerMenus
                 {
                     if (selectedChoice == PossibleOptions.Count)
                     {
+                        Console.WriteLine($"Submitting order now...");
                         OrderBuilder.BuildAndSubmitOrder();
                         Console.WriteLine("Your order should be sent off now! We don't need any more of your business, we hate money, bye!");
                         Environment.Exit(0);// TODO: How does the program end for a Customer?
@@ -58,6 +59,27 @@ namespace IceShopUI.Menus.CustomerMenus
 
                 }
             }
+        }
+
+
+
+        // TODO: Move this to a UI class.
+        public List<string> GetOrderCartAsStrings()
+        {
+            Log.Logger.Information("Converting the order cart to strings to be displayed in the console..");
+            List<string> OrderCartAsStrings = new List<string>(OrderBuilder.OrderCart.Count);
+            if (OrderBuilder.OrderCart.Count < 1)
+            {
+                return OrderCartAsStrings;
+            }
+
+            Console.WriteLine("So far you've ordered:");
+            foreach (StagedLineItem entry in OrderBuilder.OrderCart)
+            {
+                OrderCartAsStrings.Add($"{entry.Quantity} of {entry.Product.Name}");
+            }
+
+            return OrderCartAsStrings;
         }
 
 

@@ -16,6 +16,13 @@ namespace IceShopBL
         private readonly CustomerService customerService;
         private readonly ManagerService managerService;
 
+        public StartService( IRepository repo)
+        {
+            Repo = repo;
+            customerService = new CustomerService(ref Repo);
+            managerService = new ManagerService(ref Repo);
+        }
+
         public StartService(ref IRepository repo)
         {
             Repo = repo;
@@ -23,37 +30,11 @@ namespace IceShopBL
             managerService = new ManagerService(ref Repo);
         }
 
-        public static bool ValidateNameInput(string name)
+        
+        public bool DoesUserExistWithEmail(string email)
         {
-            Log.Logger.Information("Validating the input of a name..");
-            InputValidator inputValidator = new InputValidator(InputConditions.NameConditions);
-            return inputValidator.ValidateInput(name);
+            if (GetUserByEmail(email) != null) return true; else return false;
         }
-
-        #region Input Validation
-        public static bool ValidateEmailInput(string email)
-        {
-            Log.Logger.Information("Validating the input of an email..");
-            InputValidator inputValidator = new InputValidator(InputConditions.EmailConditions);
-            return inputValidator.ValidateInput(email);
-        }
-
-        public static bool ValidatePasswordInput(string password)
-        {
-            Log.Logger.Information("Validating the input of a password..");
-            InputValidator inputValidator = new InputValidator(InputConditions.PasswordConditions);
-            return inputValidator.ValidateInput(password);
-        }
-
-        public static bool ValidateAddressInput(string address)
-        {
-            Log.Logger.Information("Validating the input of an address..");
-            InputValidator inputValidator = new InputValidator(InputConditions.AddressConditions);
-            return inputValidator.ValidateInput(address);
-        }
-
-        #endregion
-
         #region Interaction with DB
         public User GetUserByEmail(string email)
         {
@@ -81,11 +62,19 @@ namespace IceShopBL
 
         #endregion
 
+        public bool CheckIfCustomer(User user)
+        {
+            if (user is Customer) return true; else return false;
+        }
+
+        public bool CheckIfManager(User user)
+        {
+            if (user is Manager) return true; else return false;
+        }
 
 
-
-
-        public static Type GetTypeOfUser(User user)
+        // TODO: Use this to make methods that return a customer or manager, depending on what's needed
+        public Type GetTypeOfUser(User user)
         {
             if (user is Customer)
             {

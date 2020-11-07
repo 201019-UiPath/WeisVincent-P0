@@ -41,10 +41,10 @@ namespace IceShopUI.Menus
             switch (selectedChoice)
             {
                 case 1:
-                    MenuUtility.Instance.ReadyNextMenu(signupMenu);
+                    MenuManager.Instance.ReadyNextMenu(signupMenu);
                     break;
                 case 2:
-                    MenuUtility.Instance.ReadyNextMenu(loginMenu);
+                    MenuManager.Instance.ReadyNextMenu(loginMenu);
                     break;
                 default:
                     throw new NotImplementedException();

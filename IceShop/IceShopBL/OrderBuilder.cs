@@ -27,6 +27,19 @@ namespace IceShopBL
 
         public List<InventoryLineItem> SelectedLocationStock;
 
+        public OrderBuilder( Customer currentCustomer,  Location selectedLocation, IRepository repo)
+        {
+            OrderService = new OrderService(repo);
+
+            CurrentCustomer = currentCustomer;
+            SelectedLocation = selectedLocation;
+
+            LocationService locationService = new LocationService(ref repo);
+            SelectedLocationStock = locationService.GetAllProductsStockedAtLocation(SelectedLocation);
+
+            OrderCart = new List<StagedLineItem>();
+        }
+
         public OrderBuilder(ref Customer currentCustomer, ref Location selectedLocation, ref IRepository repo)
         {
             OrderService = new OrderService(ref repo);
@@ -92,24 +105,7 @@ namespace IceShopBL
             OrderCart.Add(newLineItem);
         }
 
-        // TODO: Move this to a UI class.
-        public List<string> GetOrderCartAsStrings()
-        {
-            Log.Logger.Information("Converting the order cart to strings to be displayed in the console..");
-            List<string> OrderCartAsStrings = new List<string>(OrderCart.Count);
-            if (OrderCart.Count < 1)
-            {
-                return OrderCartAsStrings;
-            }
-
-            Console.WriteLine("So far you've ordered:");
-            foreach (StagedLineItem entry in OrderCart)
-            {
-                OrderCartAsStrings.Add($"{entry.Quantity} of {entry.Product.Name}");
-            }
-
-            return OrderCartAsStrings;
-        }
+        
 
         private List<OrderLineItem> ProcessOrderCartIntoOrderLineItems(ref List<StagedLineItem> orderCart, Order order)
         {
@@ -148,25 +144,23 @@ namespace IceShopBL
             return currentTimePOSIX;
         }
 
+        /// <summary>
+        /// This method is used so when the customer wants to place an order, the method updates the inventory items, 
+        /// adds new OrderLineItems to a new order to reflect the order submission, then submits the order.
+        /// </summary>
         public void BuildAndSubmitOrder()
         {
-            //TODO: Create new Order, process the updated inventory list, and Add new OrderLineItems to reflect what's in the order.
             Log.Logger.Information("Starting Order processing and submission..");
             Order newOrder = new Order(CurrentCustomer, SelectedLocation, GetCurrentSubtotalOfCart(), GetTimeOrderIsPlaced());
             List<OrderLineItem> orderLineItems = ProcessOrderCartIntoOrderLineItems(ref OrderCart, newOrder);
 
-            StringBuilder orderItemsListedToCustomer = new StringBuilder("Adding Cart Items to order:");
             foreach (OrderLineItem lineItem in orderLineItems)
             {
-                orderItemsListedToCustomer.AppendLine($"    --- {lineItem.ProductQuantity} of {lineItem.Product.Name}");
                 newOrder.AddLineItemToOrder(lineItem);
             }
-            Console.WriteLine(orderItemsListedToCustomer.ToString());
-            Console.WriteLine($"Submitting order now...");
-
-            // TODO: Update Database with the new order, new order line items, and removal of Inventory line items
+            
+            // Update Database with the new order, new order line items, and removal of Inventory line items
             OrderService.AddOrderToRepo(newOrder);
-            //TODO: What to do about this line: OrderService.RemoveLineItemsFromLocationInventory(InventoryMarkedForRemoval);
         }
 
         private double GetCurrentSubtotalOfCart()
@@ -179,29 +173,7 @@ namespace IceShopBL
             return totalPrice;
         }
 
-        // TODO: Move this to a UI class.
-        public List<string> ReturnAvailableProductsAsStrings()
-        {
-            Log.Logger.Information("Processing available inventory stock as strings to be displayed in the console..");
-            if (SelectedLocationStock.Count < 1)
-            {
-                Log.Error("The stock of the user's selected location was empty when used to display options. Can't successfully display non-existent options.");
-            }
-            List<string> availableItems = new List<string>(SelectedLocationStock.Count);
-
-            foreach (InventoryLineItem entry in SelectedLocationStock)
-            {
-                Product product = entry.Product;
-
-                int productQuantity = GetAvailableQuantityOfInventoryLineItem(entry);
-
-                string productType = Enum.GetName(typeof(ProductType), product.TypeOfProduct);
-
-                availableItems.Add($"{product.Name}: {product.Description} Part of our {productType} collection. Quantity: {productQuantity}");
-            }
-
-            return availableItems;
-        }
+        
 
         public int GetAvailableQuantityOfInventoryLineItem(InventoryLineItem selectedLineItem)
         {
